@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+  font-family: "Karla", sans-serif;
   line-height: 1.5;
 
   font-synthesis: none;
