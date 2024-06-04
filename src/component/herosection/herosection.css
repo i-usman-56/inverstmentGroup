@@ -1,0 +1,9 @@
+.heroSectionBackgroundImage {
+  background-image: url(../../assets/img/heroSectionImage.png);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  object-fit: cover;
+  padding-top: 20px;
+}
