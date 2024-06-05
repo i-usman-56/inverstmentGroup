@@ -1,40 +1,50 @@
 import React, { useState } from "react";
-import Picture from "../../assets/svg/Group 2.svg";
 import Logo from "../../assets/svg/logo.svg";
 import { useNavigate } from "react-router-dom";
-import LoginHeader from "./components/LoginHeader";
-import InputFeilds from "./components/InputFeilds";
-import LoginButton from "./components/LoginButton";
-import FooterMobile from "./components/footer/Footer";
+import LoginHeader from "../signup/components/LoginHeader";
+import InputFields from "../signup/components/InputFeilds";
+import LoginButton from "../signup/components/LoginButton";
+import FooterMobile from "../signup/components/footer/Footer";
+import SidePic from "../signup/components/SidePic";
+import Checkbox from "./components/checkbox";
+
 export default function Login() {
   const navigate = useNavigate();
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
   const [form, setForm] = useState({
-    username: "",
+    email: "",
     password: "",
-    terms: false,
   });
   const [errors, setErrors] = useState({
-    username: "",
+    email: "",
     password: "",
-    terms: false,
   });
 
-  const [isChecked, setIsChecked] = useState(false);
   const validateForm = () => {
     let valid = true;
-    let errors = { username: "", password: "" };
+    let newErrors = {};
 
-    if (form.username === "") {
+    if (form.email === "") {
       valid = false;
-      errors.username = "Username is required.";
+      newErrors.email = "Email is required.";
     }
 
     if (form.password === "") {
       valid = false;
-      errors.password = "Password is required.";
+      newErrors.password = "Password is required.";
     }
 
-    setErrors(errors);
+    // if (form.password !== form.confirmPassword) {
+    //   valid = false;
+    //   newErrors.confirmPassword = "Passwords do not match.";
+    // }
+
+    setErrors(newErrors);
     return valid;
   };
 
@@ -42,97 +52,109 @@ export default function Login() {
     event.preventDefault();
     if (validateForm()) {
       console.log("Form data: ", form);
+      // proceed with form submission, e.g., call an API
     }
   };
 
   const handleChange = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
-  };
-  const handleChangeCheck = (event) => {
-    setIsChecked(event.target.checked);
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
   };
   return (
     <>
       <section className="lg:flex hidden">
-        <div className="w-[55%]">
-          <img src={Picture} alt="jet" className="h-screen" />
+        <div className="flex-1">
+          <SidePic />
         </div>
-        <div className="w-[45%] flex flex-col items-center justify-center ">
-        <LoginHeader
+        <div className="flex-1 flex flex-col  justify-center">
+          <LoginHeader
             img={Logo}
-            title="Sign Up"
-            desc="Enter Registered email & New Password"
+            title="Sign In Here"
+            desc="Use your email and password to sign in"
           />
-           <form action="submit">
-            <div className="gap-8 space-y-[22px] pt-[25px]">
-              <div className="flex gap-[22px]">
-                <div className="flex-1">
-                  <InputFeilds type="text" title="First Name" />
-                </div>
-                <div className="flex-1">
-                  <InputFeilds type="text" title="Last Name" />
-                </div>
+          <form onSubmit={handleSubmit} className="md:px-12 lg:px-20">
+            <div className="gap-8 space-y-[22px] pt-[25px] w-full">
+              <div className="w-full">
+                <InputFields
+                  type="email"
+                  name="email"
+                  title="Email"
+                  value={form.email}
+                  onChange={handleChange}
+                  error={errors.email}
+                />
               </div>
-              <div className="flex gap-[22px]">
-                <div className="flex-1">
-                  <InputFeilds type="email" title="Email" />
-                </div>
-                <div className="flex-1">
-                  <InputFeilds type="text" title="Phone" />
-                </div>
-              </div>
-
-              <InputFeilds type="text" title="Password" />
-              <InputFeilds type="text" title="Confirm Password" />
+              <InputFields
+                type="password"
+                name="password"
+                title="Password"
+                value={form.password}
+                onChange={handleChange}
+                error={errors.password}
+              />
             </div>
+            <Checkbox
+              isChecked={isChecked}
+              handleCheckboxChange={handleCheckboxChange}
+            />
             <div className="mt-[40px]">
-              <LoginButton title="confirm sign up" />
+              <LoginButton title="Confirm Sign Up" />
+            </div>
+            <div className="flex justify-center mt-[24px]">
+              <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012C80] font-bold text-clip ">
+                Forgot Password, Click Here.
+              </button>
             </div>
           </form>
         </div>
       </section>
       {/* Mobile Section */}
-
-
-      <div className="mx-[12px] lg:hidden h-[100vh] overflow-hidden">
-        <div className="h-[76vh] flex justify-center items-center flex-col">
-          <LoginHeader
-            img={Logo}
-            title="Sign Up"
-            desc="Enter Registered email & New Password"
-          />
-          <form action="submit">
-            <div className="gap-8 space-y-[22px] pt-[25px]">
-              <div className="flex gap-[22px]">
-                <div className="flex-1">
-                  <InputFeilds type="text" title="First Name" />
+      <div className="w-full lg:hidden">
+        <div className="flex px-5  w-full min-h-[80vh] justify-center flex-col">
+          <div>
+            <LoginHeader
+              img={Logo}
+              title="Sign In Here"
+              desc="Use your email and password to sign in"
+            />
+            <form onSubmit={handleSubmit} className="md:px-12">
+              <div className="gap-8 space-y-[22px] pt-[25px] w-full">
+                <div className="flex gap-[22px]">
+                  <div className="flex-1">
+                    <InputFields
+                      type="email"
+                      name="email"
+                      title="Email"
+                      value={form.email}
+                      onChange={handleChange}
+                      error={errors.email}
+                    />
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <InputFeilds type="text" title="Last Name" />
-                </div>
+                <InputFields
+                  type="password"
+                  name="password"
+                  title="Password"
+                  value={form.password}
+                  onChange={handleChange}
+                  error={errors.password}
+                />
               </div>
-              <div className="flex gap-[22px]">
-                <div className="flex-1">
-                  <InputFeilds type="email" title="Email" />
-                </div>
-                <div className="flex-1">
-                  <InputFeilds type="text" title="Phone" />
-                </div>
-              </div>
+              <Checkbox
+                isChecked={isChecked}
+                handleCheckboxChange={handleCheckboxChange}
+              />
 
-              <InputFeilds type="text" title="Password" />
-              <InputFeilds type="text" title="Confirm Password" />
-            </div>
-            <div className="mt-[40px]">
-              <LoginButton title="confirm sign up" />
-            </div>
-          </form>
+              <div className="mt-[40px]">
+                <LoginButton title="Confirm Sign Up" />
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="h-[24vh]">
+        <div className="fixed bottom-0 w-full">
           <FooterMobile />
         </div>
       </div>
-
     </>
   );
 }
