@@ -5,7 +5,7 @@ import Picture from "../../../assets/svg/My password-amico 1.svg";
 export default function SidePic() {
   return (
     <div>
-      <div className="from-[#02A1E6] flex flex-col min-h-screen justify-center   to-[#0250E6] bg-gradient-to-b">
+      <div className="from-[#02A1E6] flex flex-col h-screen justify-center   to-[#0250E6] bg-gradient-to-b">
         <div className="pl-[12%]">
           <img
             src={Logo}
@@ -14,7 +14,7 @@ export default function SidePic() {
           />
         </div>
         <div className="flex justify-center items-center">
-          <img src={Picture} alt="" className="w-[450px] xl:w-full" />
+          <img src={Picture} alt="" className="w-[450px] xl:w-[540px] " />
         </div>
       </div>
     </div>
