@@ -3,7 +3,7 @@ import React from 'react'
 export default function Checkbox({handleCheckboxChange,isChecked}) {
   return (
     <div>
-        <div className="flex justify-center items-center pt-[36px] lg:pt-[24px] gap-1.5">
+        <div className="flex justify-center items-center pt-[20px] lg:pt-[24px] gap-1.5">
                 <input
                   type="checkbox"
                   id="rememberDevice"

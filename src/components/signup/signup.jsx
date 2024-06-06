@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../assets/svg/logo.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SidePic from "./components/SidePic";
 import LoginHeader from "./components/LoginHeader";
 import InputFields from "../../components/signup/components/InputFeilds";
@@ -73,6 +73,7 @@ export default function SignUp() {
     event.preventDefault();
     if (validateForm()) {
       console.log("Form data: ", form);
+      navigate("/login")
       // proceed with form submission, e.g., call an API
     }
   };
@@ -89,13 +90,13 @@ export default function SignUp() {
         <div className="flex-1">
           <SidePic />
         </div>
-        <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="flex-1 flex flex-col  justify-center">
           <LoginHeader
             img={Logo}
             title="Sign Up"
             desc="Enter Registered email & New Password"
           />
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="md:px-12 lg:px-20 ">
             <div className="gap-8 space-y-[22px] pt-[25px]">
               <div className="flex gap-[22px]">
                 <div className="flex-1">
@@ -159,6 +160,13 @@ export default function SignUp() {
                 error={errors.confirmPassword}
               />
             </div>
+            <div className="flex justify-end">
+                <Link to="/login">
+                  <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012b80e4] font-bold text-clip ">
+                    Already Have an Account, Login Here 
+                  </button>
+                </Link>
+              </div>
             <div className="mt-[40px]">
               <LoginButton title="Confirm Sign Up" />
             </div>
@@ -174,7 +182,7 @@ export default function SignUp() {
               title="Sign Up"
               desc="Enter Registered email & New Password"
             />
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="md:px-12">
               <div className="gap-8 space-y-[22px] pt-[25px] w-full">
                 <div className="flex gap-[22px] w-full">
                   <div className="flex-1">
@@ -236,6 +244,13 @@ export default function SignUp() {
                   onChange={handleChange}
                   error={errors.confirmPassword}
                 />
+              </div>
+              <div className="flex justify-end">
+                <Link to="/login">
+                  <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012b80e4] font-bold text-clip ">
+                    Already Have an Account, Login Here 
+                  </button>
+                </Link>
               </div>
               <div className="mt-[40px]">
                 <LoginButton title="Confirm Sign Up" />

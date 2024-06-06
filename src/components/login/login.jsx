@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../../assets/svg/logo.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginHeader from "../signup/components/LoginHeader";
 import InputFields from "../signup/components/InputFeilds";
 import LoginButton from "../signup/components/LoginButton";
@@ -39,11 +39,6 @@ export default function Login() {
       newErrors.password = "Password is required.";
     }
 
-    // if (form.password !== form.confirmPassword) {
-    //   valid = false;
-    //   newErrors.confirmPassword = "Passwords do not match.";
-    // }
-
     setErrors(newErrors);
     return valid;
   };
@@ -52,6 +47,7 @@ export default function Login() {
     event.preventDefault();
     if (validateForm()) {
       console.log("Form data: ", form);
+
       // proceed with form submission, e.g., call an API
     }
   };
@@ -72,7 +68,7 @@ export default function Login() {
             title="Sign In Here"
             desc="Use your email and password to sign in"
           />
-          <form onSubmit={handleSubmit} className="md:px-12 lg:px-20">
+          <form onSubmit={handleSubmit} className="md:px-12 lg:px-20 ">
             <div className="gap-8 space-y-[22px] pt-[25px] w-full">
               <div className="w-full">
                 <InputFields
@@ -93,6 +89,14 @@ export default function Login() {
                 error={errors.password}
               />
             </div>
+            <div className="flex justify-end">
+              <Link to="/signup">
+                <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012b80e4] font-bold text-clip ">
+                  New Here,Signup Here
+                </button>
+              </Link>
+            </div>
+
             <Checkbox
               isChecked={isChecked}
               handleCheckboxChange={handleCheckboxChange}
@@ -100,10 +104,12 @@ export default function Login() {
             <div className="mt-[40px]">
               <LoginButton title="Confirm Sign Up" />
             </div>
-            <div className="flex justify-center mt-[24px]">
-              <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012C80] font-bold text-clip ">
-                Forgot Password, Click Here.
-              </button>
+            <div className="flex flex-col items-center justify-center mt-[24px]">
+              <Link to="/forget-password">
+                <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012C80] font-bold text-clip ">
+                  Forgot Password, Click Here.
+                </button>
+              </Link>
             </div>
           </form>
         </div>
@@ -140,6 +146,14 @@ export default function Login() {
                   error={errors.password}
                 />
               </div>
+              <div className="flex justify-end">
+                <Link to="/signup">
+                  <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012b80e4] font-bold text-clip ">
+                    New Here,Signup Here
+                  </button>
+                </Link>
+              </div>
+
               <Checkbox
                 isChecked={isChecked}
                 handleCheckboxChange={handleCheckboxChange}
@@ -147,6 +161,13 @@ export default function Login() {
 
               <div className="mt-[40px]">
                 <LoginButton title="Confirm Sign Up" />
+              </div>
+              <div className="flex justify-center mt-[24px]">
+                <Link to="/forget-password">
+                  <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012C80] font-bold text-clip ">
+                    Forgot Password, Click Here.
+                  </button>
+                </Link>
               </div>
             </form>
           </div>
