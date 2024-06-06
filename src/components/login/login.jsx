@@ -124,7 +124,7 @@ export default function Login() {
               desc="Use your email and password to sign in"
             />
             <form onSubmit={handleSubmit} className="md:px-12">
-              <div className="gap-8 space-y-[22px] pt-[25px] w-full">
+              <div className="gap-8 space-y-[16px] pt-[25px] w-full">
                 <div className="flex gap-[22px]">
                   <div className="flex-1">
                     <InputFields
@@ -159,10 +159,10 @@ export default function Login() {
                 handleCheckboxChange={handleCheckboxChange}
               />
 
-              <div className="mt-[40px]">
+              <div className="mt-[22px]">
                 <LoginButton title="Confirm Sign Up" />
               </div>
-              <div className="flex justify-center mt-[24px]">
+              <div className="flex justify-center mt-[16px]">
                 <Link to="/forget-password">
                   <button className="capitalize text-[12px] leading-5 tracking-[-1.7%] text-[#012C80] font-bold text-clip ">
                     Forgot Password, Click Here.

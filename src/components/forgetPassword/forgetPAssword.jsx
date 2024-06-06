@@ -80,7 +80,7 @@ export default function ForgetPAssword() {
               desc="Enter email associated with your account"
             />
             <form onSubmit={handleSubmit} className="md:px-12">
-              <div className="gap-8 space-y-[22px] pt-[25px] w-full">
+              <div className="gap-8 space-y-[16px] pt-[25px] w-full">
                 <div className="flex gap-[22px]">
                   <div className="flex-1">
                     <InputFields
@@ -94,7 +94,7 @@ export default function ForgetPAssword() {
                   </div>
                 </div>
               </div>
-              <div className="mt-[40px]">
+              <div className="mt-[22px]">
                 <LoginButton title="Send Email" />
               </div>
             </form>

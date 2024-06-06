@@ -6,7 +6,7 @@ export default function FooterMobile() {
     <div>
       <div className="flex flex-col justify-center items-center my-3">
         <img src={Logo} alt="" className="w-[97px] h-[73px]" />
-        <div className="pt-[45px]">
+        <div className="pt-[28px] lg:pt-[45px]">
           <h1 className="text-center text-[12px] leading-[14px] font-normal tracking-[-1.3%] text-[#000000] ">
             Copyright MMM Investment Group 2024{" "}
           </h1>

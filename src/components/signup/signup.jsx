@@ -183,7 +183,7 @@ export default function SignUp() {
               desc="Enter Registered email & New Password"
             />
             <form onSubmit={handleSubmit} className="md:px-12">
-              <div className="gap-8 space-y-[22px] pt-[25px] w-full">
+              <div className="gap-8 space-y-[16px] pt-[25px] w-full">
                 <div className="flex gap-[22px] w-full">
                   <div className="flex-1">
                     <InputFields
@@ -252,7 +252,7 @@ export default function SignUp() {
                   </button>
                 </Link>
               </div>
-              <div className="mt-[40px]">
+              <div className="mt-[22px]">
                 <LoginButton title="Confirm Sign Up" />
               </div>
             </form>
