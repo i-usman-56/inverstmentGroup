@@ -22,9 +22,9 @@ const router = createBrowserRouter([
     element: (
       <>
       <Graph/>
-      {/* <Tasks/> */}
-        {/* <Table tableData={tableData} /> */}
-        {/* <Table tableData={tableData1} /> */}
+      <Tasks/>
+        <Table tableData={tableData} />
+        <Table tableData={tableData1} />
       </>
     ),
   },
