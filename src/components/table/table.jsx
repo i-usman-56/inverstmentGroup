@@ -30,7 +30,7 @@ export default function Table({tableData }) {
                 key={dataIndex}
                 className={`text-center ${
                   data.isbutton ? "w-fit" : "w-full"
-                }   text-[${data.color}]  text-[14px] lg:text-[16px] whitespace-normal leading-[14px] lg:leading-5 tracking-[-1.7%] font-medium ${
+                }   text-[${data.color}]  text-[14px] lg:text-[16px] whitespace-nowrap lg:whitespace-normal leading-[14px] lg:leading-5 tracking-[-1.7%] font-medium ${
                   data.isbutton
                     ? "text-[#FFFFFF] uppercase px-3 py-[0.6px] rounded-sm"
                     : ""
