@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Logo from "../../assets/svg/logo.svg";
+import Logo from "../../../assets/svg/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import SidePic from "./components/SidePic";
 import LoginHeader from "./components/LoginHeader";
-import InputFields from "../../components/signup/components/InputFeilds";
-import LoginButton from "../../components/signup/components/LoginButton";
-import FooterMobile from "../../components/signup/components/footer/Footer";
+import InputFields from "./components/InputFeilds";
+import LoginButton from "./components/LoginButton";
+import FooterMobile from "./components/footer/Footer";
 
 export default function SignUp() {
   const navigate = useNavigate();

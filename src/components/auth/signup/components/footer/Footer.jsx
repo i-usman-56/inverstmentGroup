@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../../../assets/svg/logo.svg";
+import Logo from "../../../../../assets/svg/logo.svg";
 
 export default function FooterMobile() {
   return (

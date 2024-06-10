@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../../assets/svg/logo.svg";
+import Logo from "../../../assets/svg/logo.svg";
 import SidePic from "../signup/components/SidePic";
 import LoginHeader from "../signup/components/LoginHeader";
 import InputFields from "../signup/components/InputFeilds";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
-import Checkbox from "../login/components/checkbox";
 
 export default function NewPassword() {
   const navigate = useNavigate();

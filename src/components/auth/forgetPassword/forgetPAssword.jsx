@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import LoginHeader from '../signup/components/LoginHeader'
-import InputFields from '../signup/components/InputFeilds'
-import Checkbox from '../login/components/checkbox'
-import LoginButton from '../signup/components/LoginButton'
-import FooterMobile from '../signup/components/footer/Footer'
-import Logo from '../../assets/svg/logo.svg'
+import Logo from '../../../assets/svg/logo.svg'
 import { Link, useNavigate } from 'react-router-dom'
-import SidePic from '../signup/components/SidePic'
+import SidePic from '../signup/components/SidePic';
+import LoginHeader from '../signup/components/LoginHeader';
+import InputFields from '../signup/components/InputFeilds';
+import LoginButton from '../signup/components/LoginButton';
+import FooterMobile from '../signup/components/footer/Footer';
 
 export default function ForgetPAssword() {
     const navigate = useNavigate();

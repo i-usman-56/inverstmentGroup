@@ -1,9 +1,11 @@
-import ForgetPAssword from "./components/forgetPassword/forgetPAssword";
-import Login from "./components/login/login";
-import NewPassword from "./components/newPassword/newPassword";
-import SignUp from "./components/signup/signup";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import ForgetPAssword from "./components/auth/forgetPassword/forgetPAssword";
+import SignUp from "./components/auth/signup/signup";
+import NewPassword from "./components/auth/newPassword/newPassword";
+import Login from "./components/auth/login/login";
+import tableData from "./data/tableData1.json";
+import tableData1 from "./data/tableData2.json";
+import Table from "./components/table/table";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -12,6 +14,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <>
+        <Table tableData={tableData} />
+        <Table tableData={tableData1} />
+      </>
+    ),
   },
   {
     path: "/signup",
@@ -24,7 +35,7 @@ const router = createBrowserRouter([
   {
     path: "/new-password",
     element: <NewPassword />,
-  }
+  },
 ]);
 function App() {
   return (

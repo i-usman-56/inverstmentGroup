@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Logo from "../../assets/svg/logo.svg";
+import Logo from "../../../assets/svg/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
+import SidePic from "../signup/components/SidePic";
 import LoginHeader from "../signup/components/LoginHeader";
 import InputFields from "../signup/components/InputFeilds";
+import Checkbox from "./components/checkbox";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
-import SidePic from "../signup/components/SidePic";
-import Checkbox from "./components/checkbox";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -47,6 +47,7 @@ export default function Login() {
     event.preventDefault();
     if (validateForm()) {
       console.log("Form data: ", form);
+      navigate(`/admin`)
 
       // proceed with form submission, e.g., call an API
     }

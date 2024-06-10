@@ -1,0 +1,76 @@
+{
+    "columns": ["Client", "Source", "Interest", "Status", "Take Lead"],
+    "rows": [
+      [
+        { "value": "James Brown", "color": "#A500B3" },
+        { "value": "Instagram", "color": "#A500B3", "bgColor": "#A500B3", "isbutton": true },
+        { "value": "1 on 1 Mentorship", "color": "#0448E8" },
+        { "value": "Open", "color": "#00B860", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "John Doe", "color": "#0448E8" },
+        { "value": "Facebook", "color": "#0448E8", "isbutton": true, "bgColor": "#0448E8" },
+        { "value": "2 on 1 Mentorship", "color": "#0448E8" },
+        { "value": "Closed", "color": "#EF1313", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Alice Johnson", "color": "#1DA1F2" },
+        { "value": "Twitter", "color": "#1DA1F2", "isbutton": true, "bgColor": "#1DA1F2" },
+        { "value": "Group Coaching", "color": "#1DA1F2" },
+        { "value": "Open", "color": "#00B860", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Emily Smith", "color": "#0077B5" },
+        { "value": "LinkedIn", "color": "#0077B5", "isbutton": true, "bgColor": "#0077B5" },
+        { "value": "1 on 1 Mentorship", "color": "#0077B5" },
+        { "value": "Closed", "color": "#EF1313", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Michael Johnson", "color": "#FF0000" },
+        { "value": "YouTube", "color": "#FF0000", "isbutton": true, "bgColor": "#FF0000" },
+        { "value": "Workshop", "color": "#FF0000" },
+        { "value": "Open", "color": "#00B860", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Sarah Williams", "color": "#BD081C" },
+        { "value": "Pinterest", "color": "#BD081C", "isbutton": true, "bgColor": "#BD081C" },
+        { "value": "Webinar", "color": "#BD081C" },
+        { "value": "Closed", "color": "#EF1313", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "David Miller", "color": "#FFFC00" },
+        { "value": "Snapchat", "color": "#FFFC00", "isbutton": true, "bgColor": "#AEB31C" },
+        { "value": "1 on 2 Mentorship", "color": "#FFFC00" },
+        { "value": "Open", "color": "#00B860", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Olivia Brown", "color": "#25D366" },
+        { "value": "WhatsApp", "color": "#25D366", "isbutton": true, "bgColor": "#25D366" },
+        { "value": "1 on 1 Coaching", "color": "#25D366" },
+        { "value": "Open", "color": "#00B860", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Matthew Taylor", "color": "#69C9D0" },
+        { "value": "TikTok", "color": "#69C9D0", "isbutton": true, "bgColor": "#69C9D0" },
+        { "value": "1 on 1 Mentorship", "color": "#69C9D0" },
+        { "value": "Closed", "color": "#EF1313", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ],
+      [
+        { "value": "Emma Clark", "color": "#FF4500" },
+        { "value": "Reddit", "color": "#FF4500", "isbutton": true, "bgColor": "#FF4500" },
+        { "value": "Group Coaching", "color": "#FF4500" },
+        { "value": "Open", "color": "#00B860", "isActive": true },
+        { "value": "", "color": "", "isRadio": true }
+      ]
+    ]
+  }
+  

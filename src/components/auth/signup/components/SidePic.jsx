@@ -1,6 +1,6 @@
 import React from "react";
-import Logo from "../../../assets/svg/logo.svg";
-import Picture from "../../../assets/svg/My password-amico 1.svg";
+import Logo from "../../../../assets/svg/logo.svg";
+import Picture from "../../../../assets/svg/My password-amico 1.svg";
 
 export default function SidePic() {
   return (
