@@ -1,0 +1,25 @@
+@media screen and (max-width: 320px) {
+    /* CSS rules for screens up to 320 pixels wide */
+    .marginContainer {
+        margin: 12px;
+    }
+    
+
+    .paddingContainer {
+        padding-top: 20px;
+    }
+    .textclass {
+        font-size: 8px;
+    }
+}
+
+
+
+.overflowContainerY{
+    overflow-y: scroll;
+}
+
+
+.overflowContainerY::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar for Chrome, Safari, and Opera */
+  }

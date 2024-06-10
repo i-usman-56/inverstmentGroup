@@ -6,6 +6,8 @@ import Login from "./components/auth/login/login";
 import tableData from "./data/tableData1.json";
 import tableData1 from "./data/tableData2.json";
 import Table from "./components/table/table";
+import Tasks from "./components/task/tasks";
+import Graph from "./components/Graph/graph";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -19,8 +21,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <>
-        <Table tableData={tableData} />
-        <Table tableData={tableData1} />
+      <Graph/>
+      {/* <Tasks/> */}
+        {/* <Table tableData={tableData} /> */}
+        {/* <Table tableData={tableData1} /> */}
       </>
     ),
   },
