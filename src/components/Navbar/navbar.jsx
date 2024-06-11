@@ -4,14 +4,22 @@ import "../../components/task/Task.css";
 import Hamburger from "../shapes/hamburger";
 import ProfileIcon from "../shapes/Profile";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const openSidebar = () => {
     setIsOpen(true);
     document.body.style.overflow = "hidden"; // Prevent body scroll when sidebar is open
+  };
+  const handleLogout = () => {
+    navigate(`/login`)
+     // Prevent body scroll when sidebar is open
   };
 
   const closeSidebar = () => {
@@ -95,6 +103,10 @@ export default function Navbar() {
                     </div>
                   </div>
                 ))}
+                <div onClick={handleLogout} className="text-[#000000] flex items-center w-full text-[16px] font-bold leading-5 tracking-[-1.7%] hover:text-[#0250E6]">
+                    <MdLogout/>
+                    <p>Logout</p>
+                </div>
               </div>
             </div>
           </div>
