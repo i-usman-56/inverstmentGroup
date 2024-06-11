@@ -4,12 +4,12 @@ import Tasks from "../../components/task/tasks";
 import Table from "../../components/table/table";
 import tableData from "../../data/tableData1.json";
 import tableData1 from "../../data/tableData2.json";
-import '../../components/task/Task.css'
+import "../../components/task/Task.css";
 
 export default function HomeScreen() {
   return (
     <div>
-      <div className="lg:my-10">
+      <div className="lg:my-12 my-16">
         <div className="lg:flex  mx-[20px] graph-margin md:mx-0 marginContainer  lg:gap-[25px] xl:gap-[50px] lg:px-10 xl:px-20">
           <div
             style={{ boxShadow: "0 1px 5px 0 rgba(5, 5, 5, 0.1)" }}
