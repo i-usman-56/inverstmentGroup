@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
           <Navbar />
           <HomeScreen />
-          <div className="w-full mt-[78px]">
+          <div className="w-full pb-[15px] pt-[50px]">
             <FooterMobile />
           </div>
         </div>
