@@ -2,7 +2,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 const MeetingCard = ({ date, time, title, attendees }) => {
   return (
-    <div className="min-h-[70px] lg:min-h-[75px] border rounded px-2 md:px-4 lg:px-8 pt-1 bor2 border-[#00000013]">
+    <div className="min-h-[70px] lg:min-h-[75px] border rounded px-2 md:px-4 xl:px-8 pt-1 bor2 border-[#00000013]">
       <div className="flex justify-end lg:pt-1.5">
         <BsThreeDotsVertical className="text-[#3C3C3C]" />
       </div>

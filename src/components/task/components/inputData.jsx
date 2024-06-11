@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { FaCalendarAlt, FaCaretDown } from "react-icons/fa";
 
-export default function InputDate() {
+export default function InputDate({title}) {
   const dateInputRef = useRef(null);
   const handleIconClick = () => {
     if (dateInputRef.current) {
@@ -13,14 +13,14 @@ export default function InputDate() {
     <div>
       <div
         onClick={handleIconClick}
-        className="relative w-[59px] flex justify-around items-center h-[23px] lg:w-[220px] border border-gray-300 rounded-md bg-white"
+        className="relative w-[59px] flex justify-around items-center h-[23px] lg:w-full lg:px-4 lg:gap-4 xl:px-6 xl:gap-6 border border-gray-300 rounded-md bg-white"
       >
         <FaCalendarAlt
           className="text-[#3C3C3C] cursor-pointer"
           onClick={handleIconClick}
         />
         <p className="text-center lg:w-auto lg:block hidden text-[14px] font-semibold  tracking-[-1.7%] lg:left-1/2 lg-transform lg-translate-x-[-50%]">
-          Today
+        {title}
         </p>
         <input
           type="date"

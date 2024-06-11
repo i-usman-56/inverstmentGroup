@@ -3,11 +3,7 @@ import ForgetPAssword from "./components/auth/forgetPassword/forgetPAssword";
 import SignUp from "./components/auth/signup/signup";
 import NewPassword from "./components/auth/newPassword/newPassword";
 import Login from "./components/auth/login/login";
-import tableData from "./data/tableData1.json";
-import tableData1 from "./data/tableData2.json";
-import Table from "./components/table/table";
-import Tasks from "./components/task/tasks";
-import Graph from "./components/Graph/graph";
+import HomeScreen from "./pages/Home/homeScreen";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -21,10 +17,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <>
-      <Graph/>
-      <Tasks/>
-        <Table tableData={tableData} />
-        <Table tableData={tableData1} />
+        <HomeScreen />
       </>
     ),
   },
@@ -43,7 +36,7 @@ const router = createBrowserRouter([
 ]);
 function App() {
   return (
-    <main className="2xl:container 2xl:mx-auto">
+    <main className="">
       <RouterProvider router={router} />
     </main>
   );

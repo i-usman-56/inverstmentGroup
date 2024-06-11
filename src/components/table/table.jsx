@@ -52,7 +52,7 @@ export default function Table({tableData }) {
   };
   return (
     <>
-      <div className="lg:px-[85px]">
+      <div className="lg:px-[0px]">
         <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] lg:pl-0 lg:pr-0 mt-[20px]">
           <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
             My Prospects
@@ -62,9 +62,9 @@ export default function Table({tableData }) {
           </button>
         </div>
         {/* Table Component */}
-        <div className="overflowContainer mx-[22px] lg:mx-0  mt-[32px]">
-          <div className="w-[725px] lg:w-full lg:pl-24 xl:pl-20">
-            <div className="flex w-full mb-[20px] lg:mb-[16px]">
+        <div className="overflowContainer mx-[22px] lg:mx-0  mt-[24px] lg:mt-[30px]">
+          <div className="w-[725px] lg:w-full lg:pl-16 xl:pl-20">
+            <div className="flex w-full mb-[12px] lg:mb-[16px]">
               {columns.map((columnName, index) => (
                 <p
                   key={index}
