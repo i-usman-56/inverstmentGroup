@@ -103,7 +103,7 @@ export default function Login() {
               handleCheckboxChange={handleCheckboxChange}
             />
             <div className="mt-[40px]">
-              <LoginButton title="Confirm Sign Up" />
+              <LoginButton title="Confirm Sign In" />
             </div>
             <div className="flex flex-col items-center justify-center mt-[24px]">
               <Link to="/forget-password">
@@ -161,7 +161,7 @@ export default function Login() {
               />
 
               <div className="mt-[22px]">
-                <LoginButton title="Confirm Sign Up" />
+                <LoginButton title="Confirm Sign In" />
               </div>
               <div className="flex justify-center mt-[16px]">
                 <Link to="/forget-password">
