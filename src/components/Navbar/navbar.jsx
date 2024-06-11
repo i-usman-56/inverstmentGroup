@@ -11,10 +11,12 @@ export default function Navbar() {
 
   const openSidebar = () => {
     setIsOpen(true);
+    document.body.style.overflow = "hidden"; // Prevent body scroll when sidebar is open
   };
 
   const closeSidebar = () => {
     setIsOpen(false);
+    document.body.style.overflow = "auto"; // Restore body scroll when sidebar is closed
   };
 
   const toggleDropdown = (index) => {
@@ -34,8 +36,8 @@ export default function Navbar() {
 
   return (
     <>
-        {/* Mobile Section */}
-      <div className="pt-[24px] relative lg:hidden ">
+      {/* Mobile Section */}
+      <div className="pt-[24px] relative lg:hidden">
         <div className="marginContainerX mx-5 flex justify-between items-center">
           <img src={Logo} alt="" className="w-[50px] h-[44px]" />
           <div className="flex items-center gap-[12px]">
@@ -48,15 +50,15 @@ export default function Navbar() {
 
         <div className={`sidebar ${isOpen ? "fade-in-left" : "fade-out-left"}`}>
           <div className="sidebar-content">
-       <div className="flex items-end justify-end">
-       <button
-              className="text-black cursor-pointer font-semibold text-end"
-              onClick={closeSidebar}
-            >
-              Close
-            </button>
-       </div>
-            <div className="flex flex-col pt-3 justify-center ">
+            <div className="flex items-end justify-end">
+              <button
+                className="text-black cursor-pointer font-semibold text-end"
+                onClick={closeSidebar}
+              >
+                Close
+              </button>
+            </div>
+            <div className="flex flex-col pt-3 justify-center">
               <div className="space-y-6">
                 {sidebarMenu.map((item, index) => (
                   <div key={index}>
