@@ -9,7 +9,7 @@ import "../../components/task/Task.css";
 export default function HomeScreen() {
   return (
     <div>
-      <div className="lg:my-[0px] my-[64px]">
+      <div className="lg:my-[35px] xl:my-[60px] my-[64px]">
         <div className="lg:flex md:px-8    mx-[20px] graph-margin md:mx-0 marginContainer  lg:gap-[25px] xl:gap-[50px] lg:px-10 xl:px-20">
           <div
             style={{ boxShadow: "0 1px 5px 0 rgba(5, 5, 5, 0.1)" }}
