@@ -52,8 +52,8 @@ export default function Table({tableData }) {
   };
   return (
     <>
-      <div className="lg:px-[0px]">
-        <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] lg:pl-0 lg:pr-0 mt-[20px]">
+      <div className="lg:px-[0px] md:px-8 ">
+        <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0   lg:pl-0 lg:pr-0 mt-[20px]">
           <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
             My Prospects
           </h1>

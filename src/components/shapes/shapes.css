@@ -1,0 +1,91 @@
+@media screen and (max-width: 320px) {
+    .profile{
+        width: 26px;
+        height: 26px;
+    }
+    .circle{
+        width: 8px;
+        height: 8px;
+    }
+    .panied{
+        width: 12px;
+        height: 5.6px;
+    }
+}
+
+.fade-in-left {
+    -webkit-animation: fade-in-left 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: fade-in-left 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  }
+  
+  @keyframes fade-in-left {
+    0% {
+      -webkit-transform: translateX(-500px);
+      transform: translateX(-500px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .fade-out-left {
+    -webkit-animation: fade-out-left 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    animation: fade-out-left 0.8s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  }
+  
+  @keyframes fade-out-left {
+    0% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateX(-500px);
+      transform: translateX(-500px);
+      opacity: 0;
+    }
+  }
+  
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100vh;
+    background-color: rgb(249, 249, 249);
+    border-right: 5px solid #0250E6;
+    z-index: 500; /* Ensure the sidebar is above the overlay */
+  }
+  
+  .sidebar-content {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+
+  /* Add this to your Task.css or another appropriate CSS file */
+
+.dropdown {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.dropdown.open {
+  max-height: 500px; /* You can adjust this value based on your content */
+  transition: max-height 0.5s ease-in;
+}
+.active-item, .active-item:hover {
+  color: #0250E6 !important; /* Apply hover color to active item */
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}

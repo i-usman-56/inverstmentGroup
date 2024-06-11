@@ -46,7 +46,7 @@ export default function Graph() {
       ];
   return (
     <div>
-      <div className="  ">
+      <div className=" bg-[#FFFFFF] rounded-[4px] ">
         <div
           className="w-full rounded  px-[15px] md:px-[80px] lg:px-[20px] xl:px-[50px]  pt-[20px] pb-[60px] lg:pb-5"
           // style={{ boxShadow: "0 1px 5px 0 rgba(5, 5, 5, 0.1)" }}

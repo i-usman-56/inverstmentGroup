@@ -4,6 +4,10 @@
         margin: 12px;
     }
     
+    .marginContainerX {
+        margin: 0 12px;
+    }
+    
 
     .paddingContainer {
         padding-top: 20px;

@@ -18,6 +18,7 @@ input[type="checkbox"].form-checkbox:checked {
   accent-color: #bc9543;
 }
 
+
 .my-input::placeholder {
   /* font-weight: 400; */
   font-size: 14px;

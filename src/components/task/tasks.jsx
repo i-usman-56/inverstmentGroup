@@ -4,9 +4,9 @@ import MeetingCard from "../meetingcard/meetingCard";
 import InputDate from "./components/inputData";
 export default function Tasks() {
   return (
-    <div className="">
+    <div className="bg-[#FFFFFF] rounded-[4px]">
       <div
-        className="w-full  rounded  px-[15px] md:px-[80px] lg:px-[20px] lg:h-full xl:px-[50px]  pt-[20px] pb-[60px]"
+        className="w-full    px-[15px] md:px-[80px] lg:px-[20px] lg:h-full xl:px-[50px]  pt-[20px] pb-[60px]"
         // style={{ boxShadow: "0 1px 5px 0 rgba(5, 5, 5, 0.1)" }}
       >
         <div className=" flex justify-between pb-[30px] lg:pt-7 lg:pb-0 ">
