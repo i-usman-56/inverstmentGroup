@@ -1,7 +1,9 @@
 import React from "react";
 import "../../components/table/Table.css";
 export default function Table({tableData }) {
+  
   const { columns, rows } = tableData;
+
   const RenderData = () => {
     return rows.map((rowData, index) => (
       <div
@@ -50,6 +52,7 @@ export default function Table({tableData }) {
       </div>
     ));
   };
+
   return (
     <>
       <div className="lg:px-[0px] md:px-8 ">

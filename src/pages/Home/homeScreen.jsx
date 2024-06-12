@@ -1,4 +1,3 @@
-import React from "react";
 import Graph from "../../components/Graph/graph";
 import Tasks from "../../components/task/tasks";
 import Table from "../../components/table/table";

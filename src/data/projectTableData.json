@@ -1,0 +1,191 @@
+{
+    "columns": [
+        "PROSPECT NAME",
+        "CLOSING STATUS",
+        "INTEREST",
+        "STATUS",
+        "EVENTS/TASKS"
+    ],
+    "rows": [
+        [
+            {
+                "value": "JAMES BROWN"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "isbutton": true,
+                "bgColor": "#1DA1F2"
+            },
+            {
+                "value": "1 ON 1 MENTORSHIP"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "Meeting Scheduled 05/30",
+                "color": "#0250E6",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TOM JAMES"
+            },
+            {
+                "value": "CLOSING MEETING SCHEDULED",
+                "isbutton": true,
+                "bgColor": "#00B860"
+            },
+            {
+                "value": "FUNDING"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "Meeting Scheduled 05/30",
+                "color": "#0250E6",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TONY ROBBINS"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "isbutton": true,
+                "bgColor": "#E68B02"
+            },
+            {
+                "value": "FUNDING"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "Meeting Scheduled 05/30",
+                "color": "#0250E6",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TIM COOK"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "color": "green"
+            },
+            {
+                "value": "1 ON 1 MENTORSHIP"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "No Task Scheduled",
+                "color": "#E60202",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TONY ROBBINS"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "isbutton": true,
+                "bgColor": "#E68B02"
+            },
+            {
+                "value": "FUNDING"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "Meeting Scheduled 05/30",
+                "color": "#0250E6",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TIM COOK"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "color": "green"
+            },
+            {
+                "value": "1 ON 1 MENTORSHIP"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "No Task Scheduled",
+                "color": "#E60202",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TIM COOK"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "color": "green"
+            },
+            {
+                "value": "1 ON 1 MENTORSHIP"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "No Task Scheduled",
+                "color": "#E60202",
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "TIM COOK"
+            },
+            {
+                "value": "SCHEDULED MEETING",
+                "color": "green"
+            },
+            {
+                "value": "1 ON 1 MENTORSHIP"
+            },
+            {
+                "value": "Assigned To You",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "No Task Scheduled",
+                "color": "#E60202",
+                "isActive": true
+            }
+        ]
+    ]
+}
