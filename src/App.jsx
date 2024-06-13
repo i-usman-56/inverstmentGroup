@@ -7,6 +7,7 @@ import HomeScreen from "./pages/Home/homeScreen";
 import FooterMobile from "./components/auth/signup/components/footer/Footer";
 import Navbar from "./components/Navbar/navbar";
 import ProjectList from "./pages/ProjectList/ProjectList";
+import UserAccess from "./pages/UserAccess/userAccess";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -31,6 +32,20 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/user-access",
+    element: (
+      <>
+        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+          <Navbar />
+          <UserAccess/>
+          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+            <FooterMobile />
+          </div>
+        </div>
+      </>
+    ),
+  },
+  {
     path: "/signup",
     element: <SignUp />,
   },
@@ -46,11 +61,11 @@ const router = createBrowserRouter([
   {
     path: "/project-list",
     // element: <ProjectList />,
-     element: (
+    element: (
       <>
         <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
           <Navbar />
-         <ProjectList />
+          <ProjectList />
           <div className="w-full pb-[15px] pt-[50px] md:pt-0">
             <FooterMobile />
           </div>

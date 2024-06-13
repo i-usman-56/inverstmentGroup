@@ -8,7 +8,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { FaRegBell } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import icon from "../../assets/svg/Vector (1).svg";
 import icon1 from "../../assets/svg/Vector (2).svg";
 import icon2 from "../../assets/svg/clarity_administrator-line.svg";
@@ -49,15 +49,16 @@ export default function Navbar() {
   };
 
   const sidebarMenu = [
-    { value: "Dashboard", img: icon, dropDownList: [] },
+    { value: "Dashboard", img: icon, dropDownList: [],path:"admin" },
     {
       value: "Prospect Lists",
       img: icon1,
+      path:"",
       dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
     },
-    { value: "Admin Panel", img: icon2, dropDownList: [] },
-    { value: "Finances", img: icon4, dropDownList: [] },
-    { value: "Team Activity", img: icon3, dropDownList: [] },
+    { value: "Admin Panel", img: icon2, dropDownList: [],path:"user-access" },
+    { value: "Finances", img: icon4, dropDownList: [] ,path:""},
+    { value: "Team Activity", img: icon3, dropDownList: [] ,path:""},
   ];
 
   return (
@@ -102,6 +103,7 @@ export default function Navbar() {
                   {/* Display the icon based on the `img` property */}
                   <img src={menuItem.img} alt="" className="cursor-pointer" />
                   {/* Display the value of the menu item */}
+                  <Link to={`/${menuItem.path}`}>
                   <p className="text-[#FFFFFF] flex items-center cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
                     {menuItem.value}{" "}
                     {menuItem.dropDownList.length > 0 && (
@@ -110,6 +112,7 @@ export default function Navbar() {
                       </span>
                     )}
                   </p>
+                  </Link>
                   {/* Show dropdown arrow if there are dropdown values */}
                 </div>
                 {/* Show dropdown list if there are dropdown values */}
