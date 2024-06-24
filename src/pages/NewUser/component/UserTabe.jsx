@@ -1,8 +1,10 @@
 const NewUser = () => {
     return (
-        <div className="w-full sm:w-10/12 max-w-4xl p-5 bg-white rounded-lg shadow">
-            <h1 className="text-xl font-semibold text-center sm:text-left text-blue-700 ">CREATE NEW USER</h1>
-            <form className="mt-4 p-4 sm:p-20">
+        <div className="w-full sm:w-10/12 p-5 bg-white rounded-lg shadow ">
+            <h1 className="text-xl font-semibold text-center lg:text-left text-blue-700">
+                <span className="mr-2 text-2xl text-center">&lt;</span>
+                CREATE NEW USER
+            </h1>            <form className="mt-4 p-4 sm:p-20  lg:mx-40 md:mx-0">
                 <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-20 mb-4 sm:mb-10">
                     <div className="w-full sm:w-1/2">
                         <input type="text" placeholder="First Name" className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100" />

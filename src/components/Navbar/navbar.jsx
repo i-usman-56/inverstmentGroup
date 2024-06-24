@@ -49,16 +49,16 @@ export default function Navbar() {
   };
 
   const sidebarMenu = [
-    { value: "Dashboard", img: icon, dropDownList: [],path:"admin" },
+    { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
     {
       value: "Prospect Lists",
       img: icon1,
-      path:"",
+      path: "project-list",
       dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
     },
-    { value: "Admin Panel", img: icon2, dropDownList: [],path:"user-access" },
-    { value: "Finances", img: icon4, dropDownList: [] ,path:""},
-    { value: "Team Activity", img: icon3, dropDownList: [] ,path:""},
+    { value: "Admin Panel", img: icon2, dropDownList: [], path: "user-access" },
+    { value: "Finances", img: icon4, dropDownList: [], path: "" },
+    { value: "Team Activity", img: icon3, dropDownList: [], path: "" },
   ];
 
   return (
@@ -104,14 +104,14 @@ export default function Navbar() {
                   <img src={menuItem.img} alt="" className="cursor-pointer" />
                   {/* Display the value of the menu item */}
                   <Link to={`/${menuItem.path}`}>
-                  <p className="text-[#FFFFFF] flex items-center cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
-                    {menuItem.value}{" "}
-                    {menuItem.dropDownList.length > 0 && (
-                      <span className=" right-0 transform translate-x-[10px]">
-                        <FaAngleDown className="text-[#FFFFFF]" />
-                      </span>
-                    )}
-                  </p>
+                    <p className="text-[#FFFFFF] flex items-center cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
+                      {menuItem.value}{" "}
+                      {menuItem.dropDownList.length > 0 && (
+                        <span className=" right-0 transform translate-x-[10px]">
+                          <FaAngleDown className="text-[#FFFFFF]" />
+                        </span>
+                      )}
+                    </p>
                   </Link>
                   {/* Show dropdown arrow if there are dropdown values */}
                 </div>
@@ -185,9 +185,8 @@ export default function Navbar() {
                 {sidebarMenu.map((item, index) => (
                   <div key={index}>
                     <div
-                      className={`text-[#000000] w-full text-[16px] font-bold leading-5 tracking-[-1.7%] hover:text-[#0250E6] cursor-pointer flex justify-between items-center ${
-                        openDropdown === index ? "active-item" : ""
-                      }`}
+                      className={`text-[#000000] w-full text-[16px] font-bold leading-5 tracking-[-1.7%] hover:text-[#0250E6] cursor-pointer flex justify-between items-center ${openDropdown === index ? "active-item" : ""
+                        }`}
                       onClick={() => toggleDropdown(index)}
                     >
                       {item.value}
@@ -202,9 +201,8 @@ export default function Navbar() {
                       )}
                     </div>
                     <div
-                      className={`dropdown space-y-3 pl-6 ${
-                        openDropdown === index ? "open" : ""
-                      }`}
+                      className={`dropdown space-y-3 pl-6 ${openDropdown === index ? "open" : ""
+                        }`}
                     >
                       {item.dropDownList.map((subItem, subIndex) => (
                         <div

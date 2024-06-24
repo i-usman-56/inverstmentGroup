@@ -3,6 +3,8 @@ import icons1 from "../../assets/svg/arcticons_adobe-account-access.svg";
 import icons2 from "../../assets/svg/formkit_people.svg";
 import LoginButton from "../../components/auth/signup/components/LoginButton";
 import UserCard from "./components/userCard";
+import { useNavigate } from "react-router-dom";
+
 
 export default function UserAccess() {
   const renderData = [
@@ -99,6 +101,7 @@ export default function UserAccess() {
       acceslvl: "Sales Agent",
     },
   ];
+  const navigate = useNavigate();
 
   return (
     <div className="bg-[#FFFFFF] px-5 md:px-8 lg:px-10 lg:mb-[120px] xl:px-[70px] lg:mx-[85px] drop-shadow-md   rounded-t-md mt-[64px] lg:mt-[78px] lg:pb-24 lg:rounded-md">
@@ -123,7 +126,7 @@ export default function UserAccess() {
           ))}
         </div>
         <div className="hidden lg:block">
-          <LoginButton title="Add New User + " />
+          <LoginButton title="Add New User + " onClick={() => navigate("/newuser")} />
         </div>
       </div>
       <div>

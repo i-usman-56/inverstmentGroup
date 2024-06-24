@@ -21,7 +21,7 @@ export default function ProjectList() {
         </select>
       </div>
 
-      <div className="w-64 bg-white p-4 ml-4 hidden md:block mt-4">
+      <div className="w-64 bg-white p-4 ml-4 hidden md:block mt-4 rounded-lg">
         <div className="font-bold text-lg mb-4">PROSPECTS BY FILTER</div>
         <div className="space-y-2 ">
           {[
