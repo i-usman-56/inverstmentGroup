@@ -4,13 +4,14 @@ import px from "../../../assets/svg/pc.svg";
 import px1 from "../../../assets/svg/complete.svg";
 import DataTeam from "./dataTeam";
 
-export default function TeamCard() {
+export default function TeamCard({ViewDetail}) {
   return (
     <div  className="lg:grid lg:grid-rows-1 lg:grid-cols-2 lg:gap-6 xl:gap-12">
       {ActivityData.map((item, index) => {
         return (
           <div
             key={index}
+            onClick={() => ViewDetail(item)}
             style={{ boxShadow: "0 5px 5px 0 rgba(0, 0, 0, 0.25)" }}
             className="h-[120px] xl:h-[135px]  mt-[35px] rounded-[5px] flex flex-col justify-center"
           >

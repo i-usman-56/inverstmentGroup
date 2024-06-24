@@ -14,7 +14,7 @@ export default function UserCard({ data }) {
               <h1 className="text-[16px] md:text-[18px] lg:text-[20px] font-semibold leading-5 tracking-[-1.7%]">
                 {item.name}
               </h1>
-              <p className="flex items-center lg:text-[16px]  text-[#000000] gap-1 text-[12px] md:text-[13.5px] font-bold leading-4 tracking-[-1.7%] ">
+              <div className="flex items-center lg:text-[16px]  text-[#000000] gap-1 text-[12px] md:text-[13.5px] font-bold leading-4 tracking-[-1.7%] ">
                 Status: {item.status}
                 {`${item.status == true ? "Active" : "Non-Active"}`}{" "}
                 <div
@@ -22,7 +22,7 @@ export default function UserCard({ data }) {
                     item.status == true ? "bg-[#00FF85]" : " bg-red-500"
                   } bg-[#00FF85] h-[10px] rounded-[50%]`}
                 />
-              </p>
+              </div>
             </div>
             <p className="text-[15px] md:text-[17px] lg:text-[18px] w-fit pt-[14px] text-[#000000] font-[500] leading-[17px] tracking-[-1.7%] border-b">
               {item.phone}

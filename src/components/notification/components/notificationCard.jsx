@@ -11,8 +11,8 @@ export default function NotificationCard() {
           <div
             key={index}
             className="border-[1px] relative border-[#D9D9D9] flex items-center h-[65px] md:h-[75px] rounded-md">
-            <div className="flex justify-between w-full  pl-3 md:px-9 gap-1.5 md:gap-0">
-              <div className="w-[70%] ">
+            <div className="flex justify-between w-full  pl-3 md:px-9  md:gap-0">
+              <div className="w-[65%] ">
                 <h1 className="text-[11px] md:text-[14px] lg:text-[16px] whitespace-normal uppercase font-[550] tracking-[-1.8%] leading-5 ">
                   {item.title}
                 </h1>
