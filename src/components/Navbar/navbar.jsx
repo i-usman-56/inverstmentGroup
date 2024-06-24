@@ -58,7 +58,12 @@ export default function Navbar() {
     },
     { value: "Admin Panel", img: icon2, dropDownList: [], path: "user-access" },
     { value: "Finances", img: icon4, dropDownList: [], path: "" },
-    { value: "Team Activity", img: icon3, dropDownList: [], path: "" },
+    {
+      value: "Team Activity",
+      img: icon3,
+      dropDownList: [],
+      path: "team-activity",
+    },
   ];
 
   return (
@@ -82,12 +87,14 @@ export default function Navbar() {
               onClick={handleIconClick}
               className="w-[24px] h-[24px] text-[#FFFFFF]"
             />
-            <div className="relative">
-              <FaRegBell className="w-[24px] h-[24px] text-[#FFFFFF]" />
-              <div className="w-[14px] absolute -top-0  bg-green-500 h-[14px] flex justify-center text-[11px] items-center text-white font-semibold rounded-b-[50%] rounded-r-[50%]">
-                2
+            <Link to={`/notification`}>
+              <div className="relative">
+                <FaRegBell className="w-[24px] h-[24px] text-[#FFFFFF]" />
+                <div className="w-[14px] absolute -top-0  bg-green-500 h-[14px] flex justify-center text-[11px] items-center text-white font-semibold rounded-b-[50%] rounded-r-[50%]">
+                  2
+                </div>
               </div>
-            </div>
+            </Link>
             <IoSettingsOutline className="w-[24px] h-[24px] text-[#FFFFFF]" />
             <ProfileIcon />
           </div>
@@ -132,31 +139,6 @@ export default function Navbar() {
             ))}
           </div>
         </div>
-
-        {/* <div className="flex justify-center pt-6">
-            <div className="border-2 py-5 flex px-6 gap-12 rounded-lg border-[#FFFFFF]">
-                    <div className="flex justify-center space-y-2.5 flex-col items-center">
-                        <img src={icon} alt="" />
-                        <p  className="text-[#FFFFFF] text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">DashBoard</p>
-                    </div>
-                    <div className="flex justify-center space-y-2.5 flex-col items-center">
-                        <img src={icon1} alt="" />
-                        <p  className="text-[#FFFFFF] text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">Prospect Lists</p>
-                    </div>
-                    <div className="flex justify-center space-y-2.5 flex-col items-center">
-                        <img src={icon2} alt="" />
-                        <p  className="text-[#FFFFFF] text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">Admin Panel</p>
-                    </div>
-                    <div className="flex justify-center space-y-2.5 flex-col items-center">
-                        <img src={icon4} alt="" />
-                        <p  className="text-[#FFFFFF] text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">Finances</p>
-                    </div>
-                    <div className="flex justify-center space-y-2.5 flex-col items-center">
-                        <img src={icon3} alt="" />
-                        <p  className="text-[#FFFFFF] text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">Team Activity</p>
-                    </div>
-            </div>
-        </div> */}
       </div>
       {/* Mobile Section */}
       <div className="pt-[24px] relative lg:hidden">
@@ -184,25 +166,30 @@ export default function Navbar() {
               <div className="space-y-6">
                 {sidebarMenu.map((item, index) => (
                   <div key={index}>
-                    <div
-                      className={`text-[#000000] w-full text-[16px] font-bold leading-5 tracking-[-1.7%] hover:text-[#0250E6] cursor-pointer flex justify-between items-center ${openDropdown === index ? "active-item" : ""
+                    <Link to={`/${item.path}`}>
+                      <div
+                        className={`text-[#000000] w-full text-[16px] font-bold leading-5 tracking-[-1.7%] hover:text-[#0250E6] cursor-pointer flex justify-between items-center ${
+                          openDropdown === index ? "active-item" : ""
                         }`}
-                      onClick={() => toggleDropdown(index)}
-                    >
-                      {item.value}
-                      {item.dropDownList.length > 0 && (
-                        <span className="ml-2">
-                          {openDropdown === index ? (
-                            <FaAngleUp />
-                          ) : (
-                            <FaAngleDown />
-                          )}
-                        </span>
-                      )}
-                    </div>
+                        onClick={() => toggleDropdown(index)}
+                      >
+                        {item.value}
+                        {item.dropDownList.length > 0 && (
+                          <span className="ml-2">
+                            {openDropdown === index ? (
+                              <FaAngleUp />
+                            ) : (
+                              <FaAngleDown />
+                            )}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+
                     <div
-                      className={`dropdown space-y-3 pl-6 ${openDropdown === index ? "open" : ""
-                        }`}
+                      className={`dropdown space-y-3 pl-6 ${
+                        openDropdown === index ? "open" : ""
+                      }`}
                     >
                       {item.dropDownList.map((subItem, subIndex) => (
                         <div

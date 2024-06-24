@@ -12,6 +12,7 @@ export default function Table({tableData }) {
       >
         {rowData.map((data, dataIndex) => (
           <div
+          key={dataIndex}
             className={`w-[33%]   ${
               data.isbutton
                 ? "flex justify-center"

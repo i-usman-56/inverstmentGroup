@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar/navbar";
 import ProjectList from "./pages/ProjectList/ProjectList";
 import UserAccess from "./pages/UserAccess/userAccess";
 import NewUser from "./pages/NewUser/NewUser";
+import NotificationScreen from "./pages/Notification/notification";
+import TeamActivityScreen from "./pages/TeamActivity/teamActivity";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +25,7 @@ const router = createBrowserRouter([
     path: "/admin",
     element: (
       <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF]  bg-gradient-to-b">
           <Navbar />
           <HomeScreen />
           <div className="w-full pb-[15px] pt-[50px] md:pt-0">
@@ -48,6 +50,22 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/notification",
+    element: (
+      <>
+        <NotificationScreen />
+      </>
+    ),
+  },
+  {
+    path: "/team-activity",
+    element: (
+      <>
+        <TeamActivityScreen />
+      </>
+    ),
+  },
+  {
     path: "/signup",
     element: <SignUp />,
   },
@@ -59,7 +77,6 @@ const router = createBrowserRouter([
     path: "/new-password",
     element: <NewPassword />,
   },
-
   {
     path: "/project-list",
     // element: <ProjectList />,
@@ -90,9 +107,7 @@ const router = createBrowserRouter([
       </>
     ),
   },
-
 ]);
-
 
 function App() {
   return (
