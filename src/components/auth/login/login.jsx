@@ -7,6 +7,7 @@ import InputFields from "../signup/components/InputFeilds";
 import Checkbox from "./components/checkbox";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
+import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -43,13 +44,36 @@ export default function Login() {
     return valid;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (validateForm()) {
-      console.log("Form data: ", form);
-      navigate(`/admin`)
+    // if (validateForm()) {
+    //   console.log("Form data: ", form);
+    //   navigate(`/admin`)
 
-      // proceed with form submission, e.g., call an API
+    //   // proceed with form submission, e.g., call an API
+    // }
+    if (validateForm()) {
+      try {
+        const response = await axios.post(
+          "http://65.109.118.136:5001/authentication/login",
+          form,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        debugger;
+        if (response.status === 200) {
+          console.log("Form data: ", form);
+          console.log("Login successful:", response.data);
+          navigate("/admin");
+        } else {
+          console.error("Login failed:", response.data);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
