@@ -1,8 +1,7 @@
 import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
-import ClientData from "./clientData";
-import tableData from "../../../data/tableData1.json";
-import Table from "../../table/table";
+import ActiveData from "./ActiveData";
+import ClosedData from "./ClosedData";
 
 export default function DetailTeam({ close, team }) {
   return (
@@ -18,14 +17,11 @@ export default function DetailTeam({ close, team }) {
         </div>
         <div>
           <div className="pt-[55px] lg:pt-[75px]">
-            <ClientData name="Active prospects" value={team.activeProposal} />
-            <Table tableData={tableData} />
+            <ActiveData team={team} />
           </div>
           <div className="pt-[55px] lg:pt-[75px]">
-          <ClientData name="Closed Clients" value={team.closedClient} />
-          <Table tableData={tableData} />
+            <ClosedData team={team} />
           </div>
-       
         </div>
       </div>
     </>

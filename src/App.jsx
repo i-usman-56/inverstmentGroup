@@ -11,6 +11,7 @@ import UserAccess from "./pages/UserAccess/userAccess";
 import NewUser from "./pages/NewUser/NewUser";
 import NotificationScreen from "./pages/Notification/notification";
 import TeamActivityScreen from "./pages/TeamActivity/teamActivity";
+import CurrentClientScreen from "./pages/CurrentClient/currentClient";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
     element: (
       <>
         <TeamActivityScreen />
+      </>
+    ),
+  },
+  {
+    path: "/current-client",
+    element: (
+      <>
+        <CurrentClientScreen />
       </>
     ),
   },

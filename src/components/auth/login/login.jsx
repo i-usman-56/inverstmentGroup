@@ -45,36 +45,37 @@ export default function Login() {
   };
 
   const handleSubmit = async (event) => {
+    // debugger
     event.preventDefault();
-    // if (validateForm()) {
-    //   console.log("Form data: ", form);
-    //   navigate(`/admin`)
-
-    //   // proceed with form submission, e.g., call an API
-    // }
     if (validateForm()) {
-      try {
-        const response = await axios.post(
-          "http://65.109.118.136:5001/authentication/login",
-          form,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        debugger;
-        if (response.status === 200) {
-          console.log("Form data: ", form);
-          console.log("Login successful:", response.data);
-          navigate("/admin");
-        } else {
-          console.error("Login failed:", response.data);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      console.log("Form data: ", form);
+      navigate(`/admin`)
+
+      // proceed with form submission, e.g., call an API
     }
+    // if (validateForm()) {
+    //   try {
+    //     const response = await axios.post(
+    //       "http://65.109.118.136:5001/authentication/login",
+    //       form,
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       }
+    //     );
+    //     debugger;
+    //     if (response.status === 200) {
+    //       console.log("Form data: ", form);
+    //       console.log("Login successful:", response.data);
+    //       navigate("/admin");
+    //     } else {
+    //       console.error("Login failed:", response.data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error:", error);
+    //   }
+    // }
   };
 
   const handleChange = (event) => {
