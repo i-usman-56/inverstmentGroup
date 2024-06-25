@@ -22,8 +22,8 @@ export default function ProjectList() {
       </div>
 
       <div className="w-64 bg-white p-4 ml-4 hidden md:block mt-4 rounded-lg">
-        <div className="font-bold text-lg mb-4">PROSPECTS BY FILTER</div>
-        <div className="space-y-2 ">
+        <div className="font-bold text-lg mb-4 text-[#0250E6]">PROSPECTS BY FILTER</div>
+        <div className="space-y-6">
           {[
             { color: "blue-500", text: "My Prospects ▼" },
             { color: "gray-700", text: "Closing Status ▼" },
@@ -40,8 +40,8 @@ export default function ProjectList() {
             </div>
           ))}
         </div>
-        <div className="font-bold text-lg mt-8">CURRENT CLIENTS</div>
-        <div className="space-y-2">
+        <div className="font-bold text-lg mt-8 text-[#0250E6]">CURRENT CLIENTS</div>
+        <div className="space-y-4">
           <div>
             <span className="inline-block w-4 h-4 bg-blue-500 mr-2"></span>
             <span className="text-black">Closed & Ongoing Clients</span>
