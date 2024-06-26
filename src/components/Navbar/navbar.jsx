@@ -57,7 +57,7 @@ export default function Navbar() {
       dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
     },
     { value: "Admin Panel", img: icon2, dropDownList: [], path: "user-access" },
-    { value: "Finances", img: icon4, dropDownList: [], path: "" },
+    { value: "Finances", img: icon4, dropDownList: [], path: "finace" },
     {
       value: "Team Activity",
       img: icon3,
@@ -106,11 +106,12 @@ export default function Navbar() {
           <div className="border-2 lg:py-3 xl:py-5 flex px-6 gap-12 rounded-lg border-[#FFFFFF]">
             {sidebarMenu.map((menuItem, index) => (
               <div key={index} className="relative items-center">
-                <div className="flex justify-center  space-y-2.5 flex-col items-center">
-                  {/* Display the icon based on the `img` property */}
-                  <img src={menuItem.img} alt="" className="cursor-pointer" />
-                  {/* Display the value of the menu item */}
-                  <Link to={`/${menuItem.path}`}>
+                <Link to={`/${menuItem.path}`}>
+                  <div className="flex justify-center  space-y-2.5 flex-col items-center">
+                    {/* Display the icon based on the `img` property */}
+                    <img src={menuItem.img} alt="" className="cursor-pointer" />
+                    {/* Display the value of the menu item */}
+
                     <p className="text-[#FFFFFF] flex items-center cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
                       {menuItem.value}{" "}
                       {menuItem.dropDownList.length > 0 && (
@@ -119,9 +120,10 @@ export default function Navbar() {
                         </span>
                       )}
                     </p>
-                  </Link>
-                  {/* Show dropdown arrow if there are dropdown values */}
-                </div>
+
+                    {/* Show dropdown arrow if there are dropdown values */}
+                  </div>
+                </Link>
                 {/* Show dropdown list if there are dropdown values */}
                 {menuItem.dropDownList.length > 0 && (
                   <div className="dropdown space-y-3 pl-6">

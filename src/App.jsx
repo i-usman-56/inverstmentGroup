@@ -12,6 +12,7 @@ import NewUser from "./pages/NewUser/NewUser";
 import NotificationScreen from "./pages/Notification/notification";
 import TeamActivityScreen from "./pages/TeamActivity/teamActivity";
 import CurrentClientScreen from "./pages/CurrentClient/currentClient";
+import FinanceScreen from "./pages/finance/finacescreen";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/finace",
+    element: (
+      <>
+        <FinanceScreen />
+      </>
+    ),
+  },
+  {
     path: "/signup",
     element: <SignUp />,
   },
@@ -88,7 +97,6 @@ const router = createBrowserRouter([
   },
   {
     path: "/project-list",
-    // element: <ProjectList />,
     element: (
       <>
         <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
