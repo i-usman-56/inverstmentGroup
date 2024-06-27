@@ -27,32 +27,32 @@ const ProspectProfile = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
                 {/* Prospect Details */}
                 <div className="col-span-2 pr-4 border-r-2">
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Prospect Phone:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Prospect Phone:<br /></span>
                             <span className="text-sm">+1 (333)-234-5068</span>
                         </div>
                         <button className="bg-[#00B860] text-white px-4 py rounded flex items-center ">CALL NOW <img src={phonecall} alt="phonecall" className="ml-2" /></button>
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Prospect Email:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold break-normal	">Prospect Email:<br /></span>
                             <span className="text-sm">Tommyfury@gmail.com</span>
                         </div>
                         <button className="bg-[#0250E6] text-white px-2 py rounded flex items-center">EMAIL NOW <img src={email} alt="email" className="ml-4" /></button>
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Prospect Source:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Prospect Source:<br /></span>
                             <span className="font-semibold bg-[#479090] py text-white rounded-sm px-2">Typeform/TikTok</span>
                         </div>
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Interested In:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Interested In:<br /></span>
                             <span className="text-sm">FUNDING</span>
                         </div>
                         <button className="flex items-center justify-center px-4 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100">
@@ -62,14 +62,14 @@ const ProspectProfile = () => {
 
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Assigned To:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Assigned To:<br></br></span>
                             <span className="font-semibold text-[#00B860]">Sam Jay</span>
                         </div>
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Payment Amount:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Payment Amount:<br /></span>
                             <span className="font-semibold bg-[#39AB74] px-2 py text-white rounded-sm">$2,000.00</span>
                         </div>
                         <button className="flex items-center justify-center px-5 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100">
@@ -77,14 +77,14 @@ const ProspectProfile = () => {
                             <span className="ml-2">+</span>
                         </button>                    </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Prospect Status:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Prospect Status:<br /></span>
                             <span className="font-semibold text-sm">ASSIGNED TO YOU</span>
                         </div>
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Closing Status:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Closing Status:<br /></span>
                             <span className="font-semibold bg-[#F5D29C] px-2 py rounded-sm text-white">First Call</span>
                         </div>
                         <button className="flex items-center justify-center px-3 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100">
@@ -95,8 +95,8 @@ const ProspectProfile = () => {
 
                     </div>
                     <div className="flex justify-between border-b py-2">
-                        <div className="flex items-center justify-between w-4/12">
-                            <span className="text-[#0250E6] font-bold">Scheduled Tasks:</span>
+                        <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
+                            <span className="text-[#0250E6] font-bold">Scheduled Tasks:<br /></span>
                             <span className="font-semibold">N/A</span>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ const ProspectProfile = () => {
                             <span className="text-[#0250E6] font-bold">Create Action:</span>
                         </div>
                     </div>
-                    <div className="flex items-center justify-center gap-3 mt-3">
+                    <div className="flex flex-col lg:flex-row items-center justify-center lg:space-y-0 space-y-3 gap-3 mt-3">
                         <button className="text-white px-2 py-2 rounded items-center justify-center flex" style={{ background: 'linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)' }}>
                             <span className="flex items-center font-semibold">
                                 SCHEDULE GOOGLE MEETS
@@ -113,7 +113,7 @@ const ProspectProfile = () => {
                             </span>
                         </button>
 
-                        <button className=" text-white px-6 py-2 rounded flex items-center" style={{ background: 'linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)' }}>
+                        <button className=" text-white lg:px-6 px-12 py-2 rounded flex items-center" style={{ background: 'linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)' }}>
 
                             <span className="flex items-center font-semibold">
                                 SCHEDULE CALL
@@ -121,7 +121,7 @@ const ProspectProfile = () => {
                             <img src={phonecall} alt="Google Meet" className="ml-2 h-5 w-5" />
 
                         </button>
-                        <button className=" text-white px-6 py-2 rounded  flex items-center" style={{ background: 'linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)' }}>
+                        <button className=" text-white lg:px-6 px-9 py-2 rounded  flex items-center" style={{ background: 'linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)' }}>
                             <span className="flex items-center font-semibold">
                                 CALL NOW IN DIALER
                             </span>
@@ -133,7 +133,7 @@ const ProspectProfile = () => {
                 </div>
 
                 {/* Notes Section */}
-                <div className="col-span-1">
+                <div className="hidden lg:block col-span-1">
                     <div className="p-4">
                         <h2 className="text-lg font-semibold text-[#0250E6]">NOTES</h2>
                         <div className="border-b py-2">
@@ -157,7 +157,7 @@ const ProspectProfile = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
