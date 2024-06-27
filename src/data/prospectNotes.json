@@ -1,0 +1,175 @@
+{
+    "columns": [
+        "INTEREST",
+        "STATUS",
+        "EVENTS/TASKS",
+        "NOTES",
+        "MARK CLOSE"
+    ],
+    "rows": [
+        [
+            {
+                "value": "1 ON 1 MENTORSHIP",
+                "color": "#0448E8"
+            },
+            {
+                "value": "ASSIGNED TO YOU",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "MEETING SCHEDULED 05/30",
+                "color": "#0448E8",
+                "isActive": true
+            },
+            {
+                "value": "NOTES",
+                "color": "#0448E8",
+                "isActive": false
+            },
+            {
+                "value": "",
+                "color": "",
+                "isRadio": true,
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "FUNDING",
+                "color": "#0448E8"
+            },
+            {
+                "value": "ASSIGNED TO YOU",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "MEETING SCHEDULED 05/30",
+                "color": "#0448E8",
+                "isActive": true
+            },
+            {
+                "value": "NOTES",
+                "color": "#0448E8",
+                "isActive": false
+            },
+            {
+                "value": "",
+                "color": "",
+                "isRadio": true,
+                "isActive": false
+            }
+        ],
+        [
+            {
+                "value": "FUNDING",
+                "color": "#0448E8"
+            },
+            {
+                "value": "ASSIGNED TO YOU",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "MEETING SCHEDULED 05/30",
+                "color": "#0448E8",
+                "isActive": true
+            },
+            {
+                "value": "NOTES",
+                "color": "#0448E8",
+                "isActive": false
+            },
+            {
+                "value": "",
+                "color": "",
+                "isRadio": true,
+                "isActive": false
+            }
+        ],
+        [
+            {
+                "value": "PRIVATE NETWORK",
+                "color": "#0448E8"
+            },
+            {
+                "value": "ASSIGNED TO YOU",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "NO TASK SCHEDULED",
+                "color": "#EF1313",
+                "isActive": true
+            },
+            {
+                "value": "NOTES",
+                "color": "#0448E8",
+                "isActive": false
+            },
+            {
+                "value": "",
+                "color": "",
+                "isRadio": true,
+                "isActive": false
+            }
+        ],
+        [
+            {
+                "value": "1 ON 1 MENTORSHIP",
+                "color": "#0448E8"
+            },
+            {
+                "value": "ASSIGNED TO YOU",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "MEETING SCHEDULED 05/30",
+                "color": "#0448E8",
+                "isActive": true
+            },
+            {
+                "value": "NOTES",
+                "color": "#0448E8",
+                "isActive": false,
+                "notesContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod odio nec orci suscipit, a feugiat eros convallis. Morbi lacinia leo sit amet diam consequat, sed ultricies dolor tincidunt."
+            },
+            {
+                "value": "",
+                "color": "",
+                "isRadio": true,
+                "isActive": true
+            }
+        ],
+        [
+            {
+                "value": "FUNDING",
+                "color": "#0448E8"
+            },
+            {
+                "value": "ASSIGNED TO YOU",
+                "color": "#00B860",
+                "isActive": true
+            },
+            {
+                "value": "MEETING SCHEDULED 05/30",
+                "color": "#0448E8",
+                "isActive": true
+            },
+            {
+                "value": "NOTES",
+                "color": "#0448E8",
+                "isActive": false,
+                "notesContent": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod odio nec orci suscipit, a feugiat eros convallis."
+            },
+            {
+                "value": "",
+                "color": "",
+                "isRadio": true,
+                "isActive": false
+            }
+        ]
+    ]
+}

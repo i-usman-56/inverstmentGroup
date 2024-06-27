@@ -14,6 +14,7 @@ import TeamActivityScreen from "./pages/TeamActivity/teamActivity";
 import CurrentClientScreen from "./pages/CurrentClient/currentClient";
 import FinanceScreen from "./pages/finance/finacescreen";
 import ProspectProfile from "./pages/ProspectProfile/ProspectProfile";
+import ProspectNotes from "./pages/ProspectNotes/ProspectNotes";
 
 const router = createBrowserRouter([
   {
@@ -117,6 +118,21 @@ const router = createBrowserRouter([
         <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
           <Navbar />
           <ProspectProfile />
+          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+            <FooterMobile />
+          </div>
+        </div>
+      </>
+    ),
+  },
+
+  {
+    path: "/prospect-notes",
+    element: (
+      <>
+        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+          <Navbar />
+          <ProspectNotes />
           <div className="w-full pb-[15px] pt-[50px] md:pt-0">
             <FooterMobile />
           </div>
