@@ -1,6 +1,9 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function UserCard({ data }) {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="mt-[60px] pb-8 md:pb-[45px] lg:pb-0  lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-x-5 xl:gap-x-12  lg:gap-y-4 xl:gap-y-6   space-y-5 lg:space-y-0">
@@ -18,9 +21,8 @@ export default function UserCard({ data }) {
                 Status: {item.status}
                 {`${item.status == true ? "Active" : "Non-Active"}`}{" "}
                 <div
-                  className={`w-[10px] ${
-                    item.status == true ? "bg-[#00FF85]" : " bg-red-500"
-                  } bg-[#00FF85] h-[10px] rounded-[50%]`}
+                  className={`w-[10px] ${item.status == true ? "bg-[#00FF85]" : " bg-red-500"
+                    } bg-[#00FF85] h-[10px] rounded-[50%]`}
                 />
               </div>
             </div>
@@ -37,7 +39,9 @@ export default function UserCard({ data }) {
                   {item.acceslvl}
                 </span>
               </p>
-              <button className="text-[12px] md:text-[14px] lg:text-[16px] font-[650] text-[#0250E6] leading-4 tracking-[-1.7%]">
+              <button className="text-[12px] md:text-[14px] lg:text-[16px] font-[650] text-[#0250E6] leading-4 tracking-[-1.7%]"
+                onClick={() => navigate("/edituser")}
+              >
                 Edit User
               </button>
             </div>

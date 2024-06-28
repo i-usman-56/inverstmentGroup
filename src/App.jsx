@@ -15,6 +15,7 @@ import CurrentClientScreen from "./pages/CurrentClient/currentClient";
 import FinanceScreen from "./pages/finance/finacescreen";
 import ProspectProfile from "./pages/ProspectProfile/ProspectProfile";
 import ProspectNotes from "./pages/ProspectNotes/ProspectNotes";
+import EditUser from "./pages/EditUser/EditUser";
 
 const router = createBrowserRouter([
   {
@@ -148,6 +149,20 @@ const router = createBrowserRouter([
         <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
           <Navbar />
           <NewUser />
+          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+            <FooterMobile />
+          </div>
+        </div>
+      </>
+    ),
+  },
+  {
+  path: "/edituser",
+    element: (
+      <>
+        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+          <Navbar />
+          <EditUser />
           <div className="w-full pb-[15px] pt-[50px] md:pt-0">
             <FooterMobile />
           </div>
