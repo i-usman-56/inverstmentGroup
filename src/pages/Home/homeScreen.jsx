@@ -4,7 +4,7 @@ import Table from "../../components/table/table";
 import tableData from "../../data/tableData1.json";
 import tableData1 from "../../data/tableData2.json";
 import "../../components/task/Task.css";
-
+import { json } from "react-router-dom";
 export default function HomeScreen() {
   return (
     <div>

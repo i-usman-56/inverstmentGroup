@@ -283,10 +283,10 @@
   resolved "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.7.5.tgz"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@esbuild/darwin-x64@0.20.2":
+"@esbuild/win32-x64@0.20.2":
   version "0.20.2"
-  resolved "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.20.2.tgz"
-  integrity sha512-tBcXp9KNphnNH0dfhv8KYkZhjc+H3XBkF5DKtswJblV7KlT9EI2+jeA8DgBjp908WEuYll6pF+UStUCfEpdysA==
+  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.20.2.tgz"
+  integrity sha512-N49X4lJX27+l9jbLKSqZ6bKNjzQvHaT8IIFUy+YIqmXQdjYCToGWwOItDrfby14c78aDd5NHQl29xingXfCdLQ==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -528,10 +528,34 @@
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.16.0.tgz"
   integrity sha512-Quz1KOffeEf/zwkCBM3kBtH4ZoZ+pT3xIXBG4PPW/XFtDP7EGhtTiC2+gpL9GnR7+Qdet5Oa6cYSvwKYg6kN9Q==
 
-"@rollup/rollup-darwin-x64@4.17.2":
+"@rollup/rollup-win32-x64-msvc@4.17.2":
   version "4.17.2"
-  resolved "https://registry.npmjs.org/@rollup/rollup-darwin-x64/-/rollup-darwin-x64-4.17.2.tgz"
-  integrity sha512-AtKwD0VEx0zWkL0ZjixEkp5tbNLzX+FCqGG1SvOu993HnSz4qDI6S4kGzubrEJAljpVkhRSlg5bzpV//E6ysTQ==
+  resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.17.2.tgz"
+  integrity sha512-TGGO7v7qOq4CYmSBVEYpI1Y5xDuCEnbVC5Vth8mOsW0gDSzxNrVERPc790IGHsrT2dQSimgMr9Ub3Y1Jci5/8w==
+
+"@tanstack/query-core@5.51.1":
+  version "5.51.1"
+  resolved "https://registry.npmjs.org/@tanstack/query-core/-/query-core-5.51.1.tgz"
+  integrity sha512-fJBMQMpo8/KSsWW5ratJR5+IFr7YNJ3K2kfP9l5XObYHsgfVy1w3FJUWU4FT2fj7+JMaEg33zOcNDBo0LMwHnw==
+
+"@tanstack/query-devtools@5.51.1":
+  version "5.51.1"
+  resolved "https://registry.npmjs.org/@tanstack/query-devtools/-/query-devtools-5.51.1.tgz"
+  integrity sha512-rehG0WmL3EXER6MAI2uHQia/n0b5c3ZROohpYm7u3G7yg4q+HsfQy6nuAo6uy40NzHUe3FmnfWCZQ0Vb/3lE6g==
+
+"@tanstack/react-query-devtools@^5.51.1":
+  version "5.51.1"
+  resolved "https://registry.npmjs.org/@tanstack/react-query-devtools/-/react-query-devtools-5.51.1.tgz"
+  integrity sha512-bRShIVKGpUOHpwziGKT8Aq1Ty0lIlGmNI7E0KbGYtmyOaImErpdElTdxfES1bRaI7i/j+mf2hLy+E6q7SrCwPg==
+  dependencies:
+    "@tanstack/query-devtools" "5.51.1"
+
+"@tanstack/react-query@^5.51.1":
+  version "5.51.1"
+  resolved "https://registry.npmjs.org/@tanstack/react-query/-/react-query-5.51.1.tgz"
+  integrity sha512-s47HKFnQ4HOJAHoIiXcpna/roMMPZJPy6fJ6p4ZNVn8+/onlLBEDd1+xc8OnDuwgvecqkZD7Z2mnSRbcWefrKw==
+  dependencies:
+    "@tanstack/query-core" "5.51.1"
 
 "@types/babel__core@^7.20.5":
   version "7.20.5"
@@ -1729,11 +1753,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@~2.3.2, fsevents@~2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -2993,7 +3012,7 @@ react-datepicker@^6.9.0:
     prop-types "^15.7.2"
     react-onclickoutside "^6.13.0"
 
-react-dom@*, "react-dom@^15.5.x || ^16.x || ^17.x || ^18.x", "react-dom@^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.9.0 || ^17 || ^18", react-dom@^18.2.0, react-dom@>=16.0.0, react-dom@>=16.11.0, react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0, react-dom@>=16.9.0:
+react-dom@*, "react-dom@^15.5.x || ^16.x || ^17.x || ^18.x", "react-dom@^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.9.0 || ^17 || ^18", react-dom@^18.2.0, react-dom@>=16.0.0, react-dom@>=16.11.0, react-dom@>=16.6.0, react-dom@>=16.8, react-dom@>=16.8.0, react-dom@>=16.9.0, react-dom@>=18:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz"
   integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
@@ -3050,6 +3069,13 @@ react-smooth@^4.0.0:
     prop-types "^15.8.1"
     react-transition-group "^4.4.5"
 
+react-toastify@^10.0.5:
+  version "10.0.5"
+  resolved "https://registry.npmjs.org/react-toastify/-/react-toastify-10.0.5.tgz"
+  integrity sha512-mNKt2jBXJg4O7pSdbNUfDdTsK9FIdikfsIE/yUCxbAEXl4HMyJaivrVFcn3Elvt5xvCQYhUZm+hqTIu1UXM3Pw==
+  dependencies:
+    clsx "^2.1.0"
+
 react-transition-group@^4.4.5:
   version "4.4.5"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz"
@@ -3060,7 +3086,7 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@*, "react@^15.5.x || ^16.x || ^17.x || ^18.x", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17 || ^18", react@^18.2.0, react@^18.3.1, react@>=0.13, react@>=16.0.0, react@>=16.11.0, react@>=16.6.0, react@>=16.8, react@>=16.8.0, react@>=16.9.0:
+react@*, "react@^15.5.x || ^16.x || ^17.x || ^18.x", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.9.0 || ^17 || ^18", "react@^18 || ^19", react@^18.0.0, react@^18.2.0, react@^18.3.1, react@>=0.13, react@>=16.0.0, react@>=16.11.0, react@>=16.6.0, react@>=16.8, react@>=16.8.0, react@>=16.9.0, react@>=18:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react/-/react-18.3.1.tgz"
   integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==

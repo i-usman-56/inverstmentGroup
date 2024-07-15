@@ -6,9 +6,14 @@ import LoginHeader from "./components/LoginHeader";
 import InputFields from "./components/InputFeilds";
 import LoginButton from "./components/LoginButton";
 import FooterMobile from "./components/footer/Footer";
+import { useSignUp } from "../../../services/auth";
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const {mutate,isSuccess}=useSignUp();
+  if (isSuccess) {
+    navigate('/admin')
+  }
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -72,9 +77,7 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      console.log("Form data: ", form);
-      navigate("/login")
-      // proceed with form submission, e.g., call an API
+      mutate(form);
     }
   };
 

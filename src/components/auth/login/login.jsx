@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import Logo from "../../../assets/svg/logo.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SidePic from "../signup/components/SidePic";
 import LoginHeader from "../signup/components/LoginHeader";
 import InputFields from "../signup/components/InputFeilds";
 import Checkbox from "./components/checkbox";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
-import axios from "axios";
-import { BASEURl } from "../../../constants/baseUrl";
+import {  useLogin } from "../../../services/auth";
 
 export default function Login() {
-  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -19,8 +17,8 @@ export default function Login() {
   };
 
   const [form, setForm] = useState({
-    email: "nk104626@gmail.com",
-    password: "Sultan321#",
+    email: "john@example.com",
+    password: "password123",
   });
   const [errors, setErrors] = useState({
     email: "",
@@ -45,31 +43,15 @@ export default function Login() {
     return valid;
   };
 
+  const { mutate, isLoading } = useLogin();
+  if (isLoading) {
+    console.log(`Loading`)
+  }
   const handleSubmit = async (event) => {
-    // debugger
+    debugger;
     event.preventDefault();
     if (validateForm()) {
-      try {
-        const response = await axios.post(
-          BASEURl + "/authentication/login",
-          form,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        if (response.status === 201) {
-          console.log("Form data: ", form);
-          console.log("Login successful:", response.data);
-          navigate("/admin");
-        } else {
-          console.error("Login failed:", response.data);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      mutate(form)
     }
   };
 

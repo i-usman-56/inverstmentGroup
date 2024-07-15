@@ -16,163 +16,180 @@ import FinanceScreen from "./pages/finance/finacescreen";
 import ProspectProfile from "./pages/ProspectProfile/ProspectProfile";
 import ProspectNotes from "./pages/ProspectNotes/ProspectNotes";
 import EditUser from "./pages/EditUser/EditUser";
+import useAuth from "./hooks/useAuth";
+import DashBoardHomeScreen from "./pages/HomeScreen/Home";
 
-const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/",
-    element: <Login />,
-  },
-  {
-    path: "/admin",
-    element: (
-      <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF]  bg-gradient-to-b">
-          <Navbar />
-          <HomeScreen />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
-  {
-    path: "/user-access",
-    element: (
-      <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-          <Navbar />
-          <UserAccess />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
-  {
-    path: "/notification",
-    element: (
-      <>
-        <NotificationScreen />
-      </>
-    ),
-  },
-  {
-    path: "/team-activity",
-    element: (
-      <>
-        <TeamActivityScreen />
-      </>
-    ),
-  },
-  {
-    path: "/current-client",
-    element: (
-      <>
-        <CurrentClientScreen />
-      </>
-    ),
-  },
-  {
-    path: "/finace",
-    element: (
-      <>
-        <FinanceScreen />
-      </>
-    ),
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
-    path: "/forget-password",
-    element: <ForgetPAssword />,
-  },
-  {
-    path: "/new-password",
-    element: <NewPassword />,
-  },
-  {
-    path: "/project-list",
-    element: (
-      <>
-        <div className="from-[rgb(2,80,230)] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-          <Navbar />
-          <ProjectList />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
-  {
-    path: "/prospect-profile",
-    element: (
-      <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-          <Navbar />
-          <ProspectProfile />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
 
-  {
-    path: "/prospect-notes",
-    element: (
-      <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-          <Navbar />
-          <ProspectNotes />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
-
-  {
-    path: "/newuser",
-    element: (
-      <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-          <Navbar />
-          <NewUser />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
-  {
-  path: "/edituser",
-    element: (
-      <>
-        <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-          <Navbar />
-          <EditUser />
-          <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-            <FooterMobile />
-          </div>
-        </div>
-      </>
-    ),
-  },
-]);
 
 function App() {
+  const isLoggedIn = useAuth();
+  const router = createBrowserRouter([
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: '/',
+      element: isLoggedIn ? (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF]  bg-gradient-to-b">
+            <Navbar />
+            <HomeScreen />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ) : (
+        <Login />
+      ),
+    },
+    {
+      path: "/admin",
+      element: (
+        <>  
+        <DashBoardHomeScreen/>
+          {/* <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF]  bg-gradient-to-b">
+            <Navbar />
+            <HomeScreen />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div> */}
+        </>
+      ),
+    },
+    {
+      path: "/user-access",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <UserAccess />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "/notification",
+      element: (
+        <>
+          <NotificationScreen />
+        </>
+      ),
+    },
+    {
+      path: "/team-activity",
+      element: (
+        <>
+          <TeamActivityScreen />
+        </>
+      ),
+    },
+    {
+      path: "/current-client",
+      element: (
+        <>
+          <CurrentClientScreen />
+        </>
+      ),
+    },
+    {
+      path: "/finace",
+      element: (
+        <>
+          <FinanceScreen />
+        </>
+      ),
+    },
+    {
+      path: "/signup",
+      element: <SignUp />,
+    },
+    {
+      path: "/forget-password",
+      element: <ForgetPAssword />,
+    },
+    {
+      path: "/new-password",
+      element: <NewPassword />,
+    },
+    {
+      path: "/project-list",
+      element: (
+        <>
+          <div className="from-[rgb(2,80,230)] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <ProjectList />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+    {
+      path: "/prospect-profile",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <ProspectProfile />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+  
+    {
+      path: "/prospect-notes",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <ProspectNotes />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+  
+    {
+      path: "/newuser",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <NewUser />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+    {
+    path: "/edituser",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <EditUser />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+  ]);
   return (
     <main className="overflow-y-scroll min-h-screen">
       <RouterProvider router={router} />

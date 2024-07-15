@@ -14,11 +14,19 @@ import icon1 from "../../assets/svg/Vector (2).svg";
 import icon2 from "../../assets/svg/clarity_administrator-line.svg";
 import icon3 from "../../assets/svg/fluent-mdl2_teamwork.svg";
 import icon4 from "../../assets/svg/solar_money-bag-broken.svg";
+import { MdOutlineMessage } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // import react-datepicker styl
+import useAdmin from "../../hooks/useRole";
 
 export default function Navbar() {
+  const isAdmin =useAdmin()
+  if (isAdmin) {
+    console.log(`Admin ${isAdmin}`)
+  }
+  // console.log(`Admin`)
+  // console.log(isAdmin)
   const navigate = useNavigate();
   const dateInputRef = useRef(null); // Ref for the DatePicker component
   const handleIconClick = () => {
@@ -48,7 +56,7 @@ export default function Navbar() {
     setOpenDropdown(openDropdown === index ? null : index);
   };
 
-  const sidebarMenu = [
+  const sidebarMenu = isAdmin? [
     { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
     {
       value: "Prospect Lists",
@@ -64,7 +72,15 @@ export default function Navbar() {
       dropDownList: [],
       path: "team-activity",
     },
-  ];
+  ]:[    { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
+  {
+    value: "Prospect Lists",
+    img: icon1,
+    path: "project-list",
+    dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
+  },
+  { value: "Messaging", img: icon2, dropDownList: [], path: "user-access" }
+];
 
   return (
     <>
