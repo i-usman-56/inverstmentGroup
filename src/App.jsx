@@ -18,6 +18,7 @@ import ProspectNotes from "./pages/ProspectNotes/ProspectNotes";
 import EditUser from "./pages/EditUser/EditUser";
 import useAuth from "./hooks/useAuth";
 import DashBoardHomeScreen from "./pages/HomeScreen/Home";
+import CreateProspectScreen from "./pages/CreateProspects/CreateProspects";
 
 
 
@@ -47,8 +48,8 @@ function App() {
     {
       path: "/admin",
       element: (
-        <>  
-        <DashBoardHomeScreen/>
+        <>
+          <DashBoardHomeScreen />
           {/* <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF]  bg-gradient-to-b">
             <Navbar />
             <HomeScreen />
@@ -145,7 +146,7 @@ function App() {
         </>
       ),
     },
-  
+
     {
       path: "/prospect-notes",
       element: (
@@ -160,7 +161,7 @@ function App() {
         </>
       ),
     },
-  
+
     {
       path: "/newuser",
       element: (
@@ -175,8 +176,25 @@ function App() {
         </>
       ),
     },
+
     {
-    path: "/edituser",
+      path: "/createprospect",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <CreateProspectScreen />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
+
+
+    {
+      path: "/edituser",
       element: (
         <>
           <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
@@ -190,6 +208,7 @@ function App() {
       ),
     },
   ]);
+
   return (
     <main className="overflow-y-scroll min-h-screen">
       <RouterProvider router={router} />
