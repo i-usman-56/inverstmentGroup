@@ -32,7 +32,7 @@ export const useSignUp = () => {
         // localStorage.setItem("userData", JSON.stringify(data));
         // localStorage.setItem("token", JSON.stringify(data.token));
         toast.success("signupsuccesfull");
-        // navigate("/admin");
+        navigate("/login");
       },
       onError: (error) => {
         toast.error(error.response.data.message);
