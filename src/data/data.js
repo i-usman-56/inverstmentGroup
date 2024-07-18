@@ -444,3 +444,61 @@ export   const RecentPayoutData = [
     serviceSold: "1 on 1 Mentorship",
   },
 ];
+export const NewProspectHomeScreen = [
+  {
+    id: 2,
+    Client: "Chris Richardson",
+    source:"Instagram",
+    status: "Open",
+    lead:true,
+    interest:"1 on 1 Mentorship"
+  },
+  {
+    id: 2,
+    Client: "Victor Watkins",
+    source:"Instagram",
+    status: "Closed",
+    lead:false,
+    interest:"Funding"
+  },
+  {
+    id: 3,
+    Client: "Ruby Martin",
+    source:"Instagram",
+    status: "Open",
+    lead:false,
+    interest:"Funding"
+  },
+  {
+    id: 4,
+    Client: "Charles Elliott",
+    source:"Facebook",
+    status: "Closed",
+    lead:false,
+    interest:"Funding"
+  },
+  {
+    id: 5,
+    Client: "Samuel Oliver",
+    source:"TypeForm A",
+    status: "Closed",
+    lead:false,
+    interest:"Funding"
+  },
+  {
+    id: 6,
+    Client: "Rosetta Nunez",
+    source:"TypeForm A",
+    status: "Closed",
+    lead:false,
+    interest:"Funding"
+  },
+  {
+    id: 7,
+    Client: "Scott Santos",
+    source:"TypeForm A",
+    status: "Closed",
+    lead:false,
+    interest:"Funding"
+  },
+]

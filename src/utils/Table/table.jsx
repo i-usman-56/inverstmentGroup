@@ -34,7 +34,7 @@ const withTable = (WrappedComponent) => {
 
     return (
       <div className="lg:px-[2px] md:px-8">
-        {buttonLabel || title && (
+    
           <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
             {title && (
               <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
@@ -47,7 +47,7 @@ const withTable = (WrappedComponent) => {
               </button>
             )}
           </div>
-        )}
+      
         <div className={`overflowContainer mx-[22px] lg:mx-0 mt-[24px]  lg:mt-[40px] xl:mt-[75px] `}>
           <div className="lg:w-full w-[925px] lg:pl-8 xl:pl-20" >
             <div className="flex w-full mb-[12px] lg:mb-[16px]">

@@ -19,12 +19,17 @@ import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // import react-datepicker styl
 import useAdmin from "../../hooks/useRole";
+import { getProspects } from "../../services/prospects";
 
 export default function Navbar() {
   const isAdmin =useAdmin()
-  if (isAdmin) {
-    console.log(`Admin ${isAdmin}`)
-  }
+  // if (isAdmin) {
+  //   console.log(`Admin ${isAdmin}`)
+  // }
+  // const {isSuccess:PropectsSuccess}=getProspects()
+  // if (PropectsSuccess) {
+  //   console.log("Data")
+  // }
   // console.log(`Admin`)
   // console.log(isAdmin)
   const navigate = useNavigate();

@@ -12,7 +12,7 @@ export const useLogin = () => {
         mutationFn: loginUser,
       onSuccess: (data) => {
         localStorage.setItem("userData", JSON.stringify(data));
-        localStorage.setItem("token", JSON.stringify(data.token));
+        sessionStorage.setItem("token", JSON.stringify(data.token));
         toast.success("Login successful");
         navigate("/admin");
       },

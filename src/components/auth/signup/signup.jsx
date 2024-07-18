@@ -7,13 +7,12 @@ import InputFields from "./components/InputFeilds";
 import LoginButton from "./components/LoginButton";
 import FooterMobile from "./components/footer/Footer";
 import { useSignUp } from "../../../services/auth";
+import { getProspects } from "../../../services/prospects";
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const {mutate,isSuccess}=useSignUp();
-  if (isSuccess) {
-    navigate('/admin')
-  }
+
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
