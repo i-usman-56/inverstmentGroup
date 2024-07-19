@@ -23,8 +23,11 @@ const CreateProspectScreen = () => {
     prospect_email: "",
     prospect_source: "",
     interest: "",
+    assignedTo: "",
+    scheduleTaskDate: "",
     status: "",
     closingstatus: "",
+    paymentAmount: 0,
   });
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState('');
@@ -98,20 +101,24 @@ const CreateProspectScreen = () => {
   const { mutate, isLoading, isSuccess } = useProspects();
 
   const handleSubmit = (e) => {
-    if (validateForm()) {
-      console.log(form);
-      // mutate(form)
-    }
+    debugger
+    // if (validateForm()) {
+    //   console.log(form);
+    //   // mutate(form)
+    // }
     e.preventDefault();
     const token = JSON.parse(sessionStorage.getItem("token"));
     // Validate form data
     if (
-      formData.prospect_phone &&
+      formData.prospect_phone&&
       formData.prospect_email &&
       formData.prospect_source &&
       formData.interest &&
       formData.status &&
-      formData.closingstatus
+      formData.closingstatus&&
+      formData.assignedTo&&
+      formData.paymentAmount&&
+      formData.scheduleTaskDate
     ) {
       mutate({ values: formData, token });
       console.log({
@@ -248,8 +255,8 @@ const CreateProspectScreen = () => {
                 </label>
                 <input
                   type="text"
-                  name="fullName"
-                  value={form.fullName}
+                  name="assignedTo"
+                  value={formData.assignedTo}
                   onChange={handleChange}
                   className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
                     errors.email
@@ -262,24 +269,24 @@ const CreateProspectScreen = () => {
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
-                  className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
-                  htmlFor="paymentAmount"
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
                 >
-                  PAYMENT AMOUNT:
+                    PAYMENT AMOUNT:
                 </label>
-                <select
-                  className={`custom-select ${
-                    errors.email ? "error-border" : ""
-                  }`}
+                <input
+                  type="number"
                   name="paymentAmount"
-                  id="paymentAmount"
-                >
-                  {paymentOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                  value={formData.paymentAmount}
+                  onChange={handleChange}
+                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
+                />
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
@@ -328,13 +335,13 @@ const CreateProspectScreen = () => {
                   className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
                   htmlFor=""
                 >
-                  Assign to:
+                  scheduled tasks:
                 </label>
                 <input
                   type="date"
-                  name="fullName"
-                  value={form.fullName}
-                  onChange={handleChange1}
+                  name="scheduleTaskDate"
+                  value={formData.scheduleTaskDate}
+                  onChange={handleChange}
                   className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
                     errors.email
                       ? "border-red-500 focus:border-red-500"
