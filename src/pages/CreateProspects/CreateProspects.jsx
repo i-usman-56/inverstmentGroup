@@ -3,9 +3,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import phonecall from "../../assets/svg/ic_round-local-phone.svg";
 import googlemeet from "../../assets/svg/flat-color-icons_google.svg";
 import phone2 from "../../assets/svg/phone2.svg";
+import avatar from "../../assets/img/avatar.png";
 import "./style.css";
 import { useProspects } from "../../services/prospects";
 import { IoIosArrowBack } from "react-icons/io";
+import { Image } from "antd";
 
 const paymentOptions = [
   { value: "", label: "Select Amount" }, // Placeholder option
@@ -24,6 +26,15 @@ const CreateProspectScreen = () => {
     status: "",
     closingstatus: "",
   });
+  const [notes, setNotes] = useState([]);
+  const [currentNote, setCurrentNote] = useState('');
+
+  const handleAddNote = () => {
+    if (currentNote.trim() !== '') {
+      setNotes([...notes, currentNote]);
+      setCurrentNote('');
+    }
+  };
   const [form, setForm] = useState({
     fullName: "",
     email: "john@example.com",
@@ -84,8 +95,8 @@ const CreateProspectScreen = () => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   };
-  const { mutate, isLoading ,isSuccess } = useProspects();
-  
+  const { mutate, isLoading, isSuccess } = useProspects();
+
   const handleSubmit = (e) => {
     if (validateForm()) {
       console.log(form);
@@ -393,28 +404,46 @@ const CreateProspectScreen = () => {
               </div>
             </form>
           </div>
-          <div className=" hidden w-[35%] lg:pl-4 xl:pl-12  lg:flex flex-col pt-0 ">
-            <div>
-              <h1 className="text-[18px] text-[#0250E6] font-medium">Note</h1>
+          <div className="hidden w-[35%] lg:pl-4 xl:pl-12 lg:flex flex-col pt-0">
+      <div>
+        <h1 className="text-[18px] text-[#0250E6] font-medium">Note</h1>
+      </div>
+      <div className="h-[500px] overflow-y-auto no-scrollbar">
+        {notes.map((note, index) => (
+          <div key={index} className="pt-[65px]">
+            <div className="flex items-center gap-3">
+              <h1>Me</h1>
+              <img
+                src={avatar}
+                alt="avatar"
+                className="w-[30px] flex justify-center items-center h-[30px] rounded-[50%]"
+              />
             </div>
-            <div className="h-[500px]"></div>
-            <div className="flex flex-col gap-4  ">
-              <textarea
-                name=""
-                id=""
-                placeholder="Add Note Here"
-                className={`  bg-[#FFFFFF] w-full border-[1px] border-[#00000089] h-[79px] p-4  rounded-sm outline-none focus:outline-none  text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold `}
-              ></textarea>
-              <div className="flex justify-center">
-                <button
-                  className="bg-gradient-to-r uppercase w-fit h-[35px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
-                  // onClick={onClick}
-                >
-                  Add NOte
-                </button>
-              </div>
+            <div className="mt-[12px]">
+              <p className="text-[14px] w-[100%] leading-4 break-words font-normal">{note}</p>
             </div>
           </div>
+        ))}
+      </div>
+      <div className="flex flex-col gap-4 mt-4">
+        <textarea
+          name="note"
+          id="note"
+          placeholder="Add Note Here"
+          value={currentNote}
+          onChange={(e) => setCurrentNote(e.target.value)}
+          className="bg-[#FFFFFF] w-full border-[1px] border-[#00000089] h-[79px] p-4 rounded-sm outline-none focus:outline-none text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold"
+        ></textarea>
+        <div className="flex justify-center">
+          <button
+            className="bg-gradient-to-r uppercase w-fit h-[35px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+            onClick={handleAddNote}
+          >
+            Add Note
+          </button>
+        </div>
+      </div>
+    </div>
         </div>
       </div>
     </>

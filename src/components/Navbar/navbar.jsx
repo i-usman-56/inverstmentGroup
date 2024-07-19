@@ -22,7 +22,7 @@ import useAdmin from "../../hooks/useRole";
 import { getProspects } from "../../services/prospects";
 
 export default function Navbar() {
-  const isAdmin =useAdmin()
+  const isAdmin = useAdmin();
   // if (isAdmin) {
   //   console.log(`Admin ${isAdmin}`)
   // }
@@ -61,31 +61,44 @@ export default function Navbar() {
     setOpenDropdown(openDropdown === index ? null : index);
   };
 
-  const sidebarMenu = isAdmin? [
-    { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
-    {
-      value: "Prospect Lists",
-      img: icon1,
-      path: "project-list",
-      dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
-    },
-    { value: "Admin Panel", img: icon2, dropDownList: [], path: "user-access" },
-    { value: "Finances", img: icon4, dropDownList: [], path: "finace" },
-    {
-      value: "Team Activity",
-      img: icon3,
-      dropDownList: [],
-      path: "team-activity",
-    },
-  ]:[    { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
-  {
-    value: "Prospect Lists",
-    img: icon1,
-    path: "project-list",
-    dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
-  },
-  { value: "Messaging", img: icon2, dropDownList: [], path: "user-access" }
-];
+  const sidebarMenu = isAdmin
+    ? [
+        { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
+        {
+          value: "Prospect Lists",
+          img: icon1,
+          path: "project-list",
+          dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
+        },
+        {
+          value: "Admin Panel",
+          img: icon2,
+          dropDownList: [],
+          path: "user-access",
+        },
+        { value: "Finances", img: icon4, dropDownList: [], path: "finace" },
+        {
+          value: "Team Activity",
+          img: icon3,
+          dropDownList: [],
+          path: "team-activity",
+        },
+      ]
+    : [
+        { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
+        {
+          value: "Prospect Lists",
+          img: icon1,
+          path: "project-list",
+          dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
+        },
+        {
+          value: "Messaging",
+          img: icon2,
+          dropDownList: [],
+          path: "user-access",
+        },
+      ];
 
   return (
     <>
@@ -123,7 +136,7 @@ export default function Navbar() {
             <DatePicker ref={dateInputRef} className="hidden" />
           </div>
         </div>
-        <div className="flex justify-center pt-6">
+        <div className="flex justify-center pt-6 gap-6">
           <div className="border-2 lg:py-3 xl:py-5 flex px-6 gap-12 rounded-lg border-[#FFFFFF]">
             {sidebarMenu.map((menuItem, index) => (
               <div key={index} className="relative items-center">
@@ -160,7 +173,19 @@ export default function Navbar() {
                 )}
               </div>
             ))}
-            
+          </div>
+          <div className="border-2 lg:py-3 xl:py-5 flex px-6 gap-12 rounded-lg border-[#FFFFFF]">
+            <div className="relative flex justify-center  items-center">
+              <Link to="/createprospect">
+                <div className="justify-center flex flex-row-reverse gap-2 space-y-2.5 items-center">
+                  <img src={icon1} alt="" className="cursor-pointer" />
+
+                  <p className="text-[#FFFFFF] uppercase flex items-center cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
+                    Add Propects
+                  </p>
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
