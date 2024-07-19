@@ -1,35 +1,21 @@
 import { useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import phonecall from "../../assets/svg/ic_round-local-phone.svg";
 import googlemeet from "../../assets/svg/flat-color-icons_google.svg";
 import phone2 from "../../assets/svg/phone2.svg";
-import deleteIcon from "../../assets/svg/delete.svg";
-import exportIcon from "../../assets/svg/export.svg";
-import profileIcon from "../../assets/svg/profileIcon.svg";
+import "./style.css";
 import { useProspects } from "../../services/prospects";
+import { IoIosArrowBack } from "react-icons/io";
 
-const CustomDropdown = ({ options, placeholder, onChange, value }) => {
-  return (
-    <select
-      onChange={onChange}
-      value={value}
-      className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-    >
-      <option value="" disabled>
-        {placeholder}
-      </option>
-      {options.map((option, index) => (
-        <option key={index} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  );
-};
+const paymentOptions = [
+  { value: "", label: "Select Amount" }, // Placeholder option
+  { value: "100", label: "$100" },
+  { value: "200", label: "$200" },
+  { value: "300", label: "$300" },
+  // Add more options as needed
+];
 
 const CreateProspectScreen = () => {
-  const [scheduledDate, setScheduledDate] = useState(new Date());
   const [formData, setFormData] = useState({
     prospect_phone: "",
     prospect_email: "",
@@ -38,25 +24,53 @@ const CreateProspectScreen = () => {
     status: "",
     closingstatus: "",
   });
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "john@example.com",
+    password: "password123",
+  });
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
 
+    if (form.email === "") {
+      valid = false;
+      newErrors.email = "Email is required.";
+    }
+
+    if (form.password === "") {
+      valid = false;
+      newErrors.password = "Password is required.";
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
   const closingStatusOptions = [
-    "New Prospect",
-    "First Call",
-    "First Call Scheduled",
-    "First Meeting Scheduled",
-    "No Show (Follow Up)",
-    "No Show (Dead Lead)",
-    "Call Scheduled",
-    "Meeting Scheduled",
-    "Closing Call Scheduled",
-    "Closing Meeting Scheduled",
-    "Interested (No Commitment)",
-    "Interested (Commitment)",
-    "Dead",
-    "Closed",
+    { title: "New Prospect", value: "new-prospect" },
+    { title: "First Call", value: "first-call" },
+    { title: "First Call Scheduled", value: "first-call-scheduled" },
+    { title: "First Meeting Scheduled", value: "first-meeting-scheduled" },
+    { title: "No Show (Follow Up)", value: "no-show-follow-up" },
+    { title: "No Show (Dead Lead)", value: "no-show-dead-lead" },
+    { title: "Call Scheduled", value: "call-scheduled" },
+    { title: "Meeting Scheduled", value: "meeting-scheduled" },
+    { title: "Closing Call Scheduled", value: "closing-call-scheduled" },
+    { title: "Closing Meeting Scheduled", value: "closing-meeting-scheduled" },
+    { title: "Interested (No Commitment)", value: "interested-no-commitment" },
+    { title: "Interested (Commitment)", value: "interested-commitment" },
+    { title: "Dead", value: "dead" },
+    { title: "Closed", value: "closed" },
   ];
 
-  const prospectStatusOptions = ["Unassigned Prospect", "Assigned To You"];
+  const prospectStatusOptions = [
+    { title: "Unassigned Prospect", value: "unassigned-prospect" },
+    { title: "Assigned To You", value: "assigned-to-you" },
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,8 +79,18 @@ const CreateProspectScreen = () => {
       [name]: value,
     });
   };
-  const { mutate, isLoading } = useProspects();
+
+  const handleChange1 = (event) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
+  };
+  const { mutate, isLoading ,isSuccess } = useProspects();
+  
   const handleSubmit = (e) => {
+    if (validateForm()) {
+      console.log(form);
+      // mutate(form)
+    }
     e.preventDefault();
     const token = JSON.parse(sessionStorage.getItem("token"));
     // Validate form data
@@ -88,226 +112,312 @@ const CreateProspectScreen = () => {
   };
 
   return (
-    <div className="container mx-auto my-8 p-4 bg-white rounded-lg shadow-lg">
-      <div className="flex justify-between items-center border-b pb-4">
-        <h1 className="text-2xl font-semibold text-[#0250E6]">Tommy Fury</h1>
-        <div className="flex">
-          <button className="text-black px-4 py-2 rounded-lg  flex items-center justify-center">
-            Mark as Closed
+    <>
+      <div
+        style={{ boxShadow: "0 5px 15px 0 rgba(0, 0, 0, 0.05)" }}
+        className="bg-[#FFFFFF]  lg:mb-[120px]  lg:mx-[55px] xl:mx-[75px]   rounded-t-md mt-[64px] lg:mt-[78px] lg:rounded-md"
+      >
+        <div className="flex  justify-between py-7 px-2 md:px-6  lg:p-10 lg:items-center">
+          <div className="flex items-center gap-2 md:gap-6 lg:gap-8">
+            <button>
+              <IoIosArrowBack className="text-[#0250E6] xl:text-[30px] text-[25px] md:text-[18px]  lg:text-[24px]" />
+            </button>
             <input
-              type="radio"
-              name="radio"
-              className="w-[18px] h-[18px] ml-2 items-center justify-center"
+              type="text"
+              name="fullName"
+              value={form.fullName}
+              onChange={handleChange1}
+              className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[150px] md:w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                errors.email
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-[2px] border-[#0250E6] "
+              }`}
+              placeholder="Enter Full Name"
+              style={{ color: "#3C3C3C" }}
             />
-            <img src={exportIcon} alt="Export" className="ml-2 w-4 h-4" />
-            <img src={deleteIcon} alt="Delete" className="ml-2 w-4 h-4" />
-          </button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-        {/* Prospect Details */}
-        <div className="col-span-2 pr-4 border-r-2">
-          <form className="space-y-6 mb-5" onSubmit={handleSubmit}>
-            <div className="flex items-center">
-              <label className="w-40">PROSPECT PHONE:</label>
-              <input
-                type="tel"
-                name="prospect_phone"
-                value={formData.prospect_phone}
-                onChange={handleChange}
-                placeholder="ENTER PHONE NUMBER"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">PROSPECT EMAIL:</label>
-              <input
-                type="email"
-                name="prospect_email"
-                value={formData.prospect_email}
-                onChange={handleChange}
-                placeholder="ENTER EMAIL"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">PROSPECT SOURCE:</label>
-              <input
-                type="text"
-                name="prospect_source"
-                value={formData.prospect_source}
-                onChange={handleChange}
-                placeholder="ENTER YOUR NAME"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">INTERESTED IN:</label>
-              <input
-                type="text"
-                name="interest"
-                value={formData.interest}
-                onChange={handleChange}
-                placeholder="ENTER CLIENT INTEREST"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">ASSIGN TO:</label>
-              <input
-                type="text"
-                name="assignTo"
-                value={formData.assignTo}
-                onChange={handleChange}
-                placeholder="ASSIGN TO AGENT"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">PAYMENT AMOUNT:</label>
-              <input
-                type="text"
-                name="paymentAmount"
-                value={formData.paymentAmount}
-                onChange={handleChange}
-                placeholder="ENTER AMOUNT"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">PROSPECT STATUS:</label>
-              <CustomDropdown
-                options={prospectStatusOptions}
-                placeholder="SELECT STATUS"
-                onChange={(e) =>
-                  setFormData({ ...formData, status: e.target.value })
-                }
-                value={formData.status}
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">CLOSING STATUS:</label>
-              <CustomDropdown
-                options={closingStatusOptions}
-                placeholder="SELECT STATUS"
-                onChange={(e) =>
-                  setFormData({ ...formData, closingstatus: e.target.value })
-                }
-                value={formData.closingstatus}
-              />
-            </div>
-            <div className="flex items-center">
-              <label className="w-40">SCHEDULED TASKS:</label>
-              <DatePicker
-                selected={scheduledDate}
-                onChange={(date) => setScheduledDate(date)}
-                dateFormat="dd/MM/yy"
-                className="border-blue-500 border-2 ml-4 px-2 py-0 rounded"
-              />
-            </div>
-            <div className="flex justify-center">
+          </div>
+          <div>
             <button
-                type="submit"
-                disabled={isLoading}
-                className="text-white flex justify-center px-4 py-2 gap-0.5 rounded-lg mt-2 text-center items-center"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-                }}
-              >
-                {isLoading ? (
-                  <span className="border-2 border-red-500 animate-spin w-[14px] h-[14px] rounded-[50%]"></span>
-                ) : <p>Submit</p> }
-                
-              </button>
-            </div>
-          </form>
-
-          <div className="flex flex-col lg:flex-row items-center justify-center lg:space-y-0 space-y-3 gap-3 mt-3">
-            <button
-              className="text-white px-2 py-2 rounded items-center justify-center flex"
-              style={{
-                background: "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-              }}
+              className="bg-gradient-to-r uppercase h-[40px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+              onClick={handleSubmit}
             >
-              <span className="flex items-center font-semibold">
-                SCHEDULE GOOGLE MEETS
-                <img
-                  src={googlemeet}
-                  alt="Google Meet"
-                  className="ml-2 h-5 w-5"
+              Save Prospect
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-center lg:justify-start items-center  border-t  lg:px-10 border-t-[#00000052] ">
+          <div className="lg:w-[65%] lg:pl-0 xl:pl-12 pt-10 pb-20 lg:border-r lg:border-r-[#00000052] ">
+            <form action="submit">
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4 lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Prospects Phone:
+                </label>
+                <input
+                  type="text"
+                  name="prospect_phone"
+                  value={formData.prospect_phone}
+                  onChange={handleChange}
+                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
                 />
-              </span>
-            </button>
-            <button
-              className=" text-white lg:px-6 px-12 py-2 rounded flex items-center"
-              style={{
-                background: "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-              }}
-            >
-              <span className="flex items-center font-semibold">
-                SCHEDULE CALL
-              </span>
-              <img src={phonecall} alt="Google Meet" className="ml-2 h-5 w-5" />
-            </button>
-            <button
-              className=" text-white lg:px-6 px-9 py-2 rounded  flex items-center"
-              style={{
-                background: "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-              }}
-            >
-              <span className="flex items-center font-semibold">
-                CALL NOW IN DIALER
-              </span>
-              <img src={phone2} alt="Google Meet" className="ml-2 h-3 w-3" />
-            </button>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4 lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Prospects Email:
+                </label>
+                <input
+                  type="email"
+                  name="prospect_email"
+                  value={formData.prospect_email}
+                  onChange={handleChange}
+                  className={`  bg-[#FFFFFF]  border-[2px] border-[#0250E6] rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Prospects source:
+                </label>
+                <input
+                  type="text"
+                  name="prospect_source"
+                  value={formData.prospect_source}
+                  onChange={handleChange}
+                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Interested in:
+                </label>
+                <input
+                  type="text"
+                  name="interest"
+                  value={formData.interest}
+                  onChange={handleChange}
+                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Assign to:
+                </label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={form.fullName}
+                  onChange={handleChange}
+                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor="paymentAmount"
+                >
+                  PAYMENT AMOUNT:
+                </label>
+                <select
+                  className={`custom-select ${
+                    errors.email ? "error-border" : ""
+                  }`}
+                  name="paymentAmount"
+                  id="paymentAmount"
+                >
+                  {paymentOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor="paymentAmount"
+                >
+                  prospect status:
+                </label>
+                <select
+                  className={`custom-select`}
+                  name="status"
+                  id="paymentAmount"
+                  value={formData.status}
+                  onChange={handleChange}
+                >
+                  {prospectStatusOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor="paymentAmount"
+                >
+                  closing status:
+                </label>
+                <select
+                  className={`custom-select `}
+                  name="closingstatus"
+                  id="paymentAmount"
+                  value={formData.closingstatus}
+                  onChange={handleChange}
+                >
+                  {closingStatusOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Assign to:
+                </label>
+                <input
+                  type="date"
+                  name="fullName"
+                  value={form.fullName}
+                  onChange={handleChange1}
+                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
+                  placeholder="Enter Full Name"
+                  style={{ color: "#3C3C3C" }}
+                />
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
+                <label
+                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  htmlFor=""
+                >
+                  Create Action:
+                </label>
+              </div>
+              <div className="flex flex-col lg:flex-row pt-6  items-center justify-center lg:space-y-0 space-y-3 gap-3">
+                <button
+                  className="text-white px-2 py-2 rounded items-center justify-center flex"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
+                  }}
+                >
+                  <span className="flex items-center font-semibold">
+                    SCHEDULE GOOGLE MEETS
+                    <img
+                      src={googlemeet}
+                      alt="Google Meet"
+                      className="ml-2 h-5 w-5"
+                    />
+                  </span>
+                </button>
+                <button
+                  className=" text-white lg:px-6 px-12 py-2 rounded flex items-center"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
+                  }}
+                >
+                  <span className="flex items-center font-semibold">
+                    SCHEDULE CALL
+                  </span>
+                  <img
+                    src={phonecall}
+                    alt="Google Meet"
+                    className="ml-2 h-5 w-5"
+                  />
+                </button>
+                <button
+                  className=" text-white lg:px-6 px-9 py-2 rounded  flex items-center"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
+                  }}
+                >
+                  <span className="flex items-center font-semibold">
+                    CALL NOW IN DIALER
+                  </span>
+                  <img
+                    src={phone2}
+                    alt="Google Meet"
+                    className="ml-2 h-3 w-3"
+                  />
+                </button>
+              </div>
+            </form>
           </div>
-        </div>
-
-        {/* Notes Section */}
-        <div className="hidden lg:block col-span-1">
-          <div className="p-4">
-            <h2 className="text-lg font-semibold text-[#0250E6]">NOTES</h2>
-            <div className="border-b py-2">
-              <span className="font-semibold flex">
-                Me:
-                <img src={profileIcon} alt="profileIcon" className="ml-2" />
-              </span>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                euismod, nisi nec suscipit fermentum.
-              </p>
+          <div className=" hidden w-[35%] lg:pl-4 xl:pl-12  lg:flex flex-col pt-0 ">
+            <div>
+              <h1 className="text-[18px] text-[#0250E6] font-medium">Note</h1>
             </div>
-            <div className="border-b py-2">
-              <span className="font-semibold flex">
-                Me:
-                <img src={profileIcon} alt="profileIcon" className="ml-2" />
-              </span>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                euismod, nisi nec suscipit fermentum.
-              </p>
-            </div>
-            <textarea
-              placeholder="Add Notes Here"
-              className="w-full p-2 mt-4 border rounded-lg"
-            ></textarea>
-            <div className="flex justify-center">
-              <button
-                className="text-white px-4 py-2 rounded-lg mt-2 text-center flex"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-                }}
-              >
-                ADD NOTE
-              </button>
+            <div className="h-[500px]"></div>
+            <div className="flex flex-col gap-4  ">
+              <textarea
+                name=""
+                id=""
+                placeholder="Add Note Here"
+                className={`  bg-[#FFFFFF] w-full border-[1px] border-[#00000089] h-[79px] p-4  rounded-sm outline-none focus:outline-none  text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold `}
+              ></textarea>
+              <div className="flex justify-center">
+                <button
+                  className="bg-gradient-to-r uppercase w-fit h-[35px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+                  // onClick={onClick}
+                >
+                  Add NOte
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -41,7 +41,7 @@ export const useProspects = () => {
     mutationFn: createProspects,
     onSuccess: (data) => {
  
-      toast.success("signupsuccesfull");
+      toast.success("Created SuccessFully ");
       console.log(data);
     },
     onError: (error) => {

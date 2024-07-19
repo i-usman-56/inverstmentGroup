@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function InputFields({ type, name, title, value, onChange, error, autocomplete }) {
+export default function InputFields({ type, name, title, value, onChange, error, autocomplete,bgwhite }) {
   return (
     <div>
       <input
@@ -8,7 +8,7 @@ export default function InputFields({ type, name, title, value, onChange, error,
         name={name}
         value={value}
         onChange={onChange}
-        className={`bg-[#F3F3F3] rounded-sm outline-none focus:outline-none h-[40px] w-full pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+        className={` ${bgwhite?'bg-white':'bg-[#F3F3F3]'} rounded-sm outline-none focus:outline-none h-[40px] w-full pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
           error ? "border-red-500 focus:border-red-500" : "border-transparent focus:border-black"
         } border-2`}
         placeholder={title}

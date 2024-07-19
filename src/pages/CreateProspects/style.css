@@ -1,0 +1,32 @@
+.select-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #FFFFFF;
+    border: 2px solid #0250E6;
+    border-radius: 0.125rem;
+    height: 40px;
+    width: 350px;
+    padding-left: 20px;
+    padding-right: 40px; /* Enough space for the arrow */
+    font-size: 14px;
+    font-weight: bold;
+    color: #3C3C3C;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%230250E6" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  
+  .custom-select:focus {
+    outline: none;
+  }
+  
+  .error-border {
+    border-color: red;
+  }
+  
