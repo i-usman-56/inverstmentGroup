@@ -7,18 +7,12 @@ import avatar from "../../assets/img/avatar.png";
 import "./style.css";
 import { useProspects } from "../../services/prospects";
 import { IoIosArrowBack } from "react-icons/io";
-import { Image } from "antd";
-
-const paymentOptions = [
-  { value: "", label: "Select Amount" }, // Placeholder option
-  { value: "100", label: "$100" },
-  { value: "200", label: "$200" },
-  { value: "300", label: "$300" },
-  // Add more options as needed
-];
+import { useQuery } from "@tanstack/react-query";
+import { getAllUser } from "../../services/auth";
 
 const CreateProspectScreen = () => {
   const [formData, setFormData] = useState({
+    client_name:"",
     prospect_phone: "",
     prospect_email: "",
     prospect_source: "",
@@ -30,12 +24,24 @@ const CreateProspectScreen = () => {
     paymentAmount: 0,
   });
   const [notes, setNotes] = useState([]);
-  const [currentNote, setCurrentNote] = useState('');
-
+  const [currentNote, setCurrentNote] = useState("");
+  const { data, error } = useQuery({
+    queryKey: ["alluser"],
+    queryFn: getAllUser,
+  });
+  console.log(data?.users);
+  const transformedData = [{ _id: null, title: "Assign to Agent" }].concat(
+    Array.isArray(data?.users) ? data.users.map((user) => ({
+      _id: user._id,
+      title: `${user.firstName} ${user.lastName}`,
+    })) : []
+  );
+  
+  
   const handleAddNote = () => {
-    if (currentNote.trim() !== '') {
+    if (currentNote.trim() !== "") {
       setNotes([...notes, currentNote]);
-      setCurrentNote('');
+      setCurrentNote("");
     }
   };
   const [form, setForm] = useState({
@@ -47,24 +53,9 @@ const CreateProspectScreen = () => {
     email: "",
     password: "",
   });
-  const validateForm = () => {
-    let valid = true;
-    let newErrors = {};
 
-    if (form.email === "") {
-      valid = false;
-      newErrors.email = "Email is required.";
-    }
-
-    if (form.password === "") {
-      valid = false;
-      newErrors.password = "Password is required.";
-    }
-
-    setErrors(newErrors);
-    return valid;
-  };
   const closingStatusOptions = [
+    { title: "Select Status", value: "" },
     { title: "New Prospect", value: "new-prospect" },
     { title: "First Call", value: "first-call" },
     { title: "First Call Scheduled", value: "first-call-scheduled" },
@@ -82,11 +73,13 @@ const CreateProspectScreen = () => {
   ];
 
   const prospectStatusOptions = [
+    { title: "Select Status", value: "" },
     { title: "Unassigned Prospect", value: "unassigned-prospect" },
     { title: "Assigned To You", value: "assigned-to-you" },
   ];
 
   const handleChange = (e) => {
+    debugger
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -98,32 +91,33 @@ const CreateProspectScreen = () => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
   };
-  const { mutate, isLoading, isSuccess } = useProspects();
+  const { mutate, isLoading, isSuccess, status } = useProspects();
+  console.log(isLoading);
 
   const handleSubmit = (e) => {
-    debugger
-    // if (validateForm()) {
-    //   console.log(form);
-    //   // mutate(form)
-    // }
+    debugger;
     e.preventDefault();
     const token = JSON.parse(sessionStorage.getItem("token"));
     // Validate form data
     if (
-      formData.prospect_phone&&
+      formData.client_name &&
+      formData.prospect_phone &&
       formData.prospect_email &&
       formData.prospect_source &&
       formData.interest &&
       formData.status &&
-      formData.closingstatus&&
-      formData.assignedTo&&
-      formData.paymentAmount&&
-      formData.scheduleTaskDate
+      formData.closingstatus &&
+      // formData.assignedTo &&
+      formData.paymentAmount
+      // formData.scheduleTaskDate
     ) {
+      if (!formData.assignedTo) {
+        delete formData.assignedTo;
+      }
       mutate({ values: formData, token });
-      console.log({
-        ...formData,
-      });
+      // console.log({
+      //   ...formData,
+      // });
     } else {
       alert("Please fill out all fields.");
     }
@@ -142,9 +136,9 @@ const CreateProspectScreen = () => {
             </button>
             <input
               type="text"
-              name="fullName"
-              value={form.fullName}
-              onChange={handleChange1}
+              name="client_name"
+              value={formData.client_name}
+              onChange={handleChange}
               className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[150px] md:w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
                 errors.email
                   ? "border-red-500 focus:border-red-500"
@@ -158,8 +152,9 @@ const CreateProspectScreen = () => {
             <button
               className="bg-gradient-to-r uppercase h-[40px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
               onClick={handleSubmit}
+              disabled={status === "pending"}
             >
-              Save Prospect
+              {status === "pending" ? "Saving...." : "Save Prospect"}
             </button>
           </div>
         </div>
@@ -183,7 +178,7 @@ const CreateProspectScreen = () => {
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
-                  placeholder="Enter Full Name"
+                  placeholder="Enter Phone Number"
                   style={{ color: "#3C3C3C" }}
                 />
               </div>
@@ -200,7 +195,7 @@ const CreateProspectScreen = () => {
                   value={formData.prospect_email}
                   onChange={handleChange}
                   className={`  bg-[#FFFFFF]  border-[2px] border-[#0250E6] rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold`}
-                  placeholder="Enter Full Name"
+                  placeholder="Enter Email"
                   style={{ color: "#3C3C3C" }}
                 />
               </div>
@@ -221,7 +216,7 @@ const CreateProspectScreen = () => {
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
-                  placeholder="Enter Full Name"
+                  placeholder="Enter Source"
                   style={{ color: "#3C3C3C" }}
                 />
               </div>
@@ -242,49 +237,49 @@ const CreateProspectScreen = () => {
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
-                  placeholder="Enter Full Name"
+                  placeholder="Enter Client Interest"
                   style={{ color: "#3C3C3C" }}
                 />
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
-                  className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
+                  className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
                   htmlFor=""
                 >
                   Assign to:
                 </label>
-                <input
-                  type="text"
+                <select
+                  className={`custom-select`}
                   name="assignedTo"
+                  id="assignedTo"
                   value={formData.assignedTo}
                   onChange={handleChange}
-                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                    errors.email
-                      ? "border-red-500 focus:border-red-500"
-                      : "border-[2px] border-[#0250E6] "
-                  }`}
-                  placeholder="Enter Full Name"
-                  style={{ color: "#3C3C3C" }}
-                />
+                >
+                  {transformedData?.map((option) => (
+                    <option key={option._id} value={option._id}>
+                      {option.title}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
                   className="text-[#0250E6]  w-[200px] text-[18px] uppercase font-semibold"
                   htmlFor=""
                 >
-                    PAYMENT AMOUNT:
+                  PAYMENT AMOUNT:
                 </label>
                 <input
                   type="number"
                   name="paymentAmount"
-                  value={formData.paymentAmount}
+                  value={formData.paymentAmount==0?null:formData.paymentAmount}
                   onChange={handleChange}
                   className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
                     errors.email
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
-                  placeholder="Enter Full Name"
+                  placeholder="Enter Payment Amount"
                   style={{ color: "#3C3C3C" }}
                 />
               </div>
@@ -412,45 +407,47 @@ const CreateProspectScreen = () => {
             </form>
           </div>
           <div className="hidden w-[35%] lg:pl-4 xl:pl-12 lg:flex flex-col pt-0">
-      <div>
-        <h1 className="text-[18px] text-[#0250E6] font-medium">Note</h1>
-      </div>
-      <div className="h-[500px] overflow-y-auto no-scrollbar">
-        {notes.map((note, index) => (
-          <div key={index} className="pt-[65px]">
-            <div className="flex items-center gap-3">
-              <h1>Me</h1>
-              <img
-                src={avatar}
-                alt="avatar"
-                className="w-[30px] flex justify-center items-center h-[30px] rounded-[50%]"
-              />
+            <div>
+              <h1 className="text-[18px] text-[#0250E6] font-medium">Note</h1>
             </div>
-            <div className="mt-[12px]">
-              <p className="text-[14px] w-[100%] leading-4 break-words font-normal">{note}</p>
+            <div className="h-[500px] overflow-y-auto no-scrollbar">
+              {notes.map((note, index) => (
+                <div key={index} className="pt-[65px]">
+                  <div className="flex items-center gap-3">
+                    <h1>Me</h1>
+                    <img
+                      src={avatar}
+                      alt="avatar"
+                      className="w-[30px] flex justify-center items-center h-[30px] rounded-[50%]"
+                    />
+                  </div>
+                  <div className="mt-[12px]">
+                    <p className="text-[14px] w-[100%] leading-4 break-words font-normal">
+                      {note}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4 mt-4">
+              <textarea
+                name="note"
+                id="note"
+                placeholder="Add Note Here"
+                value={currentNote}
+                onChange={(e) => setCurrentNote(e.target.value)}
+                className="bg-[#FFFFFF] w-full border-[1px] border-[#00000089] h-[79px] p-4 rounded-sm outline-none focus:outline-none text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold"
+              ></textarea>
+              <div className="flex justify-center">
+                <button
+                  className="bg-gradient-to-r uppercase w-fit h-[35px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+                  onClick={handleAddNote}
+                >
+                  Add Note
+                </button>
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-      <div className="flex flex-col gap-4 mt-4">
-        <textarea
-          name="note"
-          id="note"
-          placeholder="Add Note Here"
-          value={currentNote}
-          onChange={(e) => setCurrentNote(e.target.value)}
-          className="bg-[#FFFFFF] w-full border-[1px] border-[#00000089] h-[79px] p-4 rounded-sm outline-none focus:outline-none text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold"
-        ></textarea>
-        <div className="flex justify-center">
-          <button
-            className="bg-gradient-to-r uppercase w-fit h-[35px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
-            onClick={handleAddNote}
-          >
-            Add Note
-          </button>
-        </div>
-      </div>
-    </div>
         </div>
       </div>
     </>

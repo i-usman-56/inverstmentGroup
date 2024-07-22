@@ -55,3 +55,16 @@ export const useSignUp = () => {
     );
     return response.data;
   };
+
+
+  export const getAllUser = async () => {
+    debugger;
+    try {
+      const response = await axios.get(`${BASEURl}/user`);
+      // console.log(response.user)
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching prospects:", error);
+      throw error; // Re-throw the error for the calling code to handle
+    }
+  };

@@ -7,6 +7,11 @@ const useAdmin = () => {
 
   useEffect(() => {
     const data = localStorage.getItem('userData');
+    const token = sessionStorage.getItem('token');
+      if (!token) {
+      navigate('/login');
+      return;
+    }
     const parsedData = JSON.parse(data)
         if (!parsedData?.role) {
             navigate('/login')

@@ -1,10 +1,30 @@
 import axios from "axios";
 import { BASEURl } from "../constants/baseUrl";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-const token = JSON.parse(localStorage.getItem("token")); // Assuming token is stored in localStorage
+const GetNewProspects = async (token) => {
+  debugger;
+  try {
+    const response = await axiosInstance.get(`/prospects`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching prospects:", error);
+    throw error; // Re-throw the error for the calling code to handle
+  }
+};
 
+export const useGetCardData = (Token) => {
+  return useQuery({
+    queryKey: ["prospects"],
+    queryFn: () => GetNewProspects(Token),
+    staleTime: Infinity,
+    cacheTime: 0,
+  });
+};
 const axiosInstance = axios.create({
   baseURL: BASEURl, // Base URL from constants
   headers: {
@@ -27,6 +47,7 @@ export const getProspects = async (token, id) => {
   }
 };
 const createProspects = async ({ values, token }) => {
+  debugger
   const response = await axiosInstance.post(`/prospects`, values, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -37,8 +58,9 @@ const createProspects = async ({ values, token }) => {
 
 export const useProspects = () => {
   return useMutation({
-    mutationKey: "Prospect",
+    mutationKey: "prospects",
     mutationFn: createProspects,
+    
     onSuccess: (data) => {
  
       toast.success("Created SuccessFully ");

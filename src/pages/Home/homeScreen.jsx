@@ -1,12 +1,13 @@
 import Graph from "../../components/Graph/graph";
 import Tasks from "../../components/task/tasks";
-import Table from '../../components/team/components/table';
+import Table from "../../components/team/components/table";
 import "../../components/task/Task.css";
-import { getProspects } from "../../services/prospects";
+import { getProspects, useGetCardData } from "../../services/prospects";
 import { useQuery } from "@tanstack/react-query";
 import FillCircle from "../../components/notification/components/fillCircle";
 import EmptyCircle from "../../components/notification/components/emptyCircle";
 import { NewProspectHomeScreen } from "../../data/data";
+import { Link } from "react-router-dom";
 
 export default function HomeScreen() {
   const socialMediaColors = {
@@ -32,25 +33,29 @@ export default function HomeScreen() {
     WeChat: "#1AAD19",
     Quora: "#B92B27",
     Behance: "#1769FF",
-    TypeFormA:"#A500B3"
+    TypeFormA: "#A500B3",
   };
-  const token = JSON.parse(sessionStorage.getItem('token'));
-  const userID = JSON.parse(localStorage.getItem('userData'));
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const userID = JSON.parse(localStorage.getItem("userData"));
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: 'prospects',
+    queryKey: "prospects",
     queryFn: () => getProspects(token, userID._id),
-    
+    staleTime: Infinity,
+    cacheTime: 0,
     enabled: !!token,
     retry: 3,
     refetchOnMount: false,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
+  const _data = data && data.length > 0 ? data : null;
+  const { data: NewProspectData } = useGetCardData(token);
+  // console.log(NewProspectData)
 
   const columns1 = [
     {
       title: "Client",
-      dataIndex: "prospect_email",
-      key: "Client",
+      dataIndex: "client_name",
+      key: "client_name",
       render: (text) => (
         <div className="">
           <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
@@ -97,23 +102,38 @@ export default function HomeScreen() {
     },
     {
       title: "Events/Tasks",
-      dataIndex: "clientstatus",
-      key: "clientstatus",
-      render: (clientstatus) => (
-        <div>
-          <p>
-            {clientstatus ? <FillCircle /> : <EmptyCircle />}
-          </p>
-        </div>
-      ),
+      dataIndex: "scheduleTaskDate",
+      key: "scheduleTaskDate",
+      render: (scheduleTaskDate) => {
+        const date = new Date(scheduleTaskDate);
+        const formattedDate = scheduleTaskDate
+          ? `${("0" + (date.getMonth() + 1)).slice(
+              -2
+            )}/${date.getFullYear().toString().slice(-2)}`
+          : "No Task Scheduled";
+
+        return (
+          <div>
+            <p
+              className={`${
+                scheduleTaskDate ? "text-[#0250E6]" : "text-[#E60202]"
+              }`}
+            >
+              {scheduleTaskDate
+                ? `Meeting Scheduled ${formattedDate}`
+                : "No Task Scheduled"}
+            </p>
+          </div>
+        );
+      },
     },
   ];
 
   const columns = [
     {
       title: "Client",
-      dataIndex: "Client",
-      key: "Client",
+      dataIndex: "client_name",
+      key: "client_name",
       render: (text) => (
         <div className="">
           <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
@@ -124,12 +144,17 @@ export default function HomeScreen() {
     },
     {
       title: "Source",
-      dataIndex: "source",
-      key: "source",
-      render: (source) => (
-        <div className={`px-3 rounded-md`} style={{ backgroundColor: socialMediaColors[source] || '#479090' }}>
+      dataIndex: "prospect_source",
+      key: "prospect_source",
+      render: (prospect_source) => (
+        <div
+          className={`px-3 rounded-md`}
+          style={{
+            backgroundColor: socialMediaColors[prospect_source] || "#479090",
+          }}
+        >
           <span className="text-white whitespace-nowrap lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
-            {source}
+            {prospect_source}
           </span>
         </div>
       ),
@@ -152,7 +177,11 @@ export default function HomeScreen() {
       key: "status",
       render: (status) => (
         <div className="">
-          <span className={` ${status === 'Open' ? "text-[#00B860]" : "text-[#c63030]"}  whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}>
+          <span
+            className={` ${
+              status === "Open" ? "text-[#00B860]" : "text-[#c63030]"
+            }  whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+          >
             {status}
           </span>
         </div>
@@ -160,13 +189,11 @@ export default function HomeScreen() {
     },
     {
       title: "Taking lead",
-      dataIndex: "lead",
-      key: "lead",
-      render: (lead) => (
+      dataIndex: "assignedTo",
+      key: "assignedTo",
+      render: (assignedTo) => (
         <div>
-          <p>
-            {lead ? <FillCircle /> : <EmptyCircle />}
-          </p>
+          <p>{assignedTo ? <FillCircle /> : <EmptyCircle />}</p>
         </div>
       ),
     },
@@ -189,8 +216,27 @@ export default function HomeScreen() {
           </div>
         </div>
         <div className="xl:px-20 lg:px-10 lg:pt-[45px] lg:space-y-10 ">
-          <Table columns={columns} data={NewProspectHomeScreen} title="New Prospects" buttonLabel="View All" />
-          {data && <Table columns={columns1} data={data} title="My Prospects" buttonLabel="View All" />}
+          <Table
+            columns={columns}
+            data={NewProspectData}
+            title="New Prospects"
+            buttonLabel="View All"
+          />
+          <div>
+            <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
+              <div className="flex justify-center items-center gap-4">
+                <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
+                  My Prospects
+                </h1>
+              </div>
+              <Link to={`/project-list`}>
+                <button className="bg-gradient-to-r cursor-pointer capitalize h-[35px] lg:h-[45px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]">
+                  View All
+                </button>
+              </Link>
+            </div>
+          </div>
+          {_data && <Table columns={columns1} data={_data} />}
         </div>
       </div>
     </div>

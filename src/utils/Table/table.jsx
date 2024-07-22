@@ -3,7 +3,15 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const withTable = (WrappedComponent) => {
-  const TableComponent = ({ columns, data, title, buttonLabel,classes }) => {
+  const TableComponent = ({
+    columns,
+    data,
+    title,
+    buttonLabel,
+    classes,
+    width,
+    shown,
+  }) => {
     const RenderData = () => {
       return data.map((row, rowIndex) => (
         <div
@@ -34,22 +42,29 @@ const withTable = (WrappedComponent) => {
 
     return (
       <div className="lg:px-[2px] md:px-8">
-    
-          <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
-            {title && (
+{title&& (        <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
+          {title && (
+            <div className="flex justify-center items-center gap-4">
+              {shown && (
+                <div className="h-[25px] w-[25px] bg-[#0250E6] rounded-sm"></div>
+              )}
+
               <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
                 {title}
               </h1>
-            )}
-            {buttonLabel && (
-              <button className="bg-gradient-to-r capitalize h-[35px] lg:h-[45px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]">
-                {buttonLabel}
-              </button>
-            )}
-          </div>
-      
-        <div className={`overflowContainer mx-[22px] lg:mx-0 mt-[24px]  lg:mt-[40px] xl:mt-[75px] `}>
-          <div className="lg:w-full w-[925px] lg:pl-8 xl:pl-20" >
+            </div>
+          )}
+          {buttonLabel && (
+            <button className="bg-gradient-to-r capitalize h-[35px] lg:h-[45px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]">
+              {buttonLabel}
+            </button>
+          )}
+        </div>)}
+
+        <div
+          className={`overflowContainer mx-[22px] lg:mx-0 mt-[24px]  lg:mt-[40px] xl:mt-[75px] `}
+        >
+          <div className={`lg:w-full w-[925px] ${width}  lg:pl-8 xl:pl-20`}>
             <div className="flex w-full mb-[12px] lg:mb-[16px]">
               {columns.map((col, index) => (
                 <p
@@ -60,7 +75,9 @@ const withTable = (WrappedComponent) => {
                 </p>
               ))}
             </div>
-            <div className={`lg:h-[170px] h-[100px] ${classes} overflowContainerY`}>
+            <div
+              className={`lg:h-[170px] h-[100px] ${classes} overflowContainerY`}
+            >
               <RenderData />
             </div>
           </div>
