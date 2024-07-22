@@ -21,8 +21,8 @@ export const useGetCardData = (Token) => {
   return useQuery({
     queryKey: ["prospects"],
     queryFn: () => GetNewProspects(Token),
-    staleTime: Infinity,
-    cacheTime: 0,
+    staleTime: 0, // Data is considered stale immediately
+    cacheTime: 0, // Data is not cached
   });
 };
 const axiosInstance = axios.create({
@@ -74,9 +74,9 @@ export const useProspects = () => {
 export const useGetProspects = (Token,id) => {
   debugger
   return useQuery({
-    queryKey: ["prospects"],
+    queryKey: ["prospects", id], // Including id in the query key to differentiate queries
     queryFn: () => getProspects(Token,id),
-    staleTime: Infinity,
+    staleTime: 0, // Data is considered stale immediately
     cacheTime: 0,
   });
 };
