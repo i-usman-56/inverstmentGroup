@@ -1,8 +1,13 @@
 import { useNavigate } from "react-router-dom";
+import { useGetAllUsers } from "../../../services/auth";
 
 
 export default function UserCard({ data }) {
+  const token = JSON.parse(sessionStorage.getItem("token"));
   const navigate = useNavigate();
+  const {data:alluserData,status}=useGetAllUsers(token)
+  console.log(status)
+  console.log(alluserData)
 
   return (
     <div>

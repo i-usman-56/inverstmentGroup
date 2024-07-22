@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { BASEURl } from "../constants/baseUrl";
 import { toast } from "react-toastify";
-
+const axiosInstance = axios.create({
+  baseURL: BASEURl, // Base URL from constants
+  headers: {
+    "Content-Type": "application/json",
+    // Other headers as needed
+  },
+});
 export const useLogin = () => {
-    debugger
+    // debugger
     const navigate = useNavigate();
      return useMutation({
       mutationKey: "loginUser",
@@ -22,15 +28,12 @@ export const useLogin = () => {
     });
   };
 export const useSignUp = () => {
-    debugger
+    // debugger
     const navigate = useNavigate();
      return useMutation({
       mutationKey: "signUpUser",
         mutationFn: createUser,
       onSuccess: (data) => {
-
-        // localStorage.setItem("userData", JSON.stringify(data));
-        // localStorage.setItem("token", JSON.stringify(data.token));
         toast.success("signupsuccesfull");
         navigate("/login");
       },
@@ -67,4 +70,29 @@ export const useSignUp = () => {
       console.error("Error fetching prospects:", error);
       throw error; // Re-throw the error for the calling code to handle
     }
+  };
+
+
+  const GetAllUser = async (token) => {
+    debugger;
+    try {
+      const response = await axiosInstance.get(`/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching prospects:", error);
+      throw error;
+    }
+  };
+  
+  export const useGetAllUsers = (Token) => {
+    return useQuery({
+      queryKey: ["users"],
+      queryFn: () => GetAllUser(Token),
+      staleTime: Infinity,
+      cacheTime: 0,
+    });
   };

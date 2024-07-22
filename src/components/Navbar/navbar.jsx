@@ -19,7 +19,7 @@ import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // import react-datepicker styl
 import useAdmin from "../../hooks/useRole";
-import { getProspects } from "../../services/prospects";
+// import { getProspects } from "../../services/prospects";
 
 export default function Navbar() {
   const isAdmin = useAdmin();

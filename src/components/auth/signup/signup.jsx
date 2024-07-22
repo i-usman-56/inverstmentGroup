@@ -7,7 +7,6 @@ import InputFields from "./components/InputFeilds";
 import LoginButton from "./components/LoginButton";
 import FooterMobile from "./components/footer/Footer";
 import { useLogin, useSignUp } from "../../../services/auth";
-import { getProspects } from "../../../services/prospects";
 
 export default function SignUp() {
   const navigate = useNavigate();

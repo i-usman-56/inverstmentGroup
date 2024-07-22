@@ -2,18 +2,19 @@ import tableData from "../../data/projectTableData.json";
 import "../../components/task/Task.css";
 import Table from "../../components/team/components/table.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { getProspects } from "../../services/prospects.js";
+import { useGetProspects } from "../../services/prospects.js";
 
 export default function ProjectList() {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const userID = JSON.parse(localStorage.getItem("userData"));
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: "prospects",
-    queryFn: () => getProspects(token, userID._id),
-    staleTime: Infinity,
-    cacheTime: 0,
-    enabled: !!token,
-  });
+  const { data, isLoading, isError, error } =useGetProspects(token, userID._id)
+  // useQuery({
+  //   queryKey: "prospects",
+  //   queryFn: () => getProspects(token, userID._id),
+  //   staleTime: Infinity,
+  //   cacheTime: 0,
+  //   enabled: !!token,
+  // });
   const _data = data && data.length > 0 ? data : null;
 
   const columns1 = [

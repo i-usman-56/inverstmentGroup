@@ -2,11 +2,11 @@ import Graph from "../../components/Graph/graph";
 import Tasks from "../../components/task/tasks";
 import Table from "../../components/team/components/table";
 import "../../components/task/Task.css";
-import { getProspects, useGetCardData } from "../../services/prospects";
-import { useQuery } from "@tanstack/react-query";
+import {  useGetCardData, useGetProspects } from "../../services/prospects";
+// import { useQuery } from "@tanstack/react-query";
 import FillCircle from "../../components/notification/components/fillCircle";
 import EmptyCircle from "../../components/notification/components/emptyCircle";
-import { NewProspectHomeScreen } from "../../data/data";
+// import { NewProspectHomeScreen } from "../../data/data";
 import { Link } from "react-router-dom";
 
 export default function HomeScreen() {
@@ -37,16 +37,7 @@ export default function HomeScreen() {
   };
   const token = JSON.parse(sessionStorage.getItem("token"));
   const userID = JSON.parse(localStorage.getItem("userData"));
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: "prospects",
-    queryFn: () => getProspects(token, userID._id),
-    staleTime: Infinity,
-    cacheTime: 0,
-    enabled: !!token,
-    retry: 3,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  const { data } =useGetProspects(token, userID?._id)
   const _data = data && data.length > 0 ? data : null;
   const { data: NewProspectData } = useGetCardData(token);
   // console.log(NewProspectData)

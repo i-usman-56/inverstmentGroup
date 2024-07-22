@@ -3,7 +3,7 @@ import { BASEURl } from "../constants/baseUrl";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 const GetNewProspects = async (token) => {
-  debugger;
+  // debugger;
   try {
     const response = await axiosInstance.get(`/prospects`, {
       headers: {
@@ -32,7 +32,7 @@ const axiosInstance = axios.create({
     // Other headers as needed
   },
 });
-export const getProspects = async (token, id) => {
+const getProspects = async (token, id) => {
   debugger;
   try {
     const response = await axiosInstance.get(`/prospects/assigned/${id}`, {
@@ -47,7 +47,7 @@ export const getProspects = async (token, id) => {
   }
 };
 const createProspects = async ({ values, token }) => {
-  debugger
+  // debugger
   const response = await axiosInstance.post(`/prospects`, values, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -69,5 +69,14 @@ export const useProspects = () => {
     onError: (error) => {
       toast.error(error.response.data.message);
     },
+  });
+};
+export const useGetProspects = (Token,id) => {
+  debugger
+  return useQuery({
+    queryKey: ["prospects"],
+    queryFn: () => getProspects(Token,id),
+    staleTime: Infinity,
+    cacheTime: 0,
   });
 };
