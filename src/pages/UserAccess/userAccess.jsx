@@ -4,15 +4,14 @@ import UserCard from "./components/userCard";
 import { renderCardData } from "../../data/data";
 import UserAccessCard from "./components/useraccessCard";
 import RoundedTopBg from "../../components/Rounded/rounded";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetAllUsers } from "../../services/auth";
 
 export default function UserAccess() {
   const navigate = useNavigate();
   const token = JSON.parse(sessionStorage.getItem("token"));
   const {data:alluserData,status}=useGetAllUsers(token)
-  console.log(status)
-  console.log(alluserData)
+
   return (
     <div>
       <RoundedTopBg>

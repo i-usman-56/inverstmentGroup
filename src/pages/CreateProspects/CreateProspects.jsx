@@ -7,10 +7,10 @@ import avatar from "../../assets/img/avatar.png";
 import "./style.css";
 import { useProspects } from "../../services/prospects";
 import { IoIosArrowBack } from "react-icons/io";
-import { useQuery } from "@tanstack/react-query";
-import { getAllUser } from "../../services/auth";
+import {  useGetAllUsers } from "../../services/auth";
 
 const CreateProspectScreen = () => {
+  
   const [formData, setFormData] = useState({
     client_name:"",
     prospect_phone: "",
@@ -23,20 +23,17 @@ const CreateProspectScreen = () => {
     closingstatus: "",
     paymentAmount: 0,
   });
+  const token = JSON.parse(sessionStorage.getItem("token"));
+
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState("");
-  const { data, error } = useQuery({
-    queryKey: ["alluser"],
-    queryFn: getAllUser,
-  });
-  console.log(data?.users);
+  const {data:alluserData}=useGetAllUsers(token)
   const transformedData = [{ _id: null, title: "Assign to Agent" }].concat(
-    Array.isArray(data?.users) ? data.users.map((user) => ({
+    Array.isArray(alluserData?.users) ? alluserData?.users.map((user) => ({
       _id: user._id,
       title: `${user.firstName} ${user.lastName}`,
     })) : []
   );
-  
   
   const handleAddNote = () => {
     if (currentNote.trim() !== "") {

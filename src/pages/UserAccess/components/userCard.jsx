@@ -1,10 +1,19 @@
-export default function UserCard({ data }) {
+import { useNavigate } from "react-router-dom";
 
+export default function UserCard({ data }) {
+  const navigate = useNavigate();
+
+
+  const handelClick = (id) => {
+    // debugger
+    // console.log(id);
+    navigate(`/newuser/?id=${id}`);
+  };
 
   return (
     <div>
       <div className="mt-[60px] pb-8 md:pb-[45px] lg:pb-0  lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-x-5 xl:gap-x-12  lg:gap-y-4 xl:gap-y-6   space-y-5 lg:space-y-0">
-        {data?.users.map((item) => (
+        {data?.users?.map((item) => (
           <div
             key={item.id}
             className="pt-[14px]  pb-5 md:pb-7 md:pt-6 pl-5 pr-[25px] rounded-[5px] flex flex-col justify-center  "
@@ -36,8 +45,9 @@ export default function UserCard({ data }) {
                   {item.role}
                 </span>
               </p>
-              <button className="text-[12px] md:text-[14px] lg:text-[16px] font-[650] text-[#0250E6] leading-4 tracking-[-1.7%]"
-                onClick={() => navigate("/edituser")}
+              <button
+                className="text-[12px] md:text-[14px] lg:text-[16px] font-[650] text-[#0250E6] leading-4 tracking-[-1.7%]"
+                onClick={() => handelClick(item._id)}
               >
                 Edit User
               </button>

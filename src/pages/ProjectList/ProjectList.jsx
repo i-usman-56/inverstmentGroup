@@ -46,7 +46,7 @@ export default function ProjectList() {
   const userID = JSON.parse(localStorage.getItem("userData"));
   const { data, isLoading, isError, error } = useGetProspects(
     token,
-    userID._id
+    userID?._id
   );
   const _data = data && data.length > 0 ? data : null;
 

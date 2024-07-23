@@ -162,21 +162,7 @@ function App() {
       ),
     },
 
-    {
-      path: "/newuser",
-      element: (
-        <>
-          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
-            <Navbar />
-            <NewUser />
-            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
-              <FooterMobile />
-            </div>
-          </div>
-        </>
-      ),
-    },
-
+    
     {
       path: "/createprospect",
       element: (
@@ -191,8 +177,20 @@ function App() {
         </>
       ),
     },
-
-
+    {
+      path: "/newuser/:id?",
+      element: (
+        <>
+          <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
+            <Navbar />
+            <NewUser />
+            <div className="w-full pb-[15px] pt-[50px] md:pt-0">
+              <FooterMobile />
+            </div>
+          </div>
+        </>
+      ),
+    },
     {
       path: "/edituser",
       element: (
