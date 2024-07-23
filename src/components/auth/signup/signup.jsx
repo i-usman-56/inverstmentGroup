@@ -110,6 +110,7 @@ export default function SignUp() {
                     error={errors.firstName}
                     autocomplete="new-password"
                   />
+                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>}
                 </div>
                 <div className="flex-1">
                   <InputFields
@@ -120,6 +121,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     error={errors.lastName}
                   />
+                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.lastName}</p>}
                 </div>
               </div>
               <div className="flex gap-[22px]">
@@ -132,6 +134,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     error={errors.email}
                   />
+                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
                 </div>
                 <div className="flex-1">
                   <InputFields
@@ -142,6 +145,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     error={errors.phone}
                   />
+                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.phone}</p>}
                 </div>
               </div>
               <InputFields
@@ -152,6 +156,7 @@ export default function SignUp() {
                 onChange={handleChange}
                 error={errors.password}
               />
+               {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.password}</p>}
               <InputFields
                 type="password"
                 name="confirmPassword"
@@ -160,6 +165,7 @@ export default function SignUp() {
                 onChange={handleChange}
                 error={errors.confirmPassword}
               />
+               {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>}
             </div>
             <div className="flex justify-end">
                 <Link to="/login">

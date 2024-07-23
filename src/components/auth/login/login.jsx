@@ -7,7 +7,7 @@ import InputFields from "../signup/components/InputFeilds";
 import Checkbox from "./components/checkbox";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
-import {  useLogin } from "../../../services/auth";
+import { useLogin } from "../../../services/auth";
 
 export default function Login() {
   const [isChecked, setIsChecked] = useState(false);
@@ -45,13 +45,13 @@ export default function Login() {
 
   const { mutate, isLoading } = useLogin();
   if (isLoading) {
-    console.log(`Loading`)
+    console.log(`Loading`);
   }
   const handleSubmit = async (event) => {
     debugger;
     event.preventDefault();
     if (validateForm()) {
-      mutate(form)
+      mutate(form);
     }
   };
 
@@ -82,6 +82,7 @@ export default function Login() {
                   onChange={handleChange}
                   error={errors.email}
                 />
+                {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
               </div>
               <InputFields
                 type="password"
@@ -91,6 +92,7 @@ export default function Login() {
                 onChange={handleChange}
                 error={errors.password}
               />
+               {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.password}</p>}
             </div>
             <div className="flex justify-end">
               <Link to="/signup">

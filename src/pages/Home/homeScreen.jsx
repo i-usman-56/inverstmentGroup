@@ -57,6 +57,7 @@ export default function HomeScreen() {
     const status = closingStatusOptionsColors?.find(option => option.title === title);
     return status ? status.color : "#FFFFFF"; // Default to white if not found
   };
+  // useEffect(()=>{})
   const token = JSON.parse(sessionStorage.getItem("token"));
   const userID = JSON.parse(localStorage.getItem("userData"));
   const { data } = useGetProspects(token, userID?._id);

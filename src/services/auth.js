@@ -113,12 +113,12 @@ export const useUserMutation = (userId) => {
       if (userId) {
         return updateUser({ userId, formData, token });
       } else {
-        return createUser(formData);
+        return createUser({...formData,password:"123123",confirmPassword:"123123"});
       }
     },
     onSuccess: (data) => {
       toast.success("User operation successful!");
-      console.log("User operation successful:", data);
+      // console.log("User operation successful:", data);
     },
     onError: (error) => {
       toast.error(error.response ? error.response.data.message : error.message);
