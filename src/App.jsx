@@ -210,7 +210,7 @@ function App() {
   ]);
 
   return (
-    <main className="overflow-y-scroll min-h-screen">
+    <main className="overflow-y-scroll unselectable min-h-screen">
       <RouterProvider router={router} />
     </main>
   );

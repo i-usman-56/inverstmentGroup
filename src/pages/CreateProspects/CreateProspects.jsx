@@ -56,26 +56,26 @@ const CreateProspectScreen = () => {
 
   const closingStatusOptions = [
     { title: "Select Status", value: "" },
-    { title: "New Prospect", value: "new-prospect" },
-    { title: "First Call", value: "first-call" },
-    { title: "First Call Scheduled", value: "first-call-scheduled" },
-    { title: "First Meeting Scheduled", value: "first-meeting-scheduled" },
-    { title: "No Show (Follow Up)", value: "no-show-follow-up" },
-    { title: "No Show (Dead Lead)", value: "no-show-dead-lead" },
-    { title: "Call Scheduled", value: "call-scheduled" },
-    { title: "Meeting Scheduled", value: "meeting-scheduled" },
-    { title: "Closing Call Scheduled", value: "closing-call-scheduled" },
-    { title: "Closing Meeting Scheduled", value: "closing-meeting-scheduled" },
-    { title: "Interested (No Commitment)", value: "interested-no-commitment" },
-    { title: "Interested (Commitment)", value: "interested-commitment" },
+    { title: "New Prospect", value: "new prospect" },
+    { title: "First Call", value: "first call" },
+    { title: "First Call Scheduled", value: "first call scheduled" },
+    { title: "First Meeting Scheduled", value: "first meeting scheduled" },
+    { title: "No Show (Follow Up)", value: "no show follow up" },
+    { title: "No Show (Dead Lead)", value: "no show dead lead" },
+    { title: "Call Scheduled", value: "call scheduled" },
+    { title: "Meeting Scheduled", value: "meeting scheduled" },
+    { title: "Closing Call Scheduled", value: "closing call scheduled" },
+    { title: "Closing Meeting Scheduled", value: "closing meeting scheduled" },
+    { title: "Interested (No Commitment)", value: "interested no commitment" },
+    { title: "Interested (Commitment)", value: "interested commitment" },
     { title: "Dead", value: "dead" },
     { title: "Closed", value: "closed" },
   ];
 
   const prospectStatusOptions = [
     { title: "Select Status", value: "" },
-    { title: "Unassigned Prospect", value: "unassigned-prospect" },
-    { title: "Assigned To You", value: "assigned-to-you" },
+    { title: "Unassigned Prospect", value: "unassigned Prospect" },
+    { title: "Assigned To You", value: "Assigned To You" },
   ];
 
   const handleChange = (e) => {

@@ -2,7 +2,7 @@ import Graph from "../../components/Graph/graph";
 import Tasks from "../../components/task/tasks";
 import Table from "../../components/team/components/table";
 import "../../components/task/Task.css";
-import {  useGetCardData, useGetProspects } from "../../services/prospects";
+import { useGetCardData, useGetProspects } from "../../services/prospects";
 // import { useQuery } from "@tanstack/react-query";
 import FillCircle from "../../components/notification/components/fillCircle";
 import EmptyCircle from "../../components/notification/components/emptyCircle";
@@ -35,9 +35,31 @@ export default function HomeScreen() {
     Behance: "#1769FF",
     TypeFormA: "#A500B3",
   };
+  const closingStatusOptionsColors = [
+    { title: "Select Status", color: "#FFFFFF" },
+    { title: "new prospect", color: "#FF5733" },
+    { title: "first call", color: "#E68B02" },
+    { title: "first call scheduled", color: "#3357FF" },
+    { title: "first meeting scheduled", color: "#FF33A8" },
+    { title: "no show follow up", color: "#33FFD1" },
+    { title: "no show dead lead", color: "#FFC300" },
+    { title: "call scheduled", color: "#FF5733" },
+    { title: "meeting scheduled", color: "#699CFF" },
+    { title: "closing call scheduled", color: "#3357FF" },
+    { title: "closing meeting scheduled", color: "#00D971" },
+    { title: "interested no commitment", color: "#33FFD1" },
+    { title: "interested commitment", color: "#FFC300" },
+    { title: "dead", color: "#FF5733" },
+    { title: "closed", color: "#33FF57" },
+  ];
+  const getClosingStatusColor = (title) => {
+    debugger
+    const status = closingStatusOptionsColors?.find(option => option.title === title);
+    return status ? status.color : "#FFFFFF"; // Default to white if not found
+  };
   const token = JSON.parse(sessionStorage.getItem("token"));
   const userID = JSON.parse(localStorage.getItem("userData"));
-  const { data } =useGetProspects(token, userID?._id)
+  const { data } = useGetProspects(token, userID?._id);
   const _data = data && data.length > 0 ? data : null;
   const { data: NewProspectData } = useGetCardData(token);
   // console.log(NewProspectData)
@@ -59,13 +81,16 @@ export default function HomeScreen() {
       title: "Closing status",
       dataIndex: "closingstatus",
       key: "closingstatus",
-      render: (closingstatus) => (
-        <div className="bg-[#4AE49A] px-3 rounded-md">
-          <span className="text-white whitespace-nowrap lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
-            {closingstatus}
-          </span>
-        </div>
-      ),
+      render: (closingstatus) => {
+        const bgColor = getClosingStatusColor(closingstatus).toUpperCase();
+        return (
+          <div className={`px-3 rounded-md`} style={{ backgroundColor: bgColor }}>
+            <span className="text-white whitespace-nowrap capitalize lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
+              {closingstatus}
+            </span>
+          </div>
+        );
+      },
     },
     {
       title: "Interest",
@@ -85,7 +110,13 @@ export default function HomeScreen() {
       key: "status",
       render: (status) => (
         <div className="">
-          <span className="text-[#00B860] whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span
+            className={` capitalize  ${
+              status === "unassigned Prospect"
+                ? "text-[#E60202]"
+                : "text-[#00B860]"
+            } whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+          >
             {status}
           </span>
         </div>
@@ -170,8 +201,10 @@ export default function HomeScreen() {
         <div className="">
           <span
             className={` ${
-              status === "Open" ? "text-[#00B860]" : "text-[#c63030]"
-            }  whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+              status === "unassigned Prospect"
+                ? "text-[#E60202]"
+                : "text-[#00B860]"
+            } capitalize  whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
           >
             {status}
           </span>
@@ -213,20 +246,22 @@ export default function HomeScreen() {
             title="New Prospects"
             buttonLabel="View All"
           />
-          <div>
-            <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
-              <div className="flex justify-center items-center gap-4">
-                <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
-                  My Prospects
-                </h1>
+          {_data && (
+            <div>
+              <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
+                <div className="flex justify-center items-center gap-4">
+                  <h1 className="text-[17px] lg:text-[28px] font-[700] leading-[17.64px] tracking-[-1.7%] text-[#0250E6]">
+                    My Prospects
+                  </h1>
+                </div>
+                <Link to={`/project-list`}>
+                  <button className="bg-gradient-to-r cursor-pointer capitalize h-[35px] lg:h-[45px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]">
+                    View All
+                  </button>
+                </Link>
               </div>
-              <Link to={`/project-list`}>
-                <button className="bg-gradient-to-r cursor-pointer capitalize h-[35px] lg:h-[45px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]">
-                  View All
-                </button>
-              </Link>
             </div>
-          </div>
+          )}
           {_data && <Table columns={columns1} data={_data} />}
         </div>
       </div>

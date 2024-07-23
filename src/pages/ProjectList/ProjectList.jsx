@@ -3,20 +3,77 @@ import "../../components/task/Task.css";
 import Table from "../../components/team/components/table.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { useGetProspects } from "../../services/prospects.js";
+import { useState } from "react";
 
 export default function ProjectList() {
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const handleDropdownClick = (index) => {
+    if (openDropdown === index) {
+      setOpenDropdown(null);
+    } else {
+      setOpenDropdown(index);
+    }
+  };
+  const items = [
+    {
+      color: "0250E6",
+      text: "My Prospects ▼",
+      value: [
+        { value: "Assigned To Me", _id: "1478598566166164164648" },
+        { value: "Closed Prospects", _id: "1478598516166164164648" },
+      ],
+    },
+    { color: "444444", text: "Closing Status ▼" },
+    { color: "276666", text: "Interest ▼" },
+    { color: "00FF85", text: "Open Prospects" },
+    { color: "02A1E6", text: "New Prospects" },
+    {
+      color: "8B0297",
+      text: "By Scheduled Event ▼",
+      value: [
+        { value: "Scheduled Calls", _id: "7478598566166164164648" },
+        { value: "Scheduled Meetings", _id: "6478598566166164164648" },
+        { value: "Closing Calls Scheduled", _id: "9478598566166164164648" },
+        { value: "Closing Meetings Scheduled", _id: "8478598516166164164648" },
+      ],
+    },
+    { color: "00FFB2", text: "My Closes" },
+    { color: "F5D29C", text: "Shared With Me" },
+    { color: "BC0404", text: "Dead Leads" },
+  ];
   const token = JSON.parse(sessionStorage.getItem("token"));
   const userID = JSON.parse(localStorage.getItem("userData"));
-  const { data, isLoading, isError, error } =useGetProspects(token, userID._id)
-  // useQuery({
-  //   queryKey: "prospects",
-  //   queryFn: () => getProspects(token, userID._id),
-  //   staleTime: Infinity,
-  //   cacheTime: 0,
-  //   enabled: !!token,
-  // });
+  const { data, isLoading, isError, error } = useGetProspects(
+    token,
+    userID._id
+  );
   const _data = data && data.length > 0 ? data : null;
 
+  const closingStatusOptionsColors = [
+    { title: "Select Status", color: "#FFFFFF" },
+    { title: "new prospect", color: "#FF5733" },
+    { title: "first call", color: "#E68B02" },
+    { title: "first call scheduled", color: "#3357FF" },
+    { title: "first meeting scheduled", color: "#FF33A8" },
+    { title: "no show follow up", color: "#33FFD1" },
+    { title: "no show dead lead", color: "#FFC300" },
+    { title: "call scheduled", color: "#FF5733" },
+    { title: "meeting scheduled", color: "#699CFF" },
+    { title: "closing call scheduled", color: "#3357FF" },
+    { title: "closing meeting scheduled", color: "#00D971" },
+    { title: "interested no commitment", color: "#33FFD1" },
+    { title: "interested commitment", color: "#FFC100" },
+    { title: "dead", color: "#FF5733" },
+    { title: "closed", color: "#33FF57" },
+  ];
+  const getClosingStatusColor = (title) => {
+    debugger;
+    const status = closingStatusOptionsColors.find(
+      (option) => option.title === title
+    );
+    return status ? status.color : "#FFFFFF"; // Default to white if not found
+  };
   const columns1 = [
     {
       title: "Client",
@@ -34,13 +91,19 @@ export default function ProjectList() {
       title: "Closing status",
       dataIndex: "closingstatus",
       key: "closingstatus",
-      render: (closingstatus) => (
-        <div className="bg-[#4AE49A] px-3 rounded-md">
-          <span className="text-white whitespace-nowrap lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
-            {closingstatus}
-          </span>
-        </div>
-      ),
+      render: (closingstatus) => {
+        const bgColor = getClosingStatusColor(closingstatus).toUpperCase();
+        return (
+          <div
+            className={`px-3 rounded-md`}
+            style={{ backgroundColor: bgColor }}
+          >
+            <span className="text-white whitespace-nowrap capitalize lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
+              {closingstatus}
+            </span>
+          </div>
+        );
+      },
     },
     {
       title: "Interest",
@@ -60,7 +123,13 @@ export default function ProjectList() {
       key: "status",
       render: (status) => (
         <div className="">
-          <span className="text-[#00B860] whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span
+            className={` ${
+              status === "unassigned Prospect"
+                ? "text-[#E60202]"
+                : "text-[#00B860]"
+            } capitalize whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+          >
             {status}
           </span>
         </div>
@@ -116,23 +185,39 @@ export default function ProjectList() {
           PROSPECTS BY FILTER
         </div>
         <div className="space-y-6">
-          {[
-            { color: "0250E6", text: "My Prospects ▼" },
-            { color: "444444", text: "Closing Status ▼" },
-            { color: "276666", text: "Interest ▼" },
-            { color: "00FF85", text: "Open Prospects" },
-            { color: "02A1E6", text: "New Prospects" },
-            { color: "8B0297", text: "By Scheduled Event ▼" },
-            { color: "00FFB2", text: "My Closes" },
-            { color: "F5D29C", text: "Shared With Me" },
-            { color: "BC0404", text: "Dead Leads" },
-          ].map((item, index) => (
-            <div key={index} className="flex items-center">
-              <span
-                className="inline-block rounded-sm w-4 h-4 mr-2"
-                style={{ backgroundColor: `#${item.color}` }}
-              ></span>
-              <span className="text-black">{item.text}</span>
+          {items.map((item, index) => (
+            <div key={index}>
+              <div
+                className="flex items-center cursor-pointer"
+                onClick={() => handleDropdownClick(index)}
+              >
+                <span
+                  className="inline-block rounded-sm w-4 h-4 mr-2"
+                  style={{ backgroundColor: `#${item.color}` }}
+                ></span>
+                <span className="text-black font-bold text-[16px]">
+                  {item.text}
+                </span>
+              </div>
+              {item.value && openDropdown === index && (
+                <div className="ml-5 mt-3 space-y-3 ">
+                  {item.value.map((subItem) => (
+                    <div
+                      key={subItem._id}
+                      className="text-black flex  items-center font-bold text-[16px] cursor-pointer"
+                    >
+                      <span
+                        className="inline-block rounded-sm w-4 h-4 mr-2"
+                        style={{ backgroundColor: `#${item.color}` }}
+                      ></span>
+                      <span className="whitespace-normal">
+
+                      {subItem.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

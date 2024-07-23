@@ -14,7 +14,7 @@ export default function SidePic() {
           />
         </div>
         <div className="flex justify-center items-center">
-          <img src={Picture} alt="" className="w-[450px] xl:w-[540px] " />
+          <img src={Picture} loading="lazy" alt="" className="w-[450px] xl:w-[540px] " />
         </div>
       </div>
     </div>
