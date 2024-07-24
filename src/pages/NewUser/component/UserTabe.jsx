@@ -12,13 +12,44 @@ const NewUser = () => {
   const handleBackClick = () => {
     navigate(-1);
   };
-  const [formData, setFormData] = useState({
+  const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
   });
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+  });
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
+
+    if (formData.firstName === "") {
+      valid = false;
+      newErrors.firstName = "First Name Required.";
+    }
+    if (formData.lastName === "") {
+      valid = false;
+      newErrors.lastName = "Last Name Required.";
+    }
+    if (formData.email === "") {
+      valid = false;
+      newErrors.email = "Email is required.";
+    }
+
+    if (formData.phone === "") {
+      valid = false;
+      newErrors.phone = "Phone is required.";
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
   useEffect(() => {
     if (userId) {
       if (userData) {
@@ -46,11 +77,18 @@ const NewUser = () => {
       ...formData,
       [name]: value,
     });
+    setErrors({ ...errors, [name]: '' });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await saveUser(formData);
+      if (userId) {
+        await saveUser(formData);
+      } else {
+        if (validateForm()) {
+          await saveUser(formData);
+        }
+      }
     } catch (error) {
       console.error("Error saving user data:", error);
       alert("Failed to save user data. Please try again.");
@@ -92,6 +130,7 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+            {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>}
           </div>
           <div className="w-full lg:w-1/2">
             <input
@@ -102,6 +141,7 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+             {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.lastName}</p>}
           </div>
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-4 xl:gap-20 mb-4 lg:mb-10">
@@ -114,6 +154,7 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+             {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
           </div>
           <div className="w-full lg:w-1/2">
             <input
@@ -124,6 +165,7 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+             {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.phone}</p>}
           </div>
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-4 xl:gap-20 mb-4 lg:mb-10">

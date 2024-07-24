@@ -78,13 +78,24 @@ const CreateProspectScreen = () => {
   ];
 
   const handleChange = (e) => {
-    debugger;
     const { name, value } = e.target;
+  
+    // Prevent payment amount from being negative
+    if (name === "paymentAmmount" && value < 0) {
+      setErrors({
+        ...errors,
+        paymentAmmount: "Payment amount cannot be negative."
+      });
+      return;
+    }
+  
     setFormData({
       ...formData,
       [name]: value,
     });
+    setErrors({ ...errors, [name]: '' });
   };
+  
   const { mutate, isLoading, isSuccess, status } = useProspects();
   const validateForm = () => {
     let valid = true;
@@ -139,7 +150,25 @@ const CreateProspectScreen = () => {
       if (!formData.assignedTo || formData.assignedTo === '') {
         delete formData.assignedTo;
       }
-      mutate({ values: formData, token });
+      mutate(
+        { values: formData, token },
+        {
+          onSuccess: () => {
+            setFormData({
+              client_name: "",
+              prospect_phone: "",
+              prospect_email: "",
+              prospect_source: "",
+              interest: "",
+              assignedTo: "",
+              scheduleTaskDate: "",
+              status: "",
+              closingstatus: "",
+              paymentAmmount: 0,
+            });
+          }
+        }
+      );
       // console.log({
       //   ...formData,
       // });
@@ -178,7 +207,7 @@ const CreateProspectScreen = () => {
           </div>
           <div>
             <button
-              className="bg-gradient-to-r uppercase h-[40px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+              className={`bg-gradient-to-r uppercase h-[40px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] ${status === "pending"?"bg-black cursor-not-allowed" : "from-[#02A1E6] via-[#0250E6] to-[#0250E6]"}`}
               onClick={handleSubmit}
               disabled={status === "pending"}
             >
@@ -325,20 +354,20 @@ const CreateProspectScreen = () => {
                   type="number"
                   name="paymentAmmount"
                   value={
-                    formData.paymentAmmount == 0 ? null : formData.paymentAmmount
+                    formData.paymentAmmount
                   }
                   onChange={handleChange}
                   className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
                     errors.paymentAmmount
                       ? "border-red-500 focus:border-red-500"
-                      : "border-[2px] border-[#0250E6] "
+                      : "border-[2px] border-[#0250E6]"
                   }`}
                   placeholder="Enter Payment Amount"
                   style={{ color: "#3C3C3C" }}
                 />
                   {errors && (
-                  <p className="text-[16px] font-semibold text-[#a10d0d]">
-                    {errors.paymentAmmount}
+                  <p className="text-[16px] w-[200px] font-semibold text-[#a10d0d]">
+                    {errors.paymentAmmount == 0 ? null : errors.paymentAmmount}
                   </p>
                 )}
               </div>
