@@ -1,33 +1,38 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Logo from "../../../assets/svg/logo.svg";
 import SidePic from "../signup/components/SidePic";
 import LoginHeader from "../signup/components/LoginHeader";
 import InputFields from "../signup/components/InputFeilds";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
+import { useReNewPassword } from "../../../services/auth";
 
 export default function NewPassword() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const tokenReset = searchParams.get("token");
+  // console.log(userId)
+  const { mutate, status } = useReNewPassword();
 
   const [form, setForm] = useState({
-    password: "",
+    newPassword: "",
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({
-    password: "",
+    newPassword: "",
     confirmPassword: "",
   });
   const validateForm = () => {
     let valid = true;
     let newErrors = {};
 
-    if (form.password === "") {
+    if (form.newPassword === "") {
       valid = false;
-      newErrors.password = "Password is required.";
+      newErrors.newPassword = "Password is required.";
     }
 
-    if (form.confirmPassword === "") {
+    if (form.confirmPassword !== form.newPassword) {
       valid = false;
       newErrors.confirmPassword = "Confirm Password is required.";
     }
@@ -42,8 +47,9 @@ export default function NewPassword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      console.log("Form data: ", form);
-      navigate("/login");
+        mutate({...form,token:tokenReset})
+      // console.log("Form data: ", form);
+      // navigate("/login");
     }
   };
   const handleChange = (event) => {
@@ -68,12 +74,13 @@ export default function NewPassword() {
                 <div className="flex-1">
                   <InputFields
                     type="password"
-                    name="password"
+                    name="newPassword"
                     title="Password"
-                    value={form.password}
+                    value={form.newPassword}
                     onChange={handleChange}
-                    error={errors.password}
+                    error={errors.newPassword}
                   />
+                  {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.newPassword}</p>}
                 </div>
               </div>
               <InputFields
@@ -84,6 +91,7 @@ export default function NewPassword() {
                 onChange={handleChange}
                 error={errors.confirmPassword}
               />
+              {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>}
             </div>
 
             <div className="mt-[40px]">
@@ -107,12 +115,13 @@ export default function NewPassword() {
                   <div className="flex-1">
                     <InputFields
                       type="password"
-                      name="password"
+                      name="newPassword"
                       title="Password"
-                      value={form.password}
+                      value={form.newPassword}
                       onChange={handleChange}
-                      error={errors.password}
+                      error={errors.newPassword}
                     />
+                    {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.newPassword}</p>}
                   </div>
                 </div>
                 <InputFields
@@ -123,6 +132,7 @@ export default function NewPassword() {
                   onChange={handleChange}
                   error={errors.confirmPassword}
                 />
+                {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>}
               </div>
 
               <div className="mt-[22px]">

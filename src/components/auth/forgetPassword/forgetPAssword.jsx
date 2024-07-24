@@ -6,10 +6,11 @@ import LoginHeader from '../signup/components/LoginHeader';
 import InputFields from '../signup/components/InputFeilds';
 import LoginButton from '../signup/components/LoginButton';
 import FooterMobile from '../signup/components/footer/Footer';
+import { useForgetPassword } from '../../../services/auth';
 
 export default function ForgetPAssword() {
     const navigate = useNavigate();
-
+    const { mutate, status } = useForgetPassword();
   const [form, setForm] = useState({
     email: "",
   });
@@ -30,8 +31,9 @@ export default function ForgetPAssword() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
+      mutate(form)
       console.log("Form data: ", form);
-      navigate('/new-password')
+      // navigate('/new-password')
     }
   };
   const handleChange = (event) => {
@@ -61,10 +63,11 @@ export default function ForgetPAssword() {
                   onChange={handleChange}
                   error={errors.email}
                 />
+                {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
               </div>
             </div>
             <div className="mt-[40px]">
-              <LoginButton title="Send Email" />
+              <LoginButton title="Send Email" pending={status}  />
             </div>
           </form>
         </div>
@@ -90,11 +93,12 @@ export default function ForgetPAssword() {
                       onChange={handleChange}
                       error={errors.email}
                     />
+                      {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
                   </div>
                 </div>
               </div>
               <div className="mt-[22px]">
-                <LoginButton title="Send Email" />
+                <LoginButton title="Send Email" pending={status}  />
               </div>
             </form>
           </div>

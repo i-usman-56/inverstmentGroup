@@ -52,6 +52,50 @@ const createUser = async (values) => {
   const response = await axios.post(`${BASEURl}/user/signUp`, values);
   return response.data;
 };
+export const useForgetPassword = () => {
+  // debugger
+  // const navigate = useNavigate();
+  return useMutation({
+    mutationKey: "forgetPassword",
+    mutationFn: forgetPasssword,
+    onSuccess: (data) => {
+      debugger
+      // console.log(data)
+      toast.success(data.message);
+      // navigate("/login");
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+  });
+};
+const forgetPasssword = async (values) => {
+  debugger
+  const response = await axios.post(`${BASEURl}/authentication/forgetPassword`, values);
+  return response.data;
+};
+export const useReNewPassword = () => {
+  debugger
+  const navigate = useNavigate();
+  return useMutation({
+    mutationKey: "renewPasssword",
+    mutationFn: renewPasssword,
+    onSuccess: (data) => {
+      debugger
+      // console.log(data)
+      toast.success(data.message);
+      navigate("/login");
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+  });
+};
+const renewPasssword = async (values) => {
+  debugger
+  const response = await axios.post(`${BASEURl}/authentication/resetPassword`, values);
+  return response.data;
+};
 // Get All User Api (User Access)
 export const useGetAllUsers = (Token) => {
   return useQuery({
@@ -103,8 +147,6 @@ const updateUser = async ({ userId, formData, token }) => {
   });
   return response.data;
 };
-
-
 export const useUserMutation = (userId) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
 

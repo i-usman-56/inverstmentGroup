@@ -35,12 +35,24 @@ const axiosInstance = axios.create({
 const getProspects = async (token, id) => {
   debugger;
   try {
-    const response = await axiosInstance.get(`/prospects/assigned/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
+    if (id) {
+      const response = await axiosInstance.get(`/prospects/assigned/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    }
+    else{
+      const response = await axiosInstance.get(`/prospects`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    }
+
+    // return response.data;
   } catch (error) {
     console.error("Error fetching prospects:", error);
     throw error; // Re-throw the error for the calling code to handle

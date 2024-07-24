@@ -1,12 +1,14 @@
 import React from "react";
 
-export default function LoginButton({title, onClick}) {
+export default function LoginButton({title, onClick , pending}) {
   return (
     <div className="w-full flex justify-center">
-      <button className="bg-gradient-to-r cursor-pointer capitalize h-[35px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+      
+      <button disabled={pending === "pending"} className={`bg-gradient-to-r ${pending === "pending"?"bg-black cursor-not-allowed" : "from-[#02A1E6] via-[#0250E6] to-[#0250E6]"}  cursor-pointer capitalize h-[35px] px-8 text-[14px] text-white  rounded  tracking-[-1.2%] font-bold leading-[14.3px]`}
         onClick={onClick}
+        
       >
-        {title}
+        {`${pending === "pending"?'Sending....':title}`}
       </button>
     </div>
   );
