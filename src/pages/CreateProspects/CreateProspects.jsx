@@ -7,12 +7,11 @@ import avatar from "../../assets/img/avatar.png";
 import "./style.css";
 import { useProspects } from "../../services/prospects";
 import { IoIosArrowBack } from "react-icons/io";
-import {  useGetAllUsers } from "../../services/auth";
+import { useGetAllUsers } from "../../services/auth";
 
 const CreateProspectScreen = () => {
-  
   const [formData, setFormData] = useState({
-    client_name:"",
+    client_name: "",
     prospect_phone: "",
     prospect_email: "",
     prospect_source: "",
@@ -23,33 +22,36 @@ const CreateProspectScreen = () => {
     closingstatus: "",
     paymentAmount: 0,
   });
+  const [errors, setErrors] = useState({
+    client_name: "",
+    prospect_phone: "",
+    prospect_email: "",
+    prospect_source: "",
+    interest: "",
+    status: "",
+    closingstatus: "",
+    paymentAmount: "",
+  });
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState("");
-  const {data:alluserData}=useGetAllUsers(token)
+  const { data: alluserData } = useGetAllUsers(token);
   const transformedData = [{ _id: null, title: "Assign to Agent" }].concat(
-    Array.isArray(alluserData?.users) ? alluserData?.users.map((user) => ({
-      _id: user._id,
-      title: `${user.firstName} ${user.lastName}`,
-    })) : []
+    Array.isArray(alluserData?.users)
+      ? alluserData?.users.map((user) => ({
+          _id: user._id,
+          title: `${user.firstName} ${user.lastName}`,
+        }))
+      : []
   );
-  
+
   const handleAddNote = () => {
     if (currentNote.trim() !== "") {
       setNotes([...notes, currentNote]);
       setCurrentNote("");
     }
   };
-  const [form, setForm] = useState({
-    fullName: "",
-    email: "john@example.com",
-    password: "password123",
-  });
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-  });
 
   const closingStatusOptions = [
     { title: "Select Status", value: "" },
@@ -76,38 +78,61 @@ const CreateProspectScreen = () => {
   ];
 
   const handleChange = (e) => {
-    debugger
+    debugger;
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-
-  const handleChange1 = (event) => {
-    const { name, value } = event.target;
-    setForm({ ...form, [name]: value });
-  };
   const { mutate, isLoading, isSuccess, status } = useProspects();
-  console.log(isLoading);
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
 
+    if (formData.prospect_email === "") {
+      valid = false;
+      newErrors.prospect_email = "Email is required.";
+    }
+    if (formData.prospect_phone === "") {
+      valid = false;
+      newErrors.prospect_phone = "Phone  is required.";
+    }
+    if (formData.prospect_source === "") {
+      valid = false;
+      newErrors.prospect_source = "source is required.";
+    }
+    if (formData.interest === "") {
+      valid = false;
+      newErrors.interest = "interest is required.";
+    }
+    if (formData.paymentAmount === "") {
+      valid = false;
+      newErrors.paymentAmount = "Amount is required.";
+    }
+    if (formData.status === "") {
+      valid = false;
+      newErrors.status = "status is required.";
+    }
+    if (formData.closingstatus === "") {
+      valid = false;
+      newErrors.closingstatus = "closingstatus is required.";
+    }
+
+    if (formData.client_name === "") {
+      valid = false;
+      newErrors.client_name = "client_name is required.";
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
   const handleSubmit = (e) => {
     debugger;
     e.preventDefault();
     const token = JSON.parse(sessionStorage.getItem("token"));
     // Validate form data
-    if (
-      formData.client_name &&
-      formData.prospect_phone &&
-      formData.prospect_email &&
-      formData.prospect_source &&
-      formData.interest &&
-      formData.status &&
-      formData.closingstatus &&
-      // formData.assignedTo &&
-      formData.paymentAmount
-      // formData.scheduleTaskDate
-    ) {
+    if (validateForm()) {
       if (!formData.assignedTo) {
         delete formData.assignedTo;
       }
@@ -115,8 +140,6 @@ const CreateProspectScreen = () => {
       // console.log({
       //   ...formData,
       // });
-    } else {
-      alert("Please fill out all fields.");
     }
   };
 
@@ -136,14 +159,19 @@ const CreateProspectScreen = () => {
               name="client_name"
               value={formData.client_name}
               onChange={handleChange}
-              className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[150px] md:w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                errors.email
+              className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[150px] md:w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                errors.client_name
                   ? "border-red-500 focus:border-red-500"
                   : "border-[2px] border-[#0250E6] "
               }`}
               placeholder="Enter Full Name"
               style={{ color: "#3C3C3C" }}
             />
+            {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.client_name}
+                  </p>
+                )}
           </div>
           <div>
             <button
@@ -170,14 +198,19 @@ const CreateProspectScreen = () => {
                   name="prospect_phone"
                   value={formData.prospect_phone}
                   onChange={handleChange}
-                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                    errors.email
+                  className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.prospect_phone
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
                   placeholder="Enter Phone Number"
                   style={{ color: "#3C3C3C" }}
                 />
+                {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.prospect_phone}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4 lg:gap-4 lg:mb-5">
                 <label
@@ -191,10 +224,19 @@ const CreateProspectScreen = () => {
                   name="prospect_email"
                   value={formData.prospect_email}
                   onChange={handleChange}
-                  className={`  bg-[#FFFFFF]  border-[2px] border-[#0250E6] rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold`}
+                  className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.prospect_email
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
                   placeholder="Enter Email"
                   style={{ color: "#3C3C3C" }}
                 />
+                {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.prospect_email}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
@@ -208,14 +250,19 @@ const CreateProspectScreen = () => {
                   name="prospect_source"
                   value={formData.prospect_source}
                   onChange={handleChange}
-                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                    errors.email
+                  className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.prospect_source
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
                   placeholder="Enter Source"
                   style={{ color: "#3C3C3C" }}
                 />
+                 {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.prospect_source}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
@@ -229,14 +276,19 @@ const CreateProspectScreen = () => {
                   name="interest"
                   value={formData.interest}
                   onChange={handleChange}
-                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                    errors.email
+                  className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.interest
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
                   placeholder="Enter Client Interest"
                   style={{ color: "#3C3C3C" }}
                 />
+                  {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.interest}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
@@ -246,7 +298,7 @@ const CreateProspectScreen = () => {
                   Assign to:
                 </label>
                 <select
-                  className={`custom-select`}
+                  className={`custom-select border-[2px] border-[#0250E6]`}
                   name="assignedTo"
                   id="assignedTo"
                   value={formData.assignedTo}
@@ -269,16 +321,23 @@ const CreateProspectScreen = () => {
                 <input
                   type="number"
                   name="paymentAmount"
-                  value={formData.paymentAmount==0?null:formData.paymentAmount}
+                  value={
+                    formData.paymentAmount == 0 ? null : formData.paymentAmount
+                  }
                   onChange={handleChange}
-                  className={`  bg-[#FFFFFF]  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                    errors.email
+                  className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
+                    errors.paymentAmount
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
                   placeholder="Enter Payment Amount"
                   style={{ color: "#3C3C3C" }}
                 />
+                  {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.paymentAmount}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
@@ -288,7 +347,11 @@ const CreateProspectScreen = () => {
                   prospect status:
                 </label>
                 <select
-                  className={`custom-select`}
+                  className={`custom-select  border-2 ${
+                    errors.status
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  }`}
                   name="status"
                   id="paymentAmount"
                   value={formData.status}
@@ -300,6 +363,11 @@ const CreateProspectScreen = () => {
                     </option>
                   ))}
                 </select>
+                {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.status}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
@@ -309,7 +377,11 @@ const CreateProspectScreen = () => {
                   closing status:
                 </label>
                 <select
-                  className={`custom-select `}
+                  className={`custom-select  border-2 ${
+                    errors.closingstatus
+                      ? "border-red-500 focus:border-red-500"
+                      : "border-[2px] border-[#0250E6] "
+                  } `}
                   name="closingstatus"
                   id="paymentAmount"
                   value={formData.closingstatus}
@@ -321,6 +393,11 @@ const CreateProspectScreen = () => {
                     </option>
                   ))}
                 </select>
+                {errors && (
+                  <p className="text-[16px] font-semibold text-[#a10d0d]">
+                    {errors.closingstatus}
+                  </p>
+                )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
