@@ -20,7 +20,7 @@ const CreateProspectScreen = () => {
     scheduleTaskDate: "",
     status: "",
     closingstatus: "",
-    paymentAmount: 0,
+    paymentAmmount: 0,
   });
   const [errors, setErrors] = useState({
     client_name: "",
@@ -30,14 +30,14 @@ const CreateProspectScreen = () => {
     interest: "",
     status: "",
     closingstatus: "",
-    paymentAmount: "",
+    paymentAmmount: 0,
   });
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState("");
   const { data: alluserData } = useGetAllUsers(token);
-  const transformedData = [{ _id: null, title: "Assign to Agent" }].concat(
+  const transformedData = [{ _id: "", title: "Assign to Agent" }].concat(
     Array.isArray(alluserData?.users)
       ? alluserData?.users.map((user) => ({
           _id: user._id,
@@ -106,9 +106,9 @@ const CreateProspectScreen = () => {
       valid = false;
       newErrors.interest = "interest is required.";
     }
-    if (formData.paymentAmount === "") {
+    if (formData.paymentAmmount === 0) {
       valid = false;
-      newErrors.paymentAmount = "Amount is required.";
+      newErrors.paymentAmmount = "Amount is required.";
     }
     if (formData.status === "") {
       valid = false;
@@ -133,7 +133,10 @@ const CreateProspectScreen = () => {
     const token = JSON.parse(sessionStorage.getItem("token"));
     // Validate form data
     if (validateForm()) {
-      if (!formData.assignedTo) {
+      if (typeof formData.paymentAmmount === 'string') {
+        formData.paymentAmmount = Number(formData.paymentAmmount);
+      }
+      if (!formData.assignedTo || formData.assignedTo === '') {
         delete formData.assignedTo;
       }
       mutate({ values: formData, token });
@@ -320,13 +323,13 @@ const CreateProspectScreen = () => {
                 </label>
                 <input
                   type="number"
-                  name="paymentAmount"
+                  name="paymentAmmount"
                   value={
-                    formData.paymentAmount == 0 ? null : formData.paymentAmount
+                    formData.paymentAmmount == 0 ? null : formData.paymentAmmount
                   }
                   onChange={handleChange}
                   className={`  bg-[#FFFFFF] border-2  rounded-sm outline-none focus:outline-none h-[40px] w-[350px] pl-5 text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold ${
-                    errors.paymentAmount
+                    errors.paymentAmmount
                       ? "border-red-500 focus:border-red-500"
                       : "border-[2px] border-[#0250E6] "
                   }`}
@@ -335,14 +338,14 @@ const CreateProspectScreen = () => {
                 />
                   {errors && (
                   <p className="text-[16px] font-semibold text-[#a10d0d]">
-                    {errors.paymentAmount}
+                    {errors.paymentAmmount}
                   </p>
                 )}
               </div>
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
                   className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
-                  htmlFor="paymentAmount"
+                  htmlFor="paymentAmmount"
                 >
                   prospect status:
                 </label>
@@ -353,7 +356,7 @@ const CreateProspectScreen = () => {
                       : "border-[2px] border-[#0250E6] "
                   }`}
                   name="status"
-                  id="paymentAmount"
+                  id="paymentAmmount"
                   value={formData.status}
                   onChange={handleChange}
                 >
@@ -372,7 +375,7 @@ const CreateProspectScreen = () => {
               <div className="flex flex-col md:flex-row md:items-center space-y-2 lg:space-y-0 mb-4  lg:gap-4 lg:mb-5">
                 <label
                   className="text-[#0250E6] w-[200px] text-[18px] uppercase font-semibold"
-                  htmlFor="paymentAmount"
+                  htmlFor="paymentAmmount"
                 >
                   closing status:
                 </label>
@@ -383,7 +386,7 @@ const CreateProspectScreen = () => {
                       : "border-[2px] border-[#0250E6] "
                   } `}
                   name="closingstatus"
-                  id="paymentAmount"
+                  id="paymentAmmount"
                   value={formData.closingstatus}
                   onChange={handleChange}
                 >
