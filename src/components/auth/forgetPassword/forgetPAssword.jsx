@@ -38,7 +38,9 @@ export default function ForgetPAssword() {
   };
   const handleChange = (event) => {
     const { name, value } = event.target;
+    
     setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: '' });
   };
   return (
     <>
@@ -67,7 +69,7 @@ export default function ForgetPAssword() {
               </div>
             </div>
             <div className="mt-[40px]">
-              <LoginButton title="Send Email" pending={status}  />
+              <LoginButton title="Send Email"  title_ar="Sending....." pending={status}  />
             </div>
           </form>
         </div>
@@ -98,7 +100,7 @@ export default function ForgetPAssword() {
                 </div>
               </div>
               <div className="mt-[22px]">
-                <LoginButton title="Send Email" pending={status}  />
+                <LoginButton title="Send Email"  title_ar="Sending....." pending={status}  />
               </div>
             </form>
           </div>

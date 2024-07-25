@@ -43,10 +43,8 @@ export default function Login() {
     return valid;
   };
 
-  const { mutate, isLoading } = useLogin();
-  if (isLoading) {
-    console.log(`Loading`);
-  }
+  const { mutate, status } = useLogin();
+
   const handleSubmit = async (event) => {
     debugger;
     event.preventDefault();
@@ -58,6 +56,7 @@ export default function Login() {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
+    setErrors({ ...errors, [name]: '' });
   };
   return (
     <>
@@ -107,7 +106,7 @@ export default function Login() {
               handleCheckboxChange={handleCheckboxChange}
             />
             <div className="mt-[40px]">
-              <LoginButton title="Confirm Sign In" />
+              <LoginButton title="Confirm Sign In" pending={status}  title_ar="Signing....." />
             </div>
             <div className="flex flex-col items-center justify-center mt-[24px]">
               <Link to="/forget-password">
@@ -165,7 +164,7 @@ export default function Login() {
               />
 
               <div className="mt-[22px]">
-                <LoginButton title="Confirm Sign In" />
+                <LoginButton title="Confirm Sign In" title_ar="Signing....."  pending={status}/>
               </div>
               <div className="flex justify-center mt-[16px]">
                 <Link to="/forget-password">

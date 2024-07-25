@@ -4,6 +4,8 @@ import Table from "../../components/team/components/table.jsx";
 import { useQuery } from "@tanstack/react-query";
 import { useGetProspects } from "../../services/prospects.js";
 import { useState } from "react";
+import FillCircle from "../../components/notification/components/fillCircle.jsx";
+import EmptyCircle from "../../components/notification/components/emptyCircle.jsx";
 
 export default function ProjectList() {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -43,7 +45,7 @@ export default function ProjectList() {
     { color: "BC0404", text: "Dead Leads" },
   ];
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const userID = JSON.parse(localStorage.getItem("userData"));
+  const userID = JSON.parse(sessionStorage.getItem("userData"));
   const { data, isLoading, isError, error } = useGetProspects(
     token,
     userID?._id
@@ -162,6 +164,36 @@ export default function ProjectList() {
         );
       },
     },
+    {
+      title: "Notes",
+      dataIndex: "scheduleTaskDate",
+      key: "scheduleTaskDate",
+      render: (scheduleTaskDate, isOpen, setIsOpen) => (
+        <div className="flex items-center gap-3 cursor-pointer"   onClick={() => setIsOpen(!isOpen)}>
+          <p
+            className="text-[15px] leading-4 tracking-[-1.8%] font-semibold cursor-pointer"
+          
+          >
+            Notes
+          </p>
+          {isOpen ? <p>&#x25B2;</p> : <p>&#x25BC;</p>}
+        </div>
+      ),
+    },
+    {
+      title: "Mark Close",
+      dataIndex: "scheduleTaskDate",
+      key: "scheduleTaskDate",
+      render: (scheduleTaskDate) => {
+       
+        return (
+          <div className="flex items-center gap-3">
+            <p className="text-[15px] leading-4 tracking-[-1.8%] font-semibold ">Mark As Closed </p>
+            {scheduleTaskDate?<><FillCircle/></>:<EmptyCircle/>}
+          </div>
+        );
+      },
+    }
   ];
   return (
     <div className="lg:flex lg:items-start lg:gap-3 lg:pb-10">
@@ -180,7 +212,7 @@ export default function ProjectList() {
         </select>
       </div>
 
-      <div className="w-64 bg-white p-4 ml-4 hidden lg:block mt-4 rounded-lg shadow-lg">
+      <div className="!w-80 bg-white p-4 ml-4 hidden lg:block mt-4 rounded-lg shadow-lg">
         <div className="font-bold text-lg mb-4 text-[#0250E6]">
           PROSPECTS BY FILTER
         </div>
@@ -239,7 +271,7 @@ export default function ProjectList() {
       {/* Table Container */}
       <div
         style={{ boxShadow: "0 5px 15px 0 rgba(0, 0, 0, 0.05)" }}
-        className="flex-grow lg:mt-[14px] rounded-lg  bg-white overflow-auto p-4"
+        className="flex-grow lg:mt-[14px] rounded-lg w-full  bg-white overflow-auto p-4"
       >
         {/* <Table tableData={tableData} /> */}
         {_data && (
@@ -248,8 +280,8 @@ export default function ProjectList() {
             shown={true}
             data={_data}
             title="My Prospects"
-            classes="lg:h-[650px] h-[350px] xl:h-[550px] "
-            width="lg:w-[1050px] xl:w-full "
+            classes="lg:h-[650px] mb-5 h-[350px] xl:h-[550px] "
+            width="lg:w-[1050px] xl:w-[1650px] "
           />
         )}
       </div>

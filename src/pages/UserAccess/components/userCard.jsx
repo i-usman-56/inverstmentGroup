@@ -24,10 +24,10 @@ export default function UserCard({ data }) {
                 {`${item.firstName} ${item.lastName}`}
               </h1>
               <div className="flex items-center lg:text-[16px]  text-[#000000] gap-1 text-[12px] md:text-[13.5px] font-bold leading-4 tracking-[-1.7%] ">
-                Status: {item.status}
-                {`${item.status == true ? "Active" : "Non-Active"}`}{" "}
+                Status:
+                {`${item.status == 'active' ? "Active" : "Non-Active"}`}{" "}
                 <div
-                  className={`w-[10px] ${item.status == true ? "bg-[#00FF85]" : " bg-[#00FF85]"
+                  className={`w-[10px] ${item.status == 'active' ? "bg-[#00FF85]" : " bg-[red]"
                     } bg-[#00FF85] h-[10px] rounded-[50%]`}
                 />
               </div>

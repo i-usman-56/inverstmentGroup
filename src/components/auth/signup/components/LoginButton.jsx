@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function LoginButton({title, onClick , pending}) {
+export default function LoginButton({title, onClick , pending,title_ar}) {
   return (
     <div className="w-full flex justify-center">
       
@@ -8,7 +8,7 @@ export default function LoginButton({title, onClick , pending}) {
         onClick={onClick}
         
       >
-        {`${pending === "pending"?'Sending....':title}`}
+        {`${pending === "pending"? title_ar : title}`}
       </button>
     </div>
   );

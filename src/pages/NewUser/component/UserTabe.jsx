@@ -12,13 +12,46 @@ const NewUser = () => {
   const handleBackClick = () => {
     navigate(-1);
   };
-  const [formData, setFormData] = useState({
+  const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
   });
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    role: "",
+    status: "",
+  });
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = {};
+
+    if (formData.firstName === "") {
+      valid = false;
+      newErrors.firstName = "First Name Required.";
+    }
+    if (formData.lastName === "") {
+      valid = false;
+      newErrors.lastName = "Last Name Required.";
+    }
+    if (formData.email === "") {
+      valid = false;
+      newErrors.email = "Email is required.";
+    }
+
+    if (formData.phone === "") {
+      valid = false;
+      newErrors.phone = "Phone is required.";
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
   useEffect(() => {
     if (userId) {
       if (userData) {
@@ -27,6 +60,14 @@ const NewUser = () => {
           lastName: userData.lastName || "",
           email: userData.email || "",
           phone: userData.phone || "",
+          role: userData.role || "",
+          status: userData.status || "",
+        });
+        setErrors({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
         });
       }
     } else {
@@ -36,6 +77,8 @@ const NewUser = () => {
         lastName: "",
         email: "",
         phone: "",
+        role: "",
+        status: "",
       });
     }
   }, [userId, userData]);
@@ -46,16 +89,33 @@ const NewUser = () => {
       ...formData,
       [name]: value,
     });
+    setErrors({ ...errors, [name]: "" });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await saveUser(formData);
+      if (userId) {
+        await saveUser(formData);
+      } else {
+        if (validateForm()) {
+          await saveUser(formData);
+        }
+      }
     } catch (error) {
       console.error("Error saving user data:", error);
       alert("Failed to save user data. Please try again.");
     }
   };
+  const userRoleOptions = [
+    { title: "Access Level", value: "" },
+    { title: "Admin", value: "admin" },
+    { title: "user", value: "user" },
+  ];
+  const userStatusOptions = [
+    { title: "Live Status", value: "" },
+    { title: "Active", value: "active" },
+    { title: "Non-Active", value: "non-active" },
+  ];
   return (
     <div className="w-full lg:w-10/12 p-5 bg-white rounded-lg shadow">
       <div className="flex justify-between">
@@ -92,6 +152,11 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+            {errors && (
+              <p className="text-[16px] font-semibold text-[#a10d0d]">
+                {errors.firstName}
+              </p>
+            )}
           </div>
           <div className="w-full lg:w-1/2">
             <input
@@ -102,6 +167,11 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+            {errors && (
+              <p className="text-[16px] font-semibold text-[#a10d0d]">
+                {errors.lastName}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-4 xl:gap-20 mb-4 lg:mb-10">
@@ -114,6 +184,11 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+            {errors && (
+              <p className="text-[16px] font-semibold text-[#a10d0d]">
+                {errors.email}
+              </p>
+            )}
           </div>
           <div className="w-full lg:w-1/2">
             <input
@@ -124,21 +199,42 @@ const NewUser = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-100"
             />
+            {errors && (
+              <p className="text-[16px] font-semibold text-[#a10d0d]">
+                {errors.phone}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex flex-col lg:flex-row justify-between gap-4 xl:gap-20 mb-4 lg:mb-10">
           <div className="w-full lg:w-1/2">
-            <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-              <option>Access Level</option>
-              <option>Admin</option>
-              <option>User</option>
+            <select
+              className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              onChange={handleChange}
+              id="role"
+              name="role"
+              value={formData.role}
+            >
+              {userRoleOptions?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.title}
+                </option>
+              ))}
             </select>
           </div>
           <div className="w-full lg:w-1/2">
-            <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-              <option>Live Status</option>
-              <option>Active</option>
-              <option>Inactive</option>
+            <select 
+            className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            onChange={handleChange}
+              id="status"
+              name="status"
+              value={formData.status}
+           >
+              {userStatusOptions?.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.title}
+                </option>
+              ))}
             </select>
           </div>
         </div>

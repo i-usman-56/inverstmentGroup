@@ -129,10 +129,10 @@ export default function Navbar() {
                 </div>
               </div>
             </Link>
-            <IoSettingsOutline className="w-[24px] h-[24px] text-[#FFFFFF]" />
+            {/* <IoSettingsOutline className="w-[24px] h-[24px] text-[#FFFFFF]" /> */}
             <ProfileIcon />
           </div>
-          <div className="absolute top-10  right-[190px]">
+          <div className="absolute top-[50px]  right-[165px]">
             <DatePicker ref={dateInputRef} className="hidden" />
           </div>
         </div>
