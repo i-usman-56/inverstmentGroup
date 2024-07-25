@@ -114,7 +114,7 @@ const NewUser = () => {
   const userStatusOptions = [
     { title: "Live Status", value: "" },
     { title: "Active", value: "active" },
-    { title: "Non-Active", value: "non-active" },
+    { title: "Non-Active", value: "Non-Active" },
   ];
   return (
     <div className="w-full lg:w-10/12 p-5 bg-white rounded-lg shadow">
