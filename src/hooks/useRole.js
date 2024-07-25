@@ -6,7 +6,7 @@ const useAdmin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const data = localStorage.getItem('userData');
+    const data = sessionStorage.getItem('userData');
     const token = sessionStorage.getItem('token');
       if (!token) {
       navigate('/login');

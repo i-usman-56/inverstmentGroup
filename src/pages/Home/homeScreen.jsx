@@ -59,7 +59,7 @@ export default function HomeScreen() {
   };
   // useEffect(()=>{})
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const userID = JSON.parse(localStorage.getItem("userData"));
+  const userID = JSON.parse(sessionStorage.getItem("userData"));
   const { data } = useGetProspects(token, userID?._id);
   const _data = data && data.length > 0 ? data : null;
   const { data: NewProspectData } = useGetCardData(token);
