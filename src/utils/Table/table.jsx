@@ -29,6 +29,7 @@ const withTable = (WrappedComponent) => {
                 {col.render ? (
                   col.render(
                     row[col.dataIndex],
+                    row,
                     openRowIndex === rowIndex,
                     () =>
                       setOpenRowIndex(

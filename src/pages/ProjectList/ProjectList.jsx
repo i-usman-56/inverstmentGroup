@@ -6,6 +6,7 @@ import { useGetProspects } from "../../services/prospects.js";
 import { useState } from "react";
 import FillCircle from "../../components/notification/components/fillCircle.jsx";
 import EmptyCircle from "../../components/notification/components/emptyCircle.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectList() {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -70,7 +71,7 @@ export default function ProjectList() {
     { title: "closed", color: "#33FF57" },
   ];
   const getClosingStatusColor = (title) => {
-    debugger;
+    // debugger;
     const status = closingStatusOptionsColors.find(
       (option) => option.title === title
     );
@@ -81,13 +82,16 @@ export default function ProjectList() {
       title: "Client",
       dataIndex: "client_name",
       key: "client_name",
-      render: (text) => (
-        <div className="">
+      render: (text,row) => {
+        const navigate= useNavigate()
+        return (
+          <div className="cursor-pointer" onClick={() => {navigate(`/prospect-profile/?id=${row._id}`)}}>
           <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {text}
           </span>
         </div>
-      ),
+        )
+      }
     },
     {
       title: "Closing status",
@@ -97,7 +101,7 @@ export default function ProjectList() {
         const bgColor = getClosingStatusColor(closingstatus).toUpperCase();
         return (
           <div
-            className={`px-3 rounded-md`}
+            className={`px-3 rounded-md`} 
             style={{ backgroundColor: bgColor }}
           >
             <span className="text-white whitespace-nowrap capitalize lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
@@ -168,7 +172,7 @@ export default function ProjectList() {
       title: "Notes",
       dataIndex: "scheduleTaskDate",
       key: "scheduleTaskDate",
-      render: (scheduleTaskDate, isOpen, setIsOpen) => (
+      render: (scheduleTaskDate,row, isOpen, setIsOpen) => (
         <div className="flex items-center gap-3 cursor-pointer"   onClick={() => setIsOpen(!isOpen)}>
           <p
             className="text-[15px] leading-4 tracking-[-1.8%] font-semibold cursor-pointer"

@@ -33,7 +33,7 @@ const axiosInstance = axios.create({
   },
 });
 const getProspects = async (token, id) => {
-  debugger;
+  // debugger;
   try {
     if (id) {
       const response = await axiosInstance.get(`/prospects/assigned/${id}`, {
@@ -84,11 +84,34 @@ export const useProspects = () => {
   });
 };
 export const useGetProspects = (Token,id) => {
-  debugger
+  // debugger
   return useQuery({
     queryKey: ["prospects", id], // Including id in the query key to differentiate queries
     queryFn: () => getProspects(Token,id),
     staleTime: 0, // Data is considered stale immediately
     cacheTime: 0,
+  });
+};
+const GetNewProspectsDetail = async (token,id) => {
+  debugger;
+  try {
+    const response = await axiosInstance.get(`/prospects/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching prospects:", error);
+    throw error; // Re-throw the error for the calling code to handle
+  }
+};
+
+export const useGetProspectDetail = (Token,id) => {
+  return useQuery({
+    queryKey: ["prospectsDetail"],
+    queryFn: () => GetNewProspectsDetail(Token,id),
+    staleTime: 0, // Data is considered stale immediately
+    cacheTime: 0, // Data is not cached
   });
 };
