@@ -113,8 +113,8 @@ const NewUser = () => {
   ];
   const userStatusOptions = [
     { title: "Live Status", value: "" },
-    { title: "Active", value: "active" },
-    { title: "Non-Active", value: "Non-Active" },
+    { title: "Active", value: "active",  },
+    { title: "Non-Active", value: "non-active",},
   ];
   return (
     <div className="w-full lg:w-10/12 p-5 bg-white rounded-lg shadow">
@@ -223,20 +223,31 @@ const NewUser = () => {
             </select>
           </div>
           <div className="w-full lg:w-1/2">
-            <select 
-            className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            onChange={handleChange}
-              id="status"
-              name="status"
-              value={formData.status}
-           >
-              {userStatusOptions?.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.title}
-                </option>
-              ))}
-            </select>
-          </div>
+  <div className="relative">
+    <select
+      className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      onChange={handleChange}
+      id="status"
+      name="status"
+      value={formData.status}
+    >
+      {userStatusOptions?.map((option) => (
+        <option
+          key={option.value}
+          value={option.value}
+        >
+          {option.title}
+        </option>
+      ))}
+    </select>
+    <div
+      className={`absolute right-2 top-1/2 transform -translate-y-1/2 w-[10px] h-[10px] rounded-[50%] ${
+        formData.status === "active" ? "bg-[#00FF85]" : "bg-[red]"
+      }`}
+    />
+  </div>
+</div>
+
         </div>
         <div className="mb-4 lg:mb-10">
           <textarea

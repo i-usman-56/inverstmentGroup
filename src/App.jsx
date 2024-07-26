@@ -19,6 +19,7 @@ import EditUser from "./pages/EditUser/EditUser";
 import useAuth from "./hooks/useAuth";
 import DashBoardHomeScreen from "./pages/HomeScreen/Home";
 import CreateProspectScreen from "./pages/CreateProspects/CreateProspects";
+import MessaginScreen from "./pages/message/message";
 
 
 
@@ -133,7 +134,7 @@ function App() {
       ),
     },
     {
-      path: "/prospect-profile",
+      path: "/prospect-profile/:id?",
       element: (
         <>
           <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF] bg-gradient-to-b">
@@ -158,6 +159,14 @@ function App() {
               <FooterMobile />
             </div>
           </div>
+        </>
+      ),
+    },
+    {
+      path: "/messaging",
+      element: (
+        <>
+          <MessaginScreen/>
         </>
       ),
     },

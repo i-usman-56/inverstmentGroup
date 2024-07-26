@@ -10,10 +10,10 @@ import { FaRegBell } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import icon from "../../assets/svg/Vector (1).svg";
-import icon1 from "../../assets/svg/Vector (2).svg";
+import icon1 from "../../assets/img/Group 337.svg";
 import icon2 from "../../assets/svg/clarity_administrator-line.svg";
 import icon3 from "../../assets/svg/fluent-mdl2_teamwork.svg";
-import icon4 from "../../assets/svg/solar_money-bag-broken.svg";
+import icon4 from "../../assets/svg/Group 337.svg";
 import { MdOutlineMessage } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
@@ -76,7 +76,7 @@ export default function Navbar() {
           dropDownList: [],
           path: "user-access",
         },
-        { value: "Finances", img: icon4, dropDownList: [], path: "finace" },
+        { value: "Messaging", img: icon4, dropDownList: [], path: "messaging" },
         {
           value: "Team Activity",
           img: icon3,
