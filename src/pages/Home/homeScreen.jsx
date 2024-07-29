@@ -72,7 +72,7 @@ export default function HomeScreen() {
       key: "client_name",
       render: (text) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {text}
           </span>
         </div>
@@ -86,7 +86,7 @@ export default function HomeScreen() {
         const bgColor = getClosingStatusColor(closingstatus).toUpperCase();
         return (
           <div className={`px-3 rounded-md`} style={{ backgroundColor: bgColor }}>
-            <span className="text-white whitespace-nowrap capitalize lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
+            <span className="text-white uppercase whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
               {closingstatus}
             </span>
           </div>
@@ -99,7 +99,7 @@ export default function HomeScreen() {
       key: "interest",
       render: (interest) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {interest}
           </span>
         </div>
@@ -116,7 +116,7 @@ export default function HomeScreen() {
               status === "unassigned Prospect"
                 ? "text-[#E60202]"
                 : "text-[#00B860]"
-            } whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+            } whitespace-nowrap lg:text-[14px] uppercase xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
           >
             {status}
           </span>
@@ -140,7 +140,7 @@ export default function HomeScreen() {
             <p
               className={`${
                 scheduleTaskDate ? "text-[#0250E6]" : "text-[#E60202]"
-              }`}
+              } uppercase`}
             >
               {scheduleTaskDate
                 ? `Meeting Scheduled ${formattedDate}`
@@ -159,7 +159,7 @@ export default function HomeScreen() {
       key: "client_name",
       render: (text) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {text}
           </span>
         </div>
@@ -176,7 +176,7 @@ export default function HomeScreen() {
             backgroundColor: socialMediaColors[prospect_source] || "#479090",
           }}
         >
-          <span className="text-white whitespace-nowrap lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-white uppercase whitespace-nowrap lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
             {prospect_source}
           </span>
         </div>
@@ -188,7 +188,7 @@ export default function HomeScreen() {
       key: "interest",
       render: (interest) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {interest}
           </span>
         </div>
@@ -205,7 +205,7 @@ export default function HomeScreen() {
               status === "unassigned Prospect"
                 ? "text-[#E60202]"
                 : "text-[#00B860]"
-            } capitalize  whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+            }   whitespace-nowrap uppercase lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
           >
             {status}
           </span>

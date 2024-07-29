@@ -23,7 +23,7 @@ export default function FinanceManagement() {
       key: "clientClosed",
       render: (clientClosed) => (
         <div className="">
-          <span className="text-black whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-bold leading-5">
+          <span className="text-black uppercase whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-bold leading-5">
             {clientClosed}
           </span>
         </div>
@@ -40,7 +40,7 @@ export default function FinanceManagement() {
       key: "payment",
       render: (payment) => (
         <div className="">
-          <span className=" whitespace-nowrap text-[#00B860] lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className=" whitespace-nowrap uppercase text-[#00B860] lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             $ {payment}
           </span>
         </div>
@@ -62,7 +62,7 @@ export default function FinanceManagement() {
                   : status === "Successful"
                   ? "text-[#00B860]"
                   : ""
-              } text-start whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%] font-medium leading-5`}
+              } text-start whitespace-nowrap uppercase lg:text-[14px] xl:text-[16px] tracking-[-1.7%] font-medium leading-5`}
             >
               {status}
             </span>
@@ -83,7 +83,7 @@ export default function FinanceManagement() {
       key: "clientClosed",
       render: (clientClosed) => (
         <div className="">
-          <span className="text-black whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-bold leading-5">
+          <span className="text-black whitespace-nowrap uppercase  lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-bold leading-5">
             {clientClosed}
           </span>
         </div>
@@ -100,7 +100,7 @@ export default function FinanceManagement() {
       key: "payment",
       render: (payment) => (
         <div className="">
-          <span className=" whitespace-nowrap  text-[#00B860] lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className=" whitespace-nowrap uppercase  text-[#00B860] lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             $ {payment}
           </span>
         </div>
@@ -114,7 +114,7 @@ export default function FinanceManagement() {
         <div className="bg-[#3C3C3C] rounded-md px-[20px]">
           <div className="py-[6px] flex items-center">
             <p
-              className={`text-[#FFFFFF]   text-start whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%] font-semibold leading-5`}
+              className={`text-[#FFFFFF]   text-start uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%] font-semibold leading-5`}
             >
                 Pay Now 
             </p>

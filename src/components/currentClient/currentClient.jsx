@@ -45,7 +45,7 @@ export default function CurrentClient() {
       key: "client_name",
       render: (text) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {text}
           </span>
         </div>
@@ -57,7 +57,7 @@ export default function CurrentClient() {
       key: "paymentAmmount",
       render: (paymentAmmount) => (
         <div className="bg-[#39AB74] px-10 rounded-md">
-          <span className="text-white whitespace-nowrap lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-white whitespace-nowrap uppercase lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
             ${paymentAmmount}
           </span>
         </div>
@@ -71,13 +71,13 @@ export default function CurrentClient() {
         <div className="">
           {status == "Fully Paid" ? (
             <div className="bg-[#00FF85] w-[150px] rounded-md px-4 py-[1px]">
-              <p className="text-white whitespace-nowrap text-center lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
+              <p className="text-white whitespace-nowrap uppercase text-center lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
                 {status}
               </p>
             </div>
           ) : (
             <div className="bg-[#535874] rounded-md px-4 py-[1px]">
-              <p className="text-white whitespace-nowrap text-center lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
+              <p className="text-white whitespace-nowrap uppercase text-center lg:text-[12px] xl:text-[14px] tracking-[-1.7%]  font-medium leading-5">
                 {status}
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function CurrentClient() {
       key: "interest",
       render: (interest) => (
         <div className="">
-          <span className=" whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className=" whitespace-nowrap lg:text-[14px] uppercase xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {interest}
           </span>
         </div>
@@ -104,7 +104,7 @@ export default function CurrentClient() {
       render: (Closingstatus) => (
         <div>
           <p>
-            <span className="text-[#00B860] text-start whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+            <span className="text-[#00B860] text-start uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
               {Closingstatus}Pending
             </span>
           </p>

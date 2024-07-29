@@ -101,7 +101,7 @@ export default function ProjectList() {
 
     return (
       <div className="flex items-center gap-3">
-        <p className="text-[15px] leading-4 tracking-[-1.8%] font-semibold cursor-pointer">
+        <p className="text-[15px] uppercase leading-4 tracking-[-1.8%] font-semibold cursor-pointer">
           Mark As Closed
         </p>
         {scheduleTaskDate === "closed" ? (
@@ -137,7 +137,7 @@ export default function ProjectList() {
               navigate(`/prospect-profile/?id=${row._id}`);
             }}
           >
-            <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+            <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
               {text}
             </span>
           </div>
@@ -155,7 +155,7 @@ export default function ProjectList() {
             className={`px-3 rounded-md`}
             style={{ backgroundColor: bgColor }}
           >
-            <span className="text-white whitespace-nowrap capitalize lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
+            <span className="text-white uppercase whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
               {closingstatus}
             </span>
           </div>
@@ -168,7 +168,7 @@ export default function ProjectList() {
       key: "interest",
       render: (interest) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {interest}
           </span>
         </div>
@@ -185,7 +185,7 @@ export default function ProjectList() {
               status === "unassigned Prospect"
                 ? "text-[#E60202]"
                 : "text-[#00B860]"
-            } capitalize whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+            } capitalize whitespace-nowrap uppercase lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
           >
             {status}
           </span>
@@ -209,7 +209,7 @@ export default function ProjectList() {
             <p
               className={`${
                 scheduleTaskDate ? "text-[#0250E6]" : "text-[#E60202]"
-              } text-start`}
+              } text-start uppercase`}
             >
               {scheduleTaskDate
                 ? `Meeting Scheduled ${formattedDate}`
@@ -228,7 +228,7 @@ export default function ProjectList() {
           className="flex items-center gap-3 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <p className="text-[15px] leading-4 tracking-[-1.8%] font-semibold cursor-pointer">
+          <p className="text-[15px] leading-4 uppercase tracking-[-1.8%] font-semibold cursor-pointer">
             Notes
           </p>
           {isOpen ? <p>&#x25B2;</p> : <p>&#x25BC;</p>}
