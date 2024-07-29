@@ -53,7 +53,7 @@ export default function HomeScreen() {
     { title: "closed", color: "#33FF57" },
   ];
   const getClosingStatusColor = (title) => {
-    debugger
+    // debugger
     const status = closingStatusOptionsColors?.find(option => option.title === title);
     return status ? status.color : "#FFFFFF"; // Default to white if not found
   };

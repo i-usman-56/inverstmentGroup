@@ -4,7 +4,6 @@ import "../../components/task/Task.css";
 import Hamburger from "../shapes/hamburger";
 import ProfileIcon from "../shapes/Profile";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import { FaRegBell } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
@@ -14,24 +13,13 @@ import icon1 from "../../assets/img/Group 337.svg";
 import icon2 from "../../assets/svg/clarity_administrator-line.svg";
 import icon3 from "../../assets/svg/fluent-mdl2_teamwork.svg";
 import icon4 from "../../assets/svg/Group 337.svg";
-import { MdOutlineMessage } from "react-icons/md";
 import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // import react-datepicker styl
 import useAdmin from "../../hooks/useRole";
-// import { getProspects } from "../../services/prospects";
 
 export default function Navbar() {
   const isAdmin = useAdmin();
-  // if (isAdmin) {
-  //   console.log(`Admin ${isAdmin}`)
-  // }
-  // const {isSuccess:PropectsSuccess}=getProspects()
-  // if (PropectsSuccess) {
-  //   console.log("Data")
-  // }
-  // console.log(`Admin`)
-  // console.log(isAdmin)
   const navigate = useNavigate();
   const dateInputRef = useRef(null); // Ref for the DatePicker component
   const handleIconClick = () => {
@@ -49,7 +37,6 @@ export default function Navbar() {
   };
   const handleLogout = () => {
     navigate(`/login`);
-    // Prevent body scroll when sidebar is open
   };
 
   const closeSidebar = () => {
@@ -129,7 +116,6 @@ export default function Navbar() {
                 </div>
               </div>
             </Link>
-            {/* <IoSettingsOutline className="w-[24px] h-[24px] text-[#FFFFFF]" /> */}
             <ProfileIcon />
           </div>
           <div className="absolute top-[50px]  right-[165px]">
@@ -142,23 +128,21 @@ export default function Navbar() {
               <div key={index} className="relative items-center">
                 <Link to={`/${menuItem.path}`}>
                   <div className="flex justify-center  space-y-2.5 flex-col items-center">
-                    {/* Display the icon based on the `img` property */}
-                    <img src={menuItem.img} alt="" className="cursor-pointer" />
-                    {/* Display the value of the menu item */}
+                    <img src={menuItem.img} alt="" className="cursor-pointer w-[25px] h-[25px]" />
 
-                    <p className="text-[#FFFFFF] flex items-center cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
-                      {menuItem.value}{" "}
+                    <div className="flex items-center">
+                      <p className="text-[#FFFFFF] uppercase cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
+                        {menuItem.value}{" "}
+                      </p>
                       {menuItem.dropDownList.length > 0 && (
                         <span className=" right-0 transform translate-x-[10px]">
                           <FaAngleDown className="text-[#FFFFFF]" />
                         </span>
                       )}
-                    </p>
+                    </div>
 
-                    {/* Show dropdown arrow if there are dropdown values */}
                   </div>
                 </Link>
-                {/* Show dropdown list if there are dropdown values */}
                 {menuItem.dropDownList.length > 0 && (
                   <div className="dropdown space-y-3 pl-6">
                     {menuItem.dropDownList.map((subItem, subIndex) => (

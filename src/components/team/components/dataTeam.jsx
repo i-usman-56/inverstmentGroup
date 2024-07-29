@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function DataTeam({ name, value, img }) {
+  console.log(value)
   return (
     <div>
       <div className="flex flex-col items-center">

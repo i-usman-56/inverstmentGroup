@@ -12,7 +12,7 @@ export default function DetailTeam({ close, team }) {
             <IoIosArrowBack className="text-[#0250E6] xl:text-[30px] text-[15px] md:text-[18px]  lg:text-[24px]" />
           </button>
           <p className="text-[15px] lg:text-[24px] xl:text-[30px] md:text-[18px] leading-5 font-bold text-[#0250E6] uppercase tracking-[-1.8%] ">
-            {team.name}
+            {team.userName}
           </p>
         </div>
         <div>

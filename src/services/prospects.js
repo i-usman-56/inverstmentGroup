@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASEURl } from "../constants/baseUrl";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 const GetNewProspects = async (token) => {
   // debugger;
@@ -42,8 +42,7 @@ const getProspects = async (token, id) => {
         },
       });
       return response.data;
-    }
-    else{
+    } else {
       const response = await axiosInstance.get(`/prospects`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -72,9 +71,8 @@ export const useProspects = () => {
   return useMutation({
     mutationKey: "prospects",
     mutationFn: createProspects,
-    
+
     onSuccess: (data) => {
- 
       toast.success("Created SuccessFully ");
       console.log(data);
     },
@@ -83,16 +81,16 @@ export const useProspects = () => {
     },
   });
 };
-export const useGetProspects = (Token,id) => {
+export const useGetProspects = (Token, id) => {
   // debugger
   return useQuery({
-    queryKey: ["prospects", id], // Including id in the query key to differentiate queries
-    queryFn: () => getProspects(Token,id),
+    queryKey: ["prospects"], // Including id in the query key to differentiate queries
+    queryFn: () => getProspects(Token, id),
     staleTime: 0, // Data is considered stale immediately
     cacheTime: 0,
   });
 };
-const GetNewProspectsDetail = async (token,id) => {
+const GetNewProspectsDetail = async (token, id) => {
   debugger;
   try {
     const response = await axiosInstance.get(`/prospects/${id}`, {
@@ -107,11 +105,67 @@ const GetNewProspectsDetail = async (token,id) => {
   }
 };
 
-export const useGetProspectDetail = (Token,id) => {
+export const useGetProspectDetail = (Token, id) => {
   return useQuery({
     queryKey: ["prospectsDetail"],
-    queryFn: () => GetNewProspectsDetail(Token,id),
+    queryFn: () => GetNewProspectsDetail(Token, id),
     staleTime: 0, // Data is considered stale immediately
     cacheTime: 0, // Data is not cached
   });
+};
+export const useEditProspects = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: "Editprospects",
+    mutationFn: editProspects,
+
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["prospects"]);
+      toast.success("Prospect Closed successfully");
+      // console.log("Prospect edited successfully");
+      // console.log(data);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+  });
+};
+const editProspects = async ({ token, id, data }) => {
+  debugger;
+  try {
+    const response = await axiosInstance.put(`/prospects/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error editing prospect:", error);
+    throw error; // Re-throw the error for the calling code to handle
+  }
+};
+export const useTeamProspects = (Token) => {
+  // debugger
+  return useQuery({
+    queryKey: ["Team Prospect"], // Including id in the query key to differentiate queries
+    queryFn: () => getTeamProspects(Token),
+    staleTime: 0, // Data is considered stale immediately
+    cacheTime: 0,
+  });
+};
+const getTeamProspects = async (token) => {
+  debugger;
+  try {
+    const response = await axiosInstance.get(`/prospects/list-assigned`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+
+    // return response.data;
+  } catch (error) {
+    console.error("Error fetching prospects:", error);
+    throw error; // Re-throw the error for the calling code to handle
+  }
 };
