@@ -6,11 +6,15 @@ import UserAccessCard from "./components/useraccessCard";
 import RoundedTopBg from "../../components/Rounded/rounded";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetAllUsers } from "../../services/auth";
+import { FadeLoader } from "react-spinners";
 
 export default function UserAccess() {
   const navigate = useNavigate();
   const token = JSON.parse(sessionStorage.getItem("token"));
-  const {data:alluserData,status}=useGetAllUsers(token)
+  const { data: alluserData, status, isLoading } = useGetAllUsers(token);
+  // if (isLoading) {
+  //   return <FadeLoader />
+  // }
 
   return (
     <div>
@@ -23,11 +27,20 @@ export default function UserAccess() {
           </h1>
           <UserAccessCard />
           <div className="hidden lg:block">
-          <LoginButton title="Add New User + " onClick={() => navigate("/newuser")} />
+            <LoginButton
+              title="Add New User + "
+              onClick={() => navigate("/newuser")}
+            />
           </div>
         </div>
         <div>
-          <UserCard data={alluserData} />
+          {isLoading ? (
+            <div className="flex h-[450px] items-center justify-center content-center">
+              <FadeLoader color="blue" />
+            </div>
+          ) : (
+            <UserCard data={alluserData} />
+          )}
         </div>
       </RoundedTopBg>
     </div>

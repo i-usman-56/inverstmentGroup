@@ -8,6 +8,7 @@ import FillCircle from "../../components/notification/components/fillCircle.jsx"
 import EmptyCircle from "../../components/notification/components/emptyCircle.jsx";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
+import { FadeLoader } from "react-spinners";
 
 export default function ProjectList() {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -80,16 +81,16 @@ export default function ProjectList() {
   };
   const renderMarkAsClosed = (scheduleTaskDate, row) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const {  mutate } = useEditProspects(token, row._id);
+    const { mutate } = useEditProspects(token, row._id);
     const showModal = () => {
       setIsModalVisible(true);
     };
     const data = {
-      closingstatus: "closed"
+      closingstatus: "closed",
     };
     const handleOk = () => {
       const data = {
-        closingstatus: "closed"
+        closingstatus: "closed",
       };
       mutate({ token, id: row._id, data });
       setIsModalVisible(false);
@@ -318,15 +319,21 @@ export default function ProjectList() {
         className="flex-grow lg:mt-[14px] rounded-lg w-full  bg-white overflow-auto p-4"
       >
         {/* <Table tableData={tableData} /> */}
-        {_data && (
-          <Table
-            columns={columns1}
-            shown={true}
-            data={_data}
-            title="My Prospects"
-            classes="lg:h-[650px] mb-5 h-[350px] xl:h-[550px] "
-            width="lg:w-[1050px] xl:w-[1650px] "
-          />
+        {isLoading ? (
+          <div className="flex h-[450px] items-center justify-center content-center">
+            <FadeLoader color="blue" />
+          </div>
+        ) : (
+          _data && (
+            <Table
+              columns={columns1}
+              shown={true}
+              data={_data}
+              title="My Prospects"
+              classes="lg:h-[650px] mb-5 h-[350px] xl:h-[550px] "
+              width="lg:w-[1050px] xl:w-[1650px] "
+            />
+          )
         )}
       </div>
     </div>

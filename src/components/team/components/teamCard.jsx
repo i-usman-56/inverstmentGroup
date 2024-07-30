@@ -11,13 +11,17 @@ export default function TeamCard({ViewDetail}) {
 
   const {isLoading,data,error,isError}=useTeamProspects(token)
 
-  if (isLoading) {
-    return <FadeLoader />
+if (isLoading) {
+    return (
+      <div className="flex h-[150px] items-center justify-center content-center">
+        <FadeLoader color="blue"  />
+      </div>
+    );
   }
   if (isError) {
     return <div><h1>Error Occures {error.message}</h1></div>
   }
-  const sortedData = data.sort((a, b) => a.userName.localeCompare(b.userName));
+  const sortedData = data?.sort((a, b) => a.userName.localeCompare(b.userName));
   return (
     <div  className="lg:grid  lg:grid-rows-1 lg:grid-cols-2 lg:gap-6 xl:gap-12">
       {sortedData.map((item, index) => {

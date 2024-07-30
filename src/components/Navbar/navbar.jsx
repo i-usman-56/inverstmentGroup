@@ -21,6 +21,7 @@ import useAdmin from "../../hooks/useRole";
 export default function Navbar() {
   const isAdmin = useAdmin();
   const navigate = useNavigate();
+  const [showLogout, setShowLogout] = useState(false);
   const dateInputRef = useRef(null); // Ref for the DatePicker component
   const handleIconClick = () => {
     if (dateInputRef.current) {
@@ -36,6 +37,8 @@ export default function Navbar() {
     document.body.style.overflow = "hidden"; // Prevent body scroll when sidebar is open
   };
   const handleLogout = () => {
+    sessionStorage.removeItem("userData");
+    sessionStorage.removeItem("token");
     navigate(`/login`);
   };
 
@@ -46,6 +49,9 @@ export default function Navbar() {
 
   const toggleDropdown = (index) => {
     setOpenDropdown(openDropdown === index ? null : index);
+  };
+  const handleIconClick1 = () => {
+    setShowLogout((prevShowLogout) => !prevShowLogout);
   };
 
   const sidebarMenu = isAdmin
@@ -116,7 +122,20 @@ export default function Navbar() {
                 </div>
               </div>
             </Link>
-            <ProfileIcon />
+            <div className="relative">
+              <div onClick={handleIconClick1} className="cursor-pointer">
+                <ProfileIcon />
+              </div>
+              {showLogout && (
+                <div
+                  onClick={handleLogout}
+                  className="absolute cursor-pointer right-2 mt-2 px-3 w-[205px] h-[55px] bg-white rounded-md flex items-center justify-between"
+                >
+                  <button className="bg-white rounded-md text-[18px] font-semibold tracking-[-1.8%] ">Logout</button>
+                  <MdLogout className="text-[20px]" />
+                </div>
+              )}
+            </div>
           </div>
           <div className="absolute top-[50px]  right-[165px]">
             <DatePicker ref={dateInputRef} className="hidden" />
@@ -128,7 +147,11 @@ export default function Navbar() {
               <div key={index} className="relative items-center">
                 <Link to={`/${menuItem.path}`}>
                   <div className="flex justify-center  space-y-2.5 flex-col items-center">
-                    <img src={menuItem.img} alt="" className="cursor-pointer w-[25px] h-[25px]" />
+                    <img
+                      src={menuItem.img}
+                      alt=""
+                      className="cursor-pointer w-[25px] h-[25px]"
+                    />
 
                     <div className="flex items-center">
                       <p className="text-[#FFFFFF] uppercase cursor-pointer text-[14px] xl:text-[16px] font-bold leading-5 tracking-[-1.8%] ">
@@ -140,7 +163,6 @@ export default function Navbar() {
                         </span>
                       )}
                     </div>
-
                   </div>
                 </Link>
                 {menuItem.dropDownList.length > 0 && (
