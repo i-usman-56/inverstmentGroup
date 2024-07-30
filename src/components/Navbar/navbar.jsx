@@ -13,6 +13,7 @@ import icon1 from "../../assets/img/Group 337.svg";
 import icon2 from "../../assets/svg/clarity_administrator-line.svg";
 import icon3 from "../../assets/svg/fluent-mdl2_teamwork.svg";
 import icon4 from "../../assets/svg/Group 337.svg";
+import icon5 from "../../assets/svg/projectList.svg";
 import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // import react-datepicker styl
@@ -59,7 +60,7 @@ export default function Navbar() {
         { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
         {
           value: "Prospect Lists",
-          img: icon1,
+          img: icon5,
           path: "project-list",
           dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
         },
@@ -81,7 +82,7 @@ export default function Navbar() {
         { value: "Dashboard", img: icon, dropDownList: [], path: "admin" },
         {
           value: "Prospect Lists",
-          img: icon1,
+          img: icon5,
           path: "project-list",
           dropDownList: ["Dashboard", "Dashboard", "Dashboard", "Dashboard"],
         },
@@ -97,7 +98,9 @@ export default function Navbar() {
     <>
       <div className="px-[35px] pt-[16px] hidden lg:block">
         <div className="flex justify-between items-center">
-          <img src={Logo} alt="" className="w-[97px] h-[83px]" />
+          <Link to={`/admin`}>
+            <img src={Logo} alt="" className="w-[97px] h-[83px]" />
+          </Link>
           <div className="relative w-[200px] lg:w-[375px]">
             <input
               type="search"
@@ -129,9 +132,11 @@ export default function Navbar() {
               {showLogout && (
                 <div
                   onClick={handleLogout}
-                  className="absolute cursor-pointer right-2 mt-2 px-3 w-[205px] h-[55px] bg-white rounded-md flex items-center justify-between"
+                  className="absolute cursor-pointer hover:text-[#0250E6] right-2 mt-2 px-3 w-[205px] h-[55px] bg-white rounded-md flex items-center justify-between"
                 >
-                  <button className="bg-white rounded-md text-[18px] font-semibold tracking-[-1.8%] ">Logout</button>
+                  <button className=" rounded-md  text-[18px] font-semibold tracking-[-1.8%] ">
+                    Logout
+                  </button>
                   <MdLogout className="text-[20px]" />
                 </div>
               )}

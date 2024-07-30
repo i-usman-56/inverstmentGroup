@@ -1,6 +1,6 @@
 // src/utils/withTable.js
 import React, { useState } from "react";
-import profile from '../../assets/svg/profileIcon.svg'
+import profile from "../../assets/svg/profileIcon.svg";
 import PropTypes from "prop-types";
 
 const withTable = (WrappedComponent) => {
@@ -50,18 +50,17 @@ const withTable = (WrappedComponent) => {
           </div>
           {openRowIndex === rowIndex && (
             <div className="mt-[5px] p-7 border border-[#D9D9D9] rounded-md">
-              <span className="font-semibold flex">
-                Me:
-                <img src={profile} alt="profileIcon" className="ml-2" />
-              </span>
-              <p className="text-[14px] mt-2 font-medium leading-4 w-[600px] ">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. In
-                illo minus aliquid, dolore nostrum eos cum labore rerum nihil
-                nam repellendus molestiae quos molestias voluptatum alias
-                ducimus odio nobis placeat nesciunt quia? Obcaecati, nisi
-                ratione? Earum aliquam ad laborum dolor ipsa inventore quod
-                repellat impedit.
-              </p>
+              {row?.notes.map((item, index) => (
+                <div key={index}>
+                  <span className="font-semibold flex">
+                    Me:
+                    <img src={profile} alt="profileIcon" className="ml-2" />
+                  </span>
+                  <p className="text-[14px] mt-2 font-medium leading-4 w-[600px] ">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
           )}
         </>

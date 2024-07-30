@@ -331,7 +331,7 @@ export default function ProjectList() {
               data={_data}
               title="My Prospects"
               classes="lg:h-[650px] mb-5 h-[350px] xl:h-[550px] "
-              width="lg:w-[1050px] xl:w-[1650px] "
+              width=" w-[1300px]  lg:w-[1050px] xl:w-[1650px] "
             />
           )
         )}

@@ -2,6 +2,7 @@ import axios from "axios";
 import { BASEURl } from "../constants/baseUrl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const GetNewProspects = async (token) => {
   // debugger;
   try {
@@ -58,7 +59,7 @@ const getProspects = async (token, id) => {
   }
 };
 const createProspects = async ({ values, token }) => {
-  // debugger
+  debugger
   const response = await axiosInstance.post(`/prospects`, values, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -121,7 +122,7 @@ export const useEditProspects = () => {
 
     onSuccess: (data) => {
       queryClient.invalidateQueries(["prospects"]);
-      toast.success("Prospect Closed successfully");
+      toast.success("Prospect UpDate successfully");
       // console.log("Prospect edited successfully");
       // console.log(data);
     },
@@ -166,6 +167,42 @@ const getTeamProspects = async (token) => {
     // return response.data;
   } catch (error) {
     console.error("Error fetching prospects:", error);
+    throw error; // Re-throw the error for the calling code to handle
+  }
+};
+
+export const useDeleteProspects = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate()
+  return useMutation({
+    mutationKey: "deleteProspects",
+    mutationFn: deleteProspects,
+
+    onSuccess: (data) => {
+      // console.log(data)
+
+      queryClient.invalidateQueries(["prospects"]);
+      toast.success(data.message);
+      navigate("/project-list");
+      // console.log("Prospect edited successfully");
+      // console.log(data);
+    },
+    onError: (error) => {
+      toast.error(error.response.data.message);
+    },
+  });
+};
+const deleteProspects = async ({ token, id }) => {
+  debugger;
+  try {
+    const response = await axiosInstance.delete(`/prospects/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error editing prospect:", error);
     throw error; // Re-throw the error for the calling code to handle
   }
 };

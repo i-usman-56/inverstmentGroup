@@ -150,8 +150,11 @@ const CreateProspectScreen = () => {
       if (!formData.assignedTo || formData.assignedTo === '') {
         delete formData.assignedTo;
       }
+      const no1tes = notes.map(note => ({ text: note }));
+      const updatedFormData = { ...formData, notes:no1tes };
+      console.log(updatedFormData)
       mutate(
-        { values: formData, token },
+        { values: updatedFormData, token },
         {
           onSuccess: () => {
             setFormData({
@@ -166,6 +169,8 @@ const CreateProspectScreen = () => {
               closingstatus: "",
               paymentAmmount: 0,
             });
+            setCurrentNote('')
+            setNotes([])
           }
         }
       );
