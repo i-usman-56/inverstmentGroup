@@ -112,7 +112,7 @@ export default function HomeScreen() {
       render: (status) => (
         <div className="">
           <span
-            className={` capitalize  ${
+            className={`   ${
               status === "unassigned Prospect"
                 ? "text-[#E60202]"
                 : "text-[#00B860]"
