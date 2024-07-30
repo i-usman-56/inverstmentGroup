@@ -4,18 +4,21 @@ import UserAccessCard from "../../pages/UserAccess/components/useraccessCard";
 import SearchBar from "../common/searchbar/searchbar";
 import DropDown from "../common/dropdown/dropdown";
 import Table from "../team/components/table";
-import { CurrentClientsData } from "../../data/data";
 import { useGetCardData, useGetProspects } from "../../services/prospects";
 import { useGetAllUsers } from "../../services/auth";
+import { FadeLoader } from "react-spinners";
 
 export default function CurrentClient() {
   const [selectedClient, setSelectedClient] = useState(null);
   const [prospectsData, setProspectsData] = useState([]);
   const token = JSON.parse(sessionStorage.getItem("token"));
 
-  const { data: initialProspectData } = useGetCardData(token);
+  const { data: initialProspectData, isLoading } = useGetCardData(token);
   const { data: alluserData } = useGetAllUsers(token);
-  const { data: prospectsDataForClient } = useGetProspects(token, selectedClient);
+  const { data: prospectsDataForClient, refetch: refetchProspects ,isLoading:prospectLoading } = useGetProspects(
+    token,
+    selectedClient
+  );
 
   const transformedData = alluserData?.users.map((user) => ({
     _id: user._id,
@@ -27,17 +30,22 @@ export default function CurrentClient() {
       setProspectsData(initialProspectData || []);
     }
   }, [initialProspectData]);
-
+  useEffect(() => {
+    if (selectedClient) {
+      refetchProspects();
+    }
+  }, [selectedClient]);
   useEffect(() => {
     if (prospectsDataForClient) {
       setProspectsData(prospectsDataForClient || []);
     }
-  }, [prospectsDataForClient]);
+  }, [prospectsDataForClient, selectedClient]);
 
   const handleSelectClient = (id) => {
+    console.log(id);
     setSelectedClient(id);
   };
-  
+
   const columns1 = [
     {
       title: "Client",
@@ -142,11 +150,17 @@ export default function CurrentClient() {
           />
           {/* Table  */}
           <div className="mt-[40px] lg:mt-[69px]">
-            <Table
-              columns={columns1}
-              data={prospectsData}
-              classes="h-[200px]  md:h-[250px] lg:h-[400px] xl:h-[600px] "
-            />
+            {isLoading ||prospectLoading ? (
+              <div className="flex h-[300px] items-center justify-center content-center">
+                <FadeLoader color="blue" />
+              </div>
+            ) : (
+              <Table
+                columns={columns1}
+                data={prospectsData}
+                classes="h-[200px]  md:h-[250px] lg:h-[400px] xl:h-[600px] "
+              />
+            )}
           </div>
         </div>
       </RoundedTopBg>
