@@ -6,45 +6,98 @@ import deleteIcon from "../../assets/svg/delete.svg";
 import exportIcon from "../../assets/svg/export.svg";
 import profileIcon from "../../assets/svg/profileIcon.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useGetProspectDetail } from "../../services/prospects";
+import {
+  useDeleteProspects,
+  useEditProspects,
+  useGetProspectDetail,
+} from "../../services/prospects";
+import { useEffect, useState } from "react";
 
 const ProspectProfile = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [notes, setNotes] = useState([]);
+  const [currentNote, setCurrentNote] = useState("");
   const [searchParams] = useSearchParams();
   const prospectId = searchParams.get("id");
   const token = JSON.parse(sessionStorage.getItem("token"));
   // console.log(prospectId)
   const { data, status } = useGetProspectDetail(token, prospectId);
-  console.log(data);
+  useEffect(() => {
+    if (data?.notes) {
+      setNotes(data.notes);
+    }
+  }, [data]);
+  const { mutate } = useDeleteProspects();
+  const { mutate: editProspect } = useEditProspects();
+  // console.log(data);
   const handleBackClick = () => {
     navigate(-1);
+  };
+  const handleDelete = (id) => {
+    // console.log(id); // for debugging purposes
+    mutate({ token, id });
+  };
+  const handleAddNote = () => {
+    if (currentNote.trim() !== "") {
+      const newNote = { text: currentNote };
+      const updatedNotes = [...notes, newNote];
+      setNotes(updatedNotes);
+      setCurrentNote("");
+      // Update the prospect with the new notes in the backend
+      // editProspect({ token, id: prospectId, data: { notes: updatedNotes } });
+    }
+  };
+
+  const handleOk = (id) => {
+    const updatedData = {
+      closingstatus: "closed",
+    };
+    editProspect({ token, id, data: updatedData });
+  };
+  const handleSave = () => {
+    editProspect({ token, id: prospectId, data: { notes: notes } });
   };
   return (
     <div className="container mx-auto my-8 p-4 bg-white rounded-lg shadow-lg">
       <div className="flex justify-between items-center border-b pb-4">
         <div className="flex items-center">
-        <span
-          className="mr-2 text-2xl text-[#0250E6] font-bold cursor-pointer text-center"
-          onClick={handleBackClick}
-        >
-          &lt;
-        </span>
-        <h1 className="text-2xl font-semibold text-[#0250E6]">
-          {data?.client_name}
-        </h1>
+          <span
+            className="mr-2 text-2xl text-[#0250E6] font-bold cursor-pointer text-center"
+            onClick={handleBackClick}
+          >
+            &lt;
+          </span>
+          <h1 className="text-2xl font-semibold text-[#0250E6]">
+            {data?.client_name}
+          </h1>
         </div>
 
         <div className="flex">
-          <button className="text-black px-4 py-2 rounded-lg  flex items-center justify-center">
+          <div className="text-black px-4 py-2 rounded-lg  flex items-center justify-center">
             Mark as Closed
-            <input
-              type="radio"
-              name="radio"
-              className="w-[18px] h-[18px] ml-2 items-center justify-center"
-            />
-            <img src={exportIcon} alt="Export" className="ml-2 w-4 h-4" />
-            <img src={deleteIcon} alt="Delete" className="ml-2 w-4 h-4" />
-          </button>
+            {data?.closingstatus === "closed" ? (
+              <input
+                type="radio"
+                name="radio"
+                className="w-[18px] h-[18px] ml-2 items-center justify-center"
+                checked
+                readOnly
+              />
+            ) : (
+              <p
+                className="w-[18px] h-[18px] cursor-pointer ml-2 items-center border-gray-500 border rounded-[50%] justify-center"
+                onClick={() => handleOk(data?._id)}
+              >
+                {/* Add some content here if needed */}
+              </p>
+            )}
+            <div onClick={() => handleSave(data?._id)}>
+              <img src={exportIcon} alt="Export" className="ml-2 cursor-pointer w-4 h-4" />
+            </div>
+            <div onClick={() => handleDelete(data?._id)}>
+              <img src={deleteIcon} alt="Delete" className="ml-2 cursor-pointer w-4 h-4" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -140,7 +193,9 @@ const ProspectProfile = () => {
                 Prospect Status:
                 <br />
               </span>
-              <span className="font-semibold text-sm capitalize">{data?.status}</span>
+              <span className="font-semibold text-sm capitalize">
+                {data?.status}
+              </span>
             </div>
           </div>
           <div className="flex justify-between border-b py-2">
@@ -234,39 +289,29 @@ const ProspectProfile = () => {
         <div className="hidden lg:block col-span-1">
           <div className="p-4">
             <h2 className="text-lg font-semibold text-[#0250E6]">NOTES</h2>
-            <div className="border-b py-2">
-              <span className="font-semibold flex">
-                Me:
-                <img src={profileIcon} alt="profileIcon" className="ml-2" />
-              </span>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                euismod, nisi nec suscipit fermentum.
-              </p>
-            </div>
-            <div className="border-b py-2">
-              <span className="font-semibold flex">
-                Me:
-                <img src={profileIcon} alt="profileIcon" className="ml-2" />
-              </span>{" "}
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                euismod, nisi nec suscipit fermentum.
-              </p>
-            </div>
+            {notes?.map((item, index) => (
+              <div key={index} className="border-b py-2">
+                <span className="font-semibold flex">
+                  Me:
+                  <img src={profileIcon} alt="profileIcon" className="ml-2" />
+                </span>
+                <p>{item.text}</p>
+              </div>
+            ))}
             <textarea
-              placeholder="Add Notes Here"
-              className="w-full p-2 mt-4 border rounded-lg"
+              name="note"
+              id="note"
+              placeholder="Add Note Here"
+              value={currentNote}
+              onChange={(e) => setCurrentNote(e.target.value)}
+              className="bg-[#FFFFFF] w-full border-[1px] border-[#00000089] h-[79px] p-4 rounded-sm outline-none focus:outline-none text-[#3C3C3C] text-[14px] leading-[16.7px] tracking-[-1.7%] font-bold"
             ></textarea>
             <div className="flex justify-center">
               <button
-                className="text-white px-4 py-2 rounded-lg mt-2 text-center flex"
-                style={{
-                  background:
-                    "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-                }}
+                className="bg-gradient-to-r uppercase w-fit h-[35px] px-8 text-[14px] text-white rounded tracking-[-1.2%] font-bold leading-[14.3px] from-[#02A1E6] via-[#0250E6] to-[#0250E6]"
+                onClick={handleAddNote}
               >
-                ADD NOTE
+                Add Note
               </button>
             </div>
           </div>
