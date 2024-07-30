@@ -9,6 +9,8 @@ import MessagechatLg from "./messagechatLg";
 import ChatBar from "./chatBar";
 import { useNavigate } from "react-router-dom";
 import { chatBardata, dataChat } from "../../../data/data";
+import { FaAngleDown } from "react-icons/fa";
+import AddnewChat from "./addnewChat";
 
 export default function MessagingPart() {
   const [newChat, SetNewChat] = useState(false);
@@ -18,6 +20,15 @@ export default function MessagingPart() {
   const handleBackClick = () => {
     // navigate(-1);
     SetNewChat(false);
+  };
+  const [welcomeMessage, setWelcomeMessage] = useState(""); // Add this state
+  const [inputMessage, setInputMessage] = useState(""); // State for the input field
+
+  const handleArrowClick = () => {
+    if (inputMessage.trim() !== "") {
+      setWelcomeMessage(inputMessage);
+      setInputMessage("");
+    }
   };
   return (
     <>
@@ -33,44 +44,43 @@ export default function MessagingPart() {
             <MessagechatLg data={chatBardata} />
           </div>
         </div>
-        <div className="w-[75%]">
-          <div className="flex justify-end mt-[35px] mr-5">
-            <button
-              className="text-sm  lg:text-base lg:w-auto  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="button"
-              //   onClick={() => navigate("/newuser")}
-              style={{
-                background: "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
-              }}
-            >
-              ADD Message Group +
-            </button>
+        {newChat ? (
+          <div  className="w-[75%]">
+
+            <AddnewChat backClick={handleBackClick} />
           </div>
-          <div>
-            <h1 className="text-[24px] font-bold leading-6 tracking-[-1.8%] pl-6 text-[#0250E6] uppercase">
-              Ongoing chats
-            </h1>
-            <div className="xl:px-[74px] px-[25px] mt-[75px]  h-[546px] xl:h-[637px] overflowContainerY">
-              <ChatBar data={chatBardata} />
+        ) : (
+          <div className="w-[75%]">
+            <div className="flex justify-end mt-[35px] mr-5">
+              <button
+                className="text-sm  lg:text-base lg:w-auto  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={() => SetNewChat(true)}
+                //   onClick={() => navigate("/newuser")}
+                style={{
+                  background:
+                    "linear-gradient(90deg, #02A1E6 0%, #0250E6 100%)",
+                }}
+              >
+                ADD Message Group +
+              </button>
+            </div>
+            <div>
+              <h1 className="text-[24px] font-bold leading-6 tracking-[-1.8%] pl-6 text-[#0250E6] uppercase">
+                Ongoing chats
+              </h1>
+              <div className="xl:px-[74px] px-[25px] mt-[75px]  h-[546px] xl:h-[637px] overflowContainerY">
+                <ChatBar data={chatBardata} />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       {/* Mobile Section  */}
       <div className="block lg:hidden">
         {newChat ? (
           <RoundedTopBg>
-            <div className="flex items-center">
-              <span
-                className="mr-2 lg:text-xl text-[18px] text-blue-700 font-bold cursor-pointer text-center"
-                onClick={handleBackClick}
-              >
-                &lt;
-              </span>
-              <h1 className="lg:text-xl text-[18px] flex items-center font-semibold  lg:text-left text-left text-blue-700">
-                Create New Chat
-              </h1>
-            </div>
+            <AddnewChat backClick={handleBackClick} />
           </RoundedTopBg>
         ) : (
           <RoundedTopBg>
