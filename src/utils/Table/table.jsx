@@ -40,7 +40,7 @@ const withTable = (WrappedComponent) => {
                   <p
                     className={`text-center text-[${
                       col.color || "black"
-                    }] text-[14px] lg:text-[16px] whitespace-nowrap lg:whitespace-normal leading-[14px] lg:leading-5 tracking-[-1.7%] font-medium`}
+                    }] text-[14px] lg:text-[16px]   whitespace-nowrap lg:whitespace-normal leading-[14px] lg:leading-5 tracking-[-1.7%] font-medium`}
                   >
                     {row[col.dataIndex]}
                   </p>

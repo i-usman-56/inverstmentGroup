@@ -2,11 +2,12 @@ import tableData from "../../data/projectTableData.json";
 import "../../components/task/Task.css";
 import Table from "../../components/team/components/table.jsx";
 import { useQuery } from "@tanstack/react-query";
-import { useGetProspects } from "../../services/prospects.js";
+import { useEditProspects, useGetProspects } from "../../services/prospects.js";
 import { useState } from "react";
 import FillCircle from "../../components/notification/components/fillCircle.jsx";
 import EmptyCircle from "../../components/notification/components/emptyCircle.jsx";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "antd";
 
 export default function ProjectList() {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -77,21 +78,71 @@ export default function ProjectList() {
     );
     return status ? status.color : "#FFFFFF"; // Default to white if not found
   };
+  const renderMarkAsClosed = (scheduleTaskDate, row) => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const {  mutate } = useEditProspects(token, row._id);
+    const showModal = () => {
+      setIsModalVisible(true);
+    };
+    const data = {
+      closingstatus: "closed"
+    };
+    const handleOk = () => {
+      const data = {
+        closingstatus: "closed"
+      };
+      mutate({ token, id: row._id, data });
+      setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    };
+
+    return (
+      <div className="flex items-center gap-3">
+        <p className="text-[15px] uppercase leading-4 tracking-[-1.8%] font-semibold cursor-pointer">
+          Mark As Closed
+        </p>
+        {scheduleTaskDate === "closed" ? (
+          <FillCircle />
+        ) : (
+          <div onClick={showModal} className="cursor-pointer">
+            <EmptyCircle />
+          </div>
+        )}
+        <Modal
+          title="Confirm Close"
+          visible={isModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <p>Are you sure you want to close this prospect?</p>
+        </Modal>
+      </div>
+    );
+  };
+
   const columns1 = [
     {
       title: "Client",
       dataIndex: "client_name",
       key: "client_name",
-      render: (text,row) => {
-        const navigate= useNavigate()
+      render: (text, row) => {
+        const navigate = useNavigate();
         return (
-          <div className="cursor-pointer" onClick={() => {navigate(`/prospect-profile/?id=${row._id}`)}}>
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
-            {text}
-          </span>
-        </div>
-        )
-      }
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              navigate(`/prospect-profile/?id=${row._id}`);
+            }}
+          >
+            <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+              {text}
+            </span>
+          </div>
+        );
+      },
     },
     {
       title: "Closing status",
@@ -101,10 +152,10 @@ export default function ProjectList() {
         const bgColor = getClosingStatusColor(closingstatus).toUpperCase();
         return (
           <div
-            className={`px-3 rounded-md`} 
+            className={`px-3 rounded-md`}
             style={{ backgroundColor: bgColor }}
           >
-            <span className="text-white whitespace-nowrap capitalize lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
+            <span className="text-white uppercase whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
               {closingstatus}
             </span>
           </div>
@@ -117,7 +168,7 @@ export default function ProjectList() {
       key: "interest",
       render: (interest) => (
         <div className="">
-          <span className="text-black whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
+          <span className="text-black uppercase whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5">
             {interest}
           </span>
         </div>
@@ -134,7 +185,7 @@ export default function ProjectList() {
               status === "unassigned Prospect"
                 ? "text-[#E60202]"
                 : "text-[#00B860]"
-            } capitalize whitespace-nowrap lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+            } capitalize whitespace-nowrap uppercase lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
           >
             {status}
           </span>
@@ -154,11 +205,11 @@ export default function ProjectList() {
           : "No Task Scheduled";
 
         return (
-          <div>
+          <div className="w-full">
             <p
               className={`${
                 scheduleTaskDate ? "text-[#0250E6]" : "text-[#E60202]"
-              }`}
+              } text-start uppercase`}
             >
               {scheduleTaskDate
                 ? `Meeting Scheduled ${formattedDate}`
@@ -172,12 +223,12 @@ export default function ProjectList() {
       title: "Notes",
       dataIndex: "scheduleTaskDate",
       key: "scheduleTaskDate",
-      render: (scheduleTaskDate,row, isOpen, setIsOpen) => (
-        <div className="flex items-center gap-3 cursor-pointer"   onClick={() => setIsOpen(!isOpen)}>
-          <p
-            className="text-[15px] leading-4 tracking-[-1.8%] font-semibold cursor-pointer"
-          
-          >
+      render: (scheduleTaskDate, row, isOpen, setIsOpen) => (
+        <div
+          className="flex items-center gap-3 cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <p className="text-[15px] leading-4 uppercase tracking-[-1.8%] font-semibold cursor-pointer">
             Notes
           </p>
           {isOpen ? <p>&#x25B2;</p> : <p>&#x25BC;</p>}
@@ -186,18 +237,10 @@ export default function ProjectList() {
     },
     {
       title: "Mark Close",
-      dataIndex: "scheduleTaskDate",
-      key: "scheduleTaskDate",
-      render: (scheduleTaskDate) => {
-       
-        return (
-          <div className="flex items-center gap-3">
-            <p className="text-[15px] leading-4 tracking-[-1.8%] font-semibold ">Mark As Closed </p>
-            {scheduleTaskDate?<><FillCircle/></>:<EmptyCircle/>}
-          </div>
-        );
-      },
-    }
+      dataIndex: "closingstatus",
+      key: "closingstatus",
+      render: renderMarkAsClosed,
+    },
   ];
   return (
     <div className="lg:flex lg:items-start lg:gap-3 lg:pb-10">
@@ -246,10 +289,7 @@ export default function ProjectList() {
                         className="inline-block rounded-sm w-4 h-4 mr-2"
                         style={{ backgroundColor: `#${item.color}` }}
                       ></span>
-                      <span className="whitespace-normal">
-
-                      {subItem.value}
-                      </span>
+                      <span className="whitespace-normal">{subItem.value}</span>
                     </div>
                   ))}
                 </div>

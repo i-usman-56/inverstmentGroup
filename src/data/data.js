@@ -502,3 +502,127 @@ export const NewProspectHomeScreen = [
     interest:"Funding"
   },
 ]
+export const dataChat = [
+  { id: 1, value: "value", title: "Vlaue" },
+  { id: 2, value: "value", title: "Value" },
+  { id: 3, value: "value", title: "Value" },
+  { id: 4, value: "value", title: "Value" },
+];
+export const chatBardata = [
+  {
+    id: 1,
+    color: "0250E6",
+    title: "Phase 1 : LLC + Funding",
+    member: 21,
+    notification: 4,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 3,
+    color: "7D83BC",
+    title: "Phase 3 : LLC + Funding",
+    member: 17,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 2,
+    color: "004E96",
+    title: "Phase 2 : LLC + Funding",
+    member: 11,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 4,
+    color: "02CBE6",
+    title: "Phase 4 : LLC + Funding",
+    member: 19,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 5,
+    color: "6602E6",
+    notification: 3,
+    title: "Phase 5 : LLC + Funding",
+    member: 9,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 5,
+    color: "30456C",
+    title: "Phase 5 : LLC + Funding",
+    member: 19,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 7,
+    color: "060A10",
+    title: "Phase 7 : LLC + Funding",
+    member: 37,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 8,
+    color: "1402E6",
+    notification: 14,
+    title: "Phase 8 : LLC + Funding",
+    member: 26,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 9,
+    color: "0250E6",
+    title: "Phase 9 : LLC + Funding",
+    member: 29,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 10,
+    color: "02CBE6",
+    title: "Phase 10 : LLC + Funding",
+    member: 20,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 11,
+    color: "6602E6",
+    title: "Phase 11 : LLC + Funding",
+    member: 13,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 12,
+    color: "30456C",
+    notification: 4,
+    title: "Phase 12 : LLC + Funding",
+    member: 12,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 13,
+    color: "060A10",
+    title: "Phase 13 : LLC + Funding",
+    member: 15,
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+  {
+    id: 14,
+    color: "1402E6",
+    member: 16,
+    title: "Phase 14 : LLC + Funding",
+    data:
+      " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
+  },
+];
