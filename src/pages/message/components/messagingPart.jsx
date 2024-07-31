@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import RoundedTopBg from "../../../components/Rounded/rounded";
-import image1 from "../../../assets/img/Vector (2).svg";
-import image2 from "../../../assets/img/Vector (1).svg";
-import DropDown from "../../../components/common/dropdown/dropdown";
 import MessaageChat from "./messaageChat";
 import LoginButton from "../../../components/auth/signup/components/LoginButton";
 import MessagechatLg from "./messagechatLg";
 import ChatBar from "./chatBar";
 import { useNavigate } from "react-router-dom";
 import { chatBardata, dataChat } from "../../../data/data";
-import { FaAngleDown } from "react-icons/fa";
 import AddnewChat from "./addnewChat";
+import Chatting from "./chatting";
 
 export default function MessagingPart() {
   const [newChat, SetNewChat] = useState(false);
+  const [newChatting, SetNewChatting] = useState(false);
 
   const navigate = useNavigate();
 
@@ -21,15 +19,15 @@ export default function MessagingPart() {
     // navigate(-1);
     SetNewChat(false);
   };
-  const [welcomeMessage, setWelcomeMessage] = useState(""); // Add this state
-  const [inputMessage, setInputMessage] = useState(""); // State for the input field
-
-  const handleArrowClick = () => {
-    if (inputMessage.trim() !== "") {
-      setWelcomeMessage(inputMessage);
-      setInputMessage("");
-    }
+  const handlechattingBackClick = () => {
+    // navigate(-1);
+    SetNewChatting(false);
   };
+  const handlechattingClick = () => {
+    // navigate(-1);
+    SetNewChatting(true);
+  };
+
   return (
     <>
       <div
@@ -40,14 +38,17 @@ export default function MessagingPart() {
           <h1 className="text-[24px] font-bold leading-6 tracking-[-1.8%] pl-6 text-[#0250E6] uppercase">
             Chat Notification
           </h1>
-          <div className="mt-[45px] h-[575px] xl:h-[750px] overflowContainerY">
+          <div className="mt-[45px] h-[620px] xl:h-[750px] overflowContainerY">
             <MessagechatLg data={chatBardata} />
           </div>
         </div>
         {newChat ? (
-          <div  className="w-[75%]">
-
+          <div className=" lg:w-[70%] xl:w-[75%]">
             <AddnewChat backClick={handleBackClick} />
+          </div>
+        ) : newChatting ?(
+          <div className="w-[75%]">
+              <Chatting backClick={handlechattingBackClick}/>
           </div>
         ) : (
           <div className="w-[75%]">
@@ -70,7 +71,7 @@ export default function MessagingPart() {
                 Ongoing chats
               </h1>
               <div className="xl:px-[74px] px-[25px] mt-[75px]  h-[546px] xl:h-[637px] overflowContainerY">
-                <ChatBar data={chatBardata} />
+                <ChatBar data={chatBardata} click={handlechattingClick} />
               </div>
             </div>
           </div>
@@ -82,6 +83,10 @@ export default function MessagingPart() {
           <RoundedTopBg>
             <AddnewChat backClick={handleBackClick} />
           </RoundedTopBg>
+        ) : newChatting ? (
+          <>
+           <Chatting backClick={handlechattingBackClick}/>
+          </>
         ) : (
           <RoundedTopBg>
             <div>
@@ -120,7 +125,11 @@ export default function MessagingPart() {
                 </div>
               </div>
               <div className="mt-[50px] pb-[68px]">
-                <MessaageChat data={chatBardata} />
+                <MessaageChat
+                  data={chatBardata}
+                  click={handlechattingClick}
+                  backClick={handlechattingBackClick}
+                />
               </div>
             </div>
           </RoundedTopBg>

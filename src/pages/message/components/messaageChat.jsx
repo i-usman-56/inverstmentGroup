@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function MessaageChat({ data }) {
+export default function MessaageChat({ data , click ,backClick}) {
   return (
     <div>
       {data.map((item, index) => (
-        <div key={index} className="border-b py-3 border-b-[#00000034]">
+        <div key={index} onClick={click} className="border-b py-3 border-b-[#00000034]">
           <div className="flex justify-between ">
             <div className="flex gap-3 items-center ">
               <div className="w-[20px] h-[20px] rounded-md" 
