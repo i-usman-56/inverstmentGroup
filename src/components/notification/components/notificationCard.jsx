@@ -23,7 +23,7 @@ export default function NotificationCard() {
                   htmlFor=""
                   className="text-[12px]  md:text-[14px] lg:text-[16px] uppercase font-medium tracking-[-1.8%] leading-5 "
                 >
-                  mark ar read
+                  mark as read
                 </label>
                 {item.status ? <FillCircle /> : <EmptyCircle />}
               </div>

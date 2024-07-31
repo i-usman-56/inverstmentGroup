@@ -18,7 +18,7 @@ export default function AddnewChat({ backClick }) {
   return (
     <div>
       <>
-        <div className="pb-20">
+        <div className="pb-20 hidden lg:block">
           <div className="px-4">
             <div className="flex items-center pt-[75px] ">
               <span
@@ -32,7 +32,7 @@ export default function AddnewChat({ backClick }) {
               </h1>
             </div>
           </div>
-          <div className="w-full px-[150px] pt-[25px]">
+          <div className="w-full px-10 xl:px-[150px] pt-[25px]">
             <form action="">
               <div>
                 <p className="text-[14px] font-bold text-end pr-24">
@@ -56,9 +56,7 @@ export default function AddnewChat({ backClick }) {
                     8,
                     9,
                     10,
-                    12,
-                    14,
-                    15,
+                   
                     128,
                     1257.555,
                     5554,
@@ -121,12 +119,12 @@ export default function AddnewChat({ backClick }) {
                 </div>
               </div>
               <div className="mt-5">
-                <div className="text-[14px] font-bold rounded-t-md px-2 pt-4 focus:outline-none text-[#606060] text-opacity-60 w-full h-[250px] bg-[#D9D9D9] bg-opacity-[0.24]">
+                <div className="text-[14px] font-bold rounded-t-md px-2 pt-4 focus:outline-none text-[#606060] text-opacity-60 w-full h-[180px] xl:h-[250px] bg-[#D9D9D9] bg-opacity-[0.24]">
                   <p>{welcomeMessage || "Enter Welcome Message to Group"}</p>
                 </div>
                 <div className="text-[14px] font-bold w-full rounded-md mt-0 flex justify-center items-center h-[100px] bg-[#DCDCDC]">
                   <div className="flex w-full justify-between items-center gap-3">
-                    <div className="flex items-center justify-center w-[25%] gap-5">
+                    <div className="flex items-center justify-center w-[25%] gap-4">
                       <img src={img} alt="" />
                       <img src={img1} alt="" />
                       <FaMicrophone className="text-[18px] text-[#818181]" />
@@ -134,7 +132,7 @@ export default function AddnewChat({ backClick }) {
                     <div className="w-[50%]">
                       <input
                         type="text"
-                        className="text-[14px] font-bold rounded-[4px] px-4 focus:outline-none text-[#929292] w-full h-10 bg-[#F7F7F7]"
+                        className="text-[14px] font-bold rounded-[4px] px-4 focus:outline-none text-[#929292] w-full h-10 xl:h-[60px] bg-[#F7F7F7]"
                         placeholder="Type a Message or Add Voice note"
                         value={inputMessage}
                         onChange={(e) => setInputMessage(e.target.value)}
@@ -142,7 +140,7 @@ export default function AddnewChat({ backClick }) {
                     </div>
                     <div className="w-[25%]">
                       <div
-                        className="h-[35px] w-[75%] bg-[#0250E6]  flex items-center text-[16px] font-semibold justify-center text-white rounded-[5px] cursor-pointer"
+                        className="h-[35px] xl:h-[60px] w-fit px-3 bg-[#0250E6]  flex items-center text-[16px] font-semibold justify-center text-white rounded-[5px] cursor-pointer"
                         onClick={handleArrowClick}
                       >
                         Send Message

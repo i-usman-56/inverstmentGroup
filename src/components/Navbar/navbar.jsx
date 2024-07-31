@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../../assets/svg/logo.svg";
 import "../../components/task/Task.css";
 import Hamburger from "../shapes/hamburger";
@@ -23,12 +23,25 @@ export default function Navbar() {
   const isAdmin = useAdmin();
   const navigate = useNavigate();
   const [showLogout, setShowLogout] = useState(false);
+  const logoutMenuRef = useRef(null);
   const dateInputRef = useRef(null); // Ref for the DatePicker component
   const handleIconClick = () => {
     if (dateInputRef.current) {
       dateInputRef.current.setOpen(true); // Open the DatePicker component
     }
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (logoutMenuRef.current && !logoutMenuRef.current.contains(event.target)) {
+        setShowLogout(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -112,7 +125,7 @@ export default function Navbar() {
               <IoIosSearch className="text-[#3C3C3C]" />
             </div>
           </div>
-          <div className="flex items-center gap-[18px]">
+          <div className="flex relative items-center gap-[18px]">
             <SlCalender
               onClick={handleIconClick}
               className="w-[24px] h-[24px] text-[#FFFFFF]"
@@ -131,6 +144,7 @@ export default function Navbar() {
               </div>
               {showLogout && (
                 <div
+                ref={logoutMenuRef}
                   onClick={handleLogout}
                   className="absolute cursor-pointer hover:text-[#0250E6] right-2 mt-2 px-3 w-[205px] h-[55px] bg-white rounded-md flex items-center justify-between"
                 >
@@ -140,10 +154,10 @@ export default function Navbar() {
                   <MdLogout className="text-[20px]" />
                 </div>
               )}
+              <div className="absolute top-[10px]  right-[110px]">
+                <DatePicker ref={dateInputRef} className="hidden" />
+              </div>
             </div>
-          </div>
-          <div className="absolute top-[50px]  right-[165px]">
-            <DatePicker ref={dateInputRef} className="hidden" />
           </div>
         </div>
         <div className="flex justify-center pt-6 gap-6">

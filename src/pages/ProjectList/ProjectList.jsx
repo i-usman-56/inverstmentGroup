@@ -1,7 +1,5 @@
-import tableData from "../../data/projectTableData.json";
 import "../../components/task/Task.css";
 import Table from "../../components/team/components/table.jsx";
-import { useQuery } from "@tanstack/react-query";
 import { useEditProspects, useGetProspects } from "../../services/prospects.js";
 import { useState } from "react";
 import FillCircle from "../../components/notification/components/fillCircle.jsx";
@@ -331,7 +329,7 @@ export default function ProjectList() {
               data={_data}
               title="My Prospects"
               classes="lg:h-[650px] mb-5 h-[350px] xl:h-[550px] "
-              width=" w-[1300px]  lg:w-[1050px] xl:w-[1650px] "
+              width=" w-[1450px]  lg:w-[1550px] xl:w-[1750px] "
             />
           )
         )}
