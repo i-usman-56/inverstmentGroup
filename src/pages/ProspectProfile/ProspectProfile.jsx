@@ -12,11 +12,23 @@ import {
   useGetProspectDetail,
 } from "../../services/prospects";
 import { useEffect, useState } from "react";
+import { Modal } from "antd";
 
 const ProspectProfile = () => {
   const navigate = useNavigate();
   const [notes, setNotes] = useState([]);
+  const [showpaymentinput, setShowPaymentInput] = useState(false);
+  const [showpaymentinputinterest, setShowPaymentInputInterest] = useState(
+    false
+  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisibleSave, setIsModalVisibleSave] = useState(false);
+  const [isModalVisibleDelete, setIsModalVisibleDelete] = useState(false);
   const [currentNote, setCurrentNote] = useState("");
+  const [amount, setAmount] = useState("");
+  const [interest, setInterest] = useState("");
+  const [closingStatus, setClosingStatus] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const prospectId = searchParams.get("id");
   const token = JSON.parse(sessionStorage.getItem("token"));
@@ -26,7 +38,42 @@ const ProspectProfile = () => {
     if (data?.notes) {
       setNotes(data.notes);
     }
+    if (data?.paymentAmmount) {
+      setAmount(data.paymentAmmount);
+    }
+    if (data?.interest) {
+      setInterest(data.interest);
+    }
+    if (data?.closingstatus) {
+      setClosingStatus(data.closingstatus);
+    }
   }, [data]);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const showModalSave = () => {
+    setIsModalVisibleSave(true);
+  };
+  const showModalDelete = () => {
+    setIsModalVisibleDelete(true);
+  };
+  // const handleOk = () => {
+  //   const data = {
+  //     closingstatus: "closed",
+  //   };
+  //   mutate({ token, id: row._id, data });
+  //   setIsModalVisible(false);
+  // };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancelSave = () => {
+    setIsModalVisibleSave(false);
+  };
+  const handleCancelDelete = () => {
+    setIsModalVisibleDelete(false);
+  };
   const { mutate } = useDeleteProspects();
   const { mutate: editProspect } = useEditProspects();
   // console.log(data);
@@ -47,15 +94,54 @@ const ProspectProfile = () => {
       // editProspect({ token, id: prospectId, data: { notes: updatedNotes } });
     }
   };
+  const closingStatusOptions = [
+    { title: "Select Status", value: "" },
+    { title: "New Prospect", value: "new prospect" },
+    { title: "First Call", value: "first call" },
+    { title: "First Call Scheduled", value: "first call scheduled" },
+    { title: "First Meeting Scheduled", value: "first meeting scheduled" },
+    { title: "No Show (Follow Up)", value: "no show follow up" },
+    { title: "No Show (Dead Lead)", value: "no show dead lead" },
+    { title: "Call Scheduled", value: "call scheduled" },
+    { title: "Meeting Scheduled", value: "meeting scheduled" },
+    { title: "Closing Call Scheduled", value: "closing call scheduled" },
+    { title: "Closing Meeting Scheduled", value: "closing meeting scheduled" },
+    { title: "Interested (No Commitment)", value: "interested no commitment" },
+    { title: "Interested (Commitment)", value: "interested commitment" },
+    { title: "Dead", value: "dead" },
+    { title: "Closed", value: "closed" },
+  ];
+  const handleAmountChange = () => {
+    setShowPaymentInput(true);
+    // const updatedData = { paymentAmmount: amount };
+    // editProspect({ token, id: prospectId, data: updatedData });
+  };
+  const handleChange=(e)=>{
+    const newStatus = e.target.value;
+    setClosingStatus(newStatus);
+  }
 
-  const handleOk = (id) => {
+  const handleOk = () => {
     const updatedData = {
       closingstatus: "closed",
     };
-    editProspect({ token, id, data: updatedData });
+    editProspect({ token, id: prospectId, data: updatedData });
+    setIsModalVisible(false);
   };
-  const handleSave = () => {
-    editProspect({ token, id: prospectId, data: { notes: notes } });
+  const handleOkSave = () => {
+    editProspect({
+      token,
+      id: prospectId,
+      data: { notes: notes, paymentAmmount: amount, interest: interest,closingstatus: closingStatus },
+    });
+    setShowPaymentInput(false);
+    setShowPaymentInputInterest(false);
+    setClosingStatus(null)
+    setIsModalVisibleSave(false);
+  };
+  const handleOkDelete = () => {
+    mutate({ token, id: prospectId });
+    setIsModalVisibleDelete(false);
   };
   return (
     <div className="container mx-auto my-8 p-4 bg-white rounded-lg shadow-lg">
@@ -86,16 +172,55 @@ const ProspectProfile = () => {
             ) : (
               <p
                 className="w-[18px] h-[18px] cursor-pointer ml-2 items-center border-gray-500 border rounded-[50%] justify-center"
-                onClick={() => handleOk(data?._id)}
+                // onClick={() => handleOk(data?._id)}
+                onClick={showModal}
               >
                 {/* Add some content here if needed */}
               </p>
             )}
-            <div onClick={() => handleSave(data?._id)}>
-              <img src={exportIcon} alt="Export" className="ml-2 cursor-pointer w-4 h-4" />
+            <Modal
+              title="Confirm Close"
+              visible={isModalVisible}
+              onOk={handleOk}
+              onCancel={handleCancel}
+            >
+              <p>Are you sure you want to close this prospect?</p>
+            </Modal>
+            <div
+            // onClick={() => handleSave(data?._id)}
+            >
+              <img
+                src={exportIcon}
+                alt="Export"
+                onClick={showModalSave}
+                className="ml-2 cursor-pointer w-4 h-4"
+              />
+              <Modal
+                title="Confirm Close"
+                visible={isModalVisibleSave}
+                onOk={handleOkSave}
+                onCancel={handleCancelSave}
+              >
+                <p>Are you sure you want to Update this prospect?</p>
+              </Modal>
             </div>
-            <div onClick={() => handleDelete(data?._id)}>
-              <img src={deleteIcon} alt="Delete" className="ml-2 cursor-pointer w-4 h-4" />
+            <div
+            //  onClick={() => handleDelete(data?._id)}
+            >
+              <img
+                src={deleteIcon}
+                onClick={showModalDelete}
+                alt="Delete"
+                className="ml-2 cursor-pointer w-4 h-4"
+              />
+              <Modal
+                title="Confirm Close"
+                visible={isModalVisibleDelete}
+                onOk={handleOkDelete}
+                onCancel={handleCancelDelete}
+              >
+                <p>Are you sure you want to Delete this prospect?</p>
+              </Modal>
             </div>
           </div>
         </div>
@@ -150,14 +275,27 @@ const ProspectProfile = () => {
             </div>
           </div>
           <div className="flex justify-between border-b py-2">
-            <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
-              <span className="text-[#0250E6] font-bold">
+            <div className="lg:flex lg:items-center gap-5 lg:justify-between lg:w-4/12">
+              <span className="text-[#0250E6]  whitespace-nowrap font-bold">
                 Interested In:
                 <br />
               </span>
-              <span className="text-sm font-semibold">{data?.interest}</span>
+              <span className="text-sm min-w-24 text-center  ml-20 font-semibold">
+                {data?.interest}
+              </span>
+              {showpaymentinputinterest && (
+                <input
+                  type="text"
+                  value={interest}
+                  onChange={(e) => setInterest(e.target.value)}
+                  className="text-sm ml-10 font-semibold h-[30px] border rounded-md px-3 border-[#0250E6]"
+                />
+              )}
             </div>
-            <button className="flex items-center justify-center px-4 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100">
+            <button
+              onClick={() => setShowPaymentInputInterest(true)}
+              className="flex items-center justify-center px-4 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100"
+            >
               ADD INTEREST
               <span className="ml-2">+</span>
             </button>
@@ -173,16 +311,34 @@ const ProspectProfile = () => {
             </div>
           </div>
           <div className="flex justify-between border-b py-2">
-            <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">
-              <span className="text-[#0250E6] font-bold">
+            <div className="lg:flex lg:items-center gap-5 lg:justify-between lg:w-4/12">
+              <span className="text-[#0250E6] font-bold whitespace-nowrap">
                 Payment Amount:
                 <br />
               </span>
-              <span className="font-semibold bg-[#39AB74] px-2 py text-white rounded-sm">
+
+              <span className="font-semibold !min-w-[100px] text-center bg-[#39AB74] px-2 py text-white rounded-sm">
                 ${data?.paymentAmmount}
               </span>
+              {showpaymentinput && (
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  className="font-semibold  bg-[#39AB74] px-2 py w-[150px] text-white rounded-sm"
+                />
+              )}
+              {/* <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="font-semibold  bg-[#39AB74] px-2 py w-[150px] text-white rounded-sm"
+              /> */}
             </div>
-            <button className="flex items-center justify-center px-5 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100">
+            <button
+              onClick={handleAmountChange}
+              className="flex items-center justify-center px-5 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100"
+            >
               ADD AMOUNT
               <span className="ml-2">+</span>
             </button>{" "}
@@ -208,23 +364,19 @@ const ProspectProfile = () => {
                 {data?.closingstatus}
               </span>
             </div>
-            <button className="flex items-center justify-center px-3 py border border-gray-400 rounded text-gray-800 hover:bg-gray-100">
-              SELECT STATUS
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="ml-2 h-3 w-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>{" "}
-            </button>
+            <select
+                  className={` h-[35px] w-[170px] font-semibold border px-3 border-gray-400 `}
+                  name="closingstatus"
+                  id="paymentAmmount"
+                  value={closingStatus}
+                  onChange={handleChange}
+                >
+                  {closingStatusOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.title}
+                    </option>
+                  ))}
+                </select>
           </div>
           <div className="flex justify-between border-b py-2">
             <div className="lg:flex lg:items-center lg:justify-between lg:w-4/12">

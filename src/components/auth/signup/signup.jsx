@@ -109,7 +109,7 @@ export default function SignUp() {
                     value={form.firstName}
                     onChange={handleChange}
                     error={errors.firstName}
-                    autocomplete="new-password"
+                    // autocomplete="new-password"
                   />
                    {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>}
                 </div>
@@ -165,6 +165,7 @@ export default function SignUp() {
                 value={form.confirmPassword}
                 onChange={handleChange}
                 error={errors.confirmPassword}
+                autoComplete="current-password"
               />
                {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>}
             </div>
@@ -182,7 +183,7 @@ export default function SignUp() {
         </div>
       </section>
       {/* Mobile Section */}
-      <div className="w-full lg:hidden">
+      {/* <div className="w-full lg:hidden">
         <div className="flex px-5 w-full min-h-[80vh] justify-center flex-col">
           <div>
             <LoginHeader
@@ -194,14 +195,16 @@ export default function SignUp() {
               <div className="gap-8 space-y-[16px] pt-[25px] w-full">
                 <div className="flex gap-[22px] w-full">
                   <div className="flex-1">
-                    <InputFields
-                      type="text"
-                      name="firstName"
-                      title="First Name"
-                      value={form.firstName}
-                      onChange={handleChange}
-                      error={errors.firstName}
-                    />
+                  <InputFields
+                    type="text"
+                    name="firstName"
+                    title="First Name"
+                    value={form.firstName}
+                    onChange={handleChange}
+                    error={errors.firstName}
+                    // autocomplete="new-password"
+                  />
+                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>}
                   </div>
                   <div className="flex-1">
                     <InputFields
@@ -269,7 +272,7 @@ export default function SignUp() {
         <div className="fixed bottom-0 w-full">
           <FooterMobile />
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

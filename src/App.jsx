@@ -20,10 +20,12 @@ import useAuth from "./hooks/useAuth";
 import DashBoardHomeScreen from "./pages/HomeScreen/Home";
 import CreateProspectScreen from "./pages/CreateProspects/CreateProspects";
 import MessaginScreen from "./pages/message/message";
+import { useEffect } from "react";
 
 
 
 function App() {
+  // useEffect()
   const isLoggedIn = useAuth();
   const router = createBrowserRouter([
     {
@@ -32,7 +34,8 @@ function App() {
     },
     {
       path: '/',
-      element: isLoggedIn ? (
+      element:
+       isLoggedIn ? (
         <>
           <div className="from-[#0250E6] h-[80vh] to-[#FFFFFF]  bg-gradient-to-b">
             <Navbar />

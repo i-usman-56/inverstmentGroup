@@ -78,7 +78,7 @@ const NewUser = () => {
         email: "",
         phone: "",
         role: "",
-        status: "",
+        // status: "",
       });
     }
   }, [userId, userData]);
@@ -138,6 +138,7 @@ const NewUser = () => {
             }}
           >
             ADD NEW USER +
+            
           </button>
         )}
       </div>

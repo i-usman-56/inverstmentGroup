@@ -24,7 +24,7 @@ export default function FooterMobile() {
           dropDownList: [],
           path: "user-access",
         },
-        { value: "FINANCES", img: icon4, dropDownList: [], path: "finace" },
+        // { value: "FINANCES", img: icon4, dropDownList: [], path: "finace" },
         {
           value: "MY TEAM",
           img: icon2,

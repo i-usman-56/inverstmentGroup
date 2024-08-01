@@ -54,7 +54,9 @@ export default function HomeScreen() {
   ];
   const getClosingStatusColor = (title) => {
     // debugger
-    const status = closingStatusOptionsColors?.find(option => option.title === title);
+    const status = closingStatusOptionsColors?.find(
+      (option) => option.title === title
+    );
     return status ? status.color : "#FFFFFF"; // Default to white if not found
   };
   // useEffect(()=>{})
@@ -85,7 +87,10 @@ export default function HomeScreen() {
       render: (closingstatus) => {
         const bgColor = getClosingStatusColor(closingstatus).toUpperCase();
         return (
-          <div className={`px-3 rounded-md`} style={{ backgroundColor: bgColor }}>
+          <div
+            className={`px-3 rounded-md`}
+            style={{ backgroundColor: bgColor }}
+          >
             <span className="text-white uppercase whitespace-nowrap  lg:text-[12px] xl:text-[14px] tracking-[-1.7%] font-medium leading-5">
               {closingstatus}
             </span>
@@ -241,12 +246,15 @@ export default function HomeScreen() {
           </div>
         </div>
         <div className="xl:px-20 lg:px-10 lg:pt-[45px] lg:space-y-10 ">
-          <Table
-            columns={columns}
-            data={NewProspectData}
-            title="New Prospects"
-            buttonLabel="View All"
-          />
+          {NewProspectData && (
+            <Table
+              columns={columns}
+              data={NewProspectData}
+              title="New Prospects"
+              // buttonLabel="View All"
+            />
+          )}
+
           {_data && (
             <div>
               <div className="flex justify-between w-full items-center pl-[37px] pr-[24px] md:pl-0 md:pr-0 lg:pl-0 lg:pr-0 mt-[20px]">
