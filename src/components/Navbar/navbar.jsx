@@ -18,10 +18,20 @@ import { IoIosSearch } from "react-icons/io";
 import DatePicker from "react-datepicker"; // import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // import react-datepicker styl
 import useAdmin from "../../hooks/useRole";
+import useAuth from "../../hooks/useAuth";
 
 export default function Navbar() {
   const isAdmin = useAdmin();
+  const isLoggedIn= useAuth();
   const navigate = useNavigate();
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  useEffect(()=>{
+    debugger
+    if (!token) {
+      navigate('/login')
+    }
+  },[])
+  console.log(isLoggedIn)
   const [showLogout, setShowLogout] = useState(false);
   const logoutMenuRef = useRef(null);
   const dateInputRef = useRef(null); // Ref for the DatePicker component

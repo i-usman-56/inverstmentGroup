@@ -102,7 +102,7 @@ export default function NewPassword() {
         </div>
       </section>
       {/* Mobile Section */}
-      <div className="w-full lg:hidden">
+      {/* <div className="w-full lg:hidden">
         <div className="flex px-5  w-full min-h-[80vh] justify-center flex-col">
           <div>
             <LoginHeader
@@ -145,7 +145,7 @@ export default function NewPassword() {
         <div className="fixed bottom-0 w-full">
           <FooterMobile />
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

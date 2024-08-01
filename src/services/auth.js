@@ -52,6 +52,16 @@ const createUser = async (values) => {
   const response = await axios.post(`${BASEURl}/user/signUp`, values);
   return response.data;
 };
+const InviteUser = async ({formData,token}) => {
+  debugger
+  const response = await axiosInstance.post(`/user/invite`,formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  // const response = await axios.post(`${BASEURl}/user/invite`, values);
+  return response.data;
+};
 export const useForgetPassword = () => {
   // debugger
   // const navigate = useNavigate();
@@ -91,7 +101,7 @@ export const useReNewPassword = () => {
     },
   });
 };
-const renewPasssword = async (values) => {
+const renewPasssword = async (values,token) => {
   debugger
   const response = await axios.post(`${BASEURl}/authentication/resetPassword`, values);
   return response.data;
@@ -148,6 +158,7 @@ const updateUser = async ({ userId, formData, token }) => {
   return response.data;
 };
 export const useUserMutation = (userId) => {
+  debugger
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   return useMutation({
@@ -155,11 +166,11 @@ export const useUserMutation = (userId) => {
       if (userId) {
         return updateUser({ userId, formData, token });
       } else {
-        return createUser({...formData,password:"123123",confirmPassword:"123123"});
+        return InviteUser({formData,token});
       }
     },
     onSuccess: (data) => {
-      toast.success("User operation successful!");
+      toast.success(data.message);
       // console.log("User operation successful:", data);
     },
     onError: (error) => {

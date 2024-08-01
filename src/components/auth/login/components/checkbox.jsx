@@ -1,18 +1,18 @@
 import React from 'react'
 
-export default function Checkbox({handleCheckboxChange,isChecked}) {
+export default function Checkbox({handleCheckboxChange,isChecked,id}) {
   return (
     <div>
         <div className="flex justify-center items-center pt-[20px] lg:pt-[24px] gap-1.5">
                 <input
                   type="checkbox"
-                  id="rememberDevice"
+                  id={id}
                   className="hidden"
                   checked={isChecked}
                   onChange={handleCheckboxChange}
                 />
                 <label
-                  htmlFor="rememberDevice"
+                  htmlFor={id}
                   className="relative flex items-center cursor-pointer"
                 >
                   <span

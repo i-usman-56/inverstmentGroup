@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const GetNewProspects = async (token) => {
   // debugger;
+  const navigate = useNavigate()
   try {
     const response = await axiosInstance.get(`/prospects`, {
       headers: {
@@ -13,6 +14,9 @@ const GetNewProspects = async (token) => {
     });
     return response.data;
   } catch (error) {
+    if (error.message==="not authorized") {
+      navigate(`/login`)
+    }
     console.error("Error fetching prospects:", error);
     throw error; // Re-throw the error for the calling code to handle
   }
@@ -20,7 +24,7 @@ const GetNewProspects = async (token) => {
 
 export const useGetCardData = (Token) => {
   return useQuery({
-    queryKey: ["prospects"],
+    queryKey: ["prospects" , "All New Propects"],
     queryFn: () => GetNewProspects(Token),
     staleTime: 0, // Data is considered stale immediately
     cacheTime: 0, // Data is not cached
@@ -122,6 +126,7 @@ export const useEditProspects = () => {
 
     onSuccess: (data) => {
       queryClient.invalidateQueries(["prospects"]);
+      queryClient.invalidateQueries(["prospectsDetail"]);
       toast.success("Prospect UpDate successfully");
       // console.log("Prospect edited successfully");
       // console.log(data);
