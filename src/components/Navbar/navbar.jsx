@@ -25,12 +25,12 @@ export default function Navbar() {
   const isLoggedIn= useAuth();
   const navigate = useNavigate();
   const token = JSON.parse(sessionStorage.getItem("token"));
-  useEffect(()=>{
-    debugger
-    if (!token) {
-      navigate('/login')
-    }
-  },[])
+  // useEffect(()=>{
+  //   debugger
+  //   if (!token) {
+  //     navigate('/login')
+  //   }
+  // },[])
   console.log(isLoggedIn)
   const [showLogout, setShowLogout] = useState(false);
   const logoutMenuRef = useRef(null);
