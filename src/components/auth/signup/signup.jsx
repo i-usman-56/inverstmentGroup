@@ -7,6 +7,7 @@ import InputFields from "./components/InputFeilds";
 import LoginButton from "./components/LoginButton";
 import FooterMobile from "./components/footer/Footer";
 import { useLogin, useSignUp } from "../../../services/auth";
+import MobileFooter from "./components/footer/mobileFooter";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -111,7 +112,7 @@ export default function SignUp() {
                     error={errors.firstName}
                     // autocomplete="new-password"
                   />
-                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>}
+                   {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>} */}
                 </div>
                 <div className="flex-1">
                   <InputFields
@@ -122,7 +123,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     error={errors.lastName}
                   />
-                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.lastName}</p>}
+                   {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.lastName}</p>} */}
                 </div>
               </div>
               <div className="flex gap-[22px]">
@@ -135,7 +136,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     error={errors.email}
                   />
-                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
+                   {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>} */}
                 </div>
                 <div className="flex-1">
                   <InputFields
@@ -146,7 +147,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     error={errors.phone}
                   />
-                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.phone}</p>}
+                   {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.phone}</p>} */}
                 </div>
               </div>
               <InputFields
@@ -157,7 +158,7 @@ export default function SignUp() {
                 onChange={handleChange}
                 error={errors.password}
               />
-               {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.password}</p>}
+               {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.password}</p>} */}
               <InputFields
                 type="password"
                 name="confirmPassword"
@@ -167,7 +168,7 @@ export default function SignUp() {
                 error={errors.confirmPassword}
                 autoComplete="current-password"
               />
-               {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>}
+               {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>} */}
             </div>
             <div className="flex justify-end">
                 <Link to="/login">
@@ -183,7 +184,7 @@ export default function SignUp() {
         </div>
       </section>
       {/* Mobile Section */}
-      {/* <div className="w-full lg:hidden">
+      <div className="w-full lg:hidden">
         <div className="flex px-5 w-full min-h-[80vh] justify-center flex-col">
           <div>
             <LoginHeader
@@ -204,7 +205,7 @@ export default function SignUp() {
                     error={errors.firstName}
                     // autocomplete="new-password"
                   />
-                   {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>}
+                   {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.firstName}</p>} */}
                   </div>
                   <div className="flex-1">
                     <InputFields
@@ -270,9 +271,10 @@ export default function SignUp() {
           </div>
         </div>
         <div className="fixed bottom-0 w-full">
-          <FooterMobile />
+        <MobileFooter/>
+          {/* <FooterMobile /> */}
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

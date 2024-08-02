@@ -108,7 +108,7 @@ function App() {
       element: <SignUp />,
     },
     {
-      path: "/forget-password",
+      path: "/forget-password?",
       element: <ForgetPAssword />,
     },
     {

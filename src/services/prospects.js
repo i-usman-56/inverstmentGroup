@@ -3,9 +3,17 @@ import { BASEURl } from "../constants/baseUrl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+
+const axiosInstance = axios.create({
+  baseURL: BASEURl, // Base URL from constants
+  headers: {
+    "Content-Type": "application/json",
+    // Other headers as needed
+  },
+});
 const GetNewProspects = async (token) => {
-  // debugger;
-  const navigate = useNavigate()
+  debugger;
+  // const navigate = useNavigate()
   try {
     const response = await axiosInstance.get(`/prospects`, {
       headers: {
@@ -14,15 +22,17 @@ const GetNewProspects = async (token) => {
     });
     return response.data;
   } catch (error) {
-    if (error.message==="not authorized") {
-      navigate(`/login`)
-    }
+    // if (error.message==="not authorized") {
+    //   navigate(`/login`)
+    // }
+    // toast.error('Error Occur')
     console.error("Error fetching prospects:", error);
     throw error; // Re-throw the error for the calling code to handle
   }
 };
 
 export const useGetCardData = (Token) => {
+  debugger
   return useQuery({
     queryKey: ["prospects" , "All New Propects"],
     queryFn: () => GetNewProspects(Token),
@@ -30,13 +40,7 @@ export const useGetCardData = (Token) => {
     cacheTime: 0, // Data is not cached
   });
 };
-const axiosInstance = axios.create({
-  baseURL: BASEURl, // Base URL from constants
-  headers: {
-    "Content-Type": "application/json",
-    // Other headers as needed
-  },
-});
+
 const getProspects = async (token, id) => {
   // debugger;
   try {

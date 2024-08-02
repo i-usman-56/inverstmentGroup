@@ -3,10 +3,8 @@ import Tasks from "../../components/task/tasks";
 import Table from "../../components/team/components/table";
 import "../../components/task/Task.css";
 import { useGetCardData, useGetProspects } from "../../services/prospects";
-// import { useQuery } from "@tanstack/react-query";
 import FillCircle from "../../components/notification/components/fillCircle";
 import EmptyCircle from "../../components/notification/components/emptyCircle";
-// import { NewProspectHomeScreen } from "../../data/data";
 import { Link } from "react-router-dom";
 
 export default function HomeScreen() {
@@ -59,13 +57,13 @@ export default function HomeScreen() {
     );
     return status ? status.color : "#FFFFFF"; // Default to white if not found
   };
-  // useEffect(()=>{})
   const token = JSON.parse(sessionStorage.getItem("token"));
   const userID = JSON.parse(sessionStorage.getItem("userData"));
   const { data } = useGetProspects(token, userID?._id);
   const _data = data && data.length > 0 ? data : null;
-  const { data: NewProspectData } = useGetCardData(token);
-  // console.log(NewProspectData)
+  const { data: NewProspectData,error } = useGetCardData(token);
+  console.log(error)
+  console.log(NewProspectData)
 
   const columns1 = [
     {
@@ -246,14 +244,14 @@ export default function HomeScreen() {
           </div>
         </div>
         <div className="xl:px-20 lg:px-10 lg:pt-[45px] lg:space-y-10 ">
-          {NewProspectData && (
+          {/* {NewProspectData && ( */}
             <Table
               columns={columns}
               data={NewProspectData}
               title="New Prospects"
               // buttonLabel="View All"
             />
-          )}
+          {/* )} */}
 
           {_data && (
             <div>

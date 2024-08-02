@@ -7,6 +7,7 @@ import InputFields from "../signup/components/InputFeilds";
 import LoginButton from "../signup/components/LoginButton";
 import FooterMobile from "../signup/components/footer/Footer";
 import { useReNewPassword } from "../../../services/auth";
+import MobileFooter from "../signup/components/footer/mobileFooter";
 
 export default function NewPassword() {
   const navigate = useNavigate();
@@ -102,7 +103,7 @@ export default function NewPassword() {
         </div>
       </section>
       {/* Mobile Section */}
-      {/* <div className="w-full lg:hidden">
+      <div className="w-full lg:hidden">
         <div className="flex px-5  w-full min-h-[80vh] justify-center flex-col">
           <div>
             <LoginHeader
@@ -122,7 +123,7 @@ export default function NewPassword() {
                       onChange={handleChange}
                       error={errors.newPassword}
                     />
-                    {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.newPassword}</p>}
+                    {/* {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.newPassword}</p>} */}
                   </div>
                 </div>
                 <InputFields
@@ -133,7 +134,6 @@ export default function NewPassword() {
                   onChange={handleChange}
                   error={errors.confirmPassword}
                 />
-                {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.confirmPassword}</p>}
               </div>
 
               <div className="mt-[22px]">
@@ -143,9 +143,9 @@ export default function NewPassword() {
           </div>
         </div>
         <div className="fixed bottom-0 w-full">
-          <FooterMobile />
+        <MobileFooter/>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
