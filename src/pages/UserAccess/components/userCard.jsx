@@ -42,7 +42,7 @@ export default function UserCard({ data }) {
               <p className="flex items-center gap-1 text-[#000000] text-[14px] md:text-[16px] lg:text-[18px] font-[700] leading-[17px] tracking-[-1.7%] ">
                 Access Level:{" "}
                 <span className={`text-[14px] md:text-[16px] ${item.role=== "admin"?"text-[#479090]":"text-[#0250E6]"} capitalize lg:text-[18px] font-[700] leading-[17px] tracking-[-1.7%] `}>
-                  {item.role}
+                  {item.role==='user'?"sales agent":item.role}
                 </span>
               </p>
               <button

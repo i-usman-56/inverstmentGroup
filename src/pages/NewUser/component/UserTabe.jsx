@@ -109,7 +109,7 @@ const NewUser = () => {
   const userRoleOptions = [
     { title: "Access Level", value: "" },
     { title: "Admin", value: "admin" },
-    { title: "user", value: "user" },
+    { title: "sales agent", value: "user" },
   ];
   const userStatusOptions = [
     { title: "Live Status", value: "" },
