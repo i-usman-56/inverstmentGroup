@@ -81,7 +81,6 @@ export default function Login() {
                   onChange={handleChange}
                   error={errors.email}
                 />
-                {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.email}</p>}
               </div>
               <InputFields
                 type="password"
@@ -91,7 +90,6 @@ export default function Login() {
                 onChange={handleChange}
                 error={errors.password}
               />
-               {errors && <p className="text-[16px] font-semibold text-[#a10d0d]">{errors.password}</p>}
             </div>
             <div className="flex justify-end">
               <Link to="/signup">
