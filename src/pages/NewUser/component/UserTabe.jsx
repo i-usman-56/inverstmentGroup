@@ -92,6 +92,7 @@ const NewUser = () => {
     setErrors({ ...errors, [name]: "" });
   };
   const handleSubmit = async (e) => {
+    debugger
     e.preventDefault();
     try {
       if (userId) {

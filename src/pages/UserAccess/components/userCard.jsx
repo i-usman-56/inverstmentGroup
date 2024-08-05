@@ -13,9 +13,9 @@ export default function UserCard({ data }) {
   return (
     <div>
       <div className="mt-[60px] pb-8 md:pb-[45px] lg:pb-0  lg:grid lg:grid-rows-2 lg:grid-cols-2 lg:gap-x-5 xl:gap-x-12  lg:gap-y-4 xl:gap-y-6   space-y-5 lg:space-y-0">
-        {data?.users?.map((item) => (
+        {data?.users?.map((item,index) => (
           <div
-            key={item.id}
+            key={index}
             className="pt-[14px]  pb-5 md:pb-7 md:pt-6 pl-5 pr-[25px] rounded-[5px] flex flex-col justify-center  "
             style={{ boxShadow: "0 5px 15px 0 rgba(0, 0, 0, 0.25)" }}
           >
