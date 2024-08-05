@@ -184,7 +184,7 @@ export default function ProjectList() {
               status === "unassigned Prospect"
                 ? "text-[#E60202]"
                 : "text-[#00B860]"
-            } capitalize whitespace-nowrap uppercase lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
+            }  whitespace-nowrap uppercase lg:text-[14px] xl:text-[16px] tracking-[-1.7%]  font-medium leading-5`}
           >
             {status}
           </span>

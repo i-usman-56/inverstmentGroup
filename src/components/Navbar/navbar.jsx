@@ -113,7 +113,7 @@ export default function Navbar() {
           value: "Messaging",
           img: icon2,
           dropDownList: [],
-          path: "user-access",
+          path: "messaging",
         },
       ];
 

@@ -73,7 +73,6 @@ export default function ForgetPAssword() {
                   error={errors.email}
                   autocomplete="email" // Updated here
                 />
-                
               </div>
             </div>
             <div className="mt-[40px]">
