@@ -27,7 +27,8 @@
     "react-router-dom": "^6.23.0",
     "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
-    "recharts": "^2.12.7"
+    "recharts": "^2.12.7",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.51.15",

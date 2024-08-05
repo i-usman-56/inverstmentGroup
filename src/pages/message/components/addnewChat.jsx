@@ -4,10 +4,70 @@ import img from "../../../assets/svg/emojiadd.svg";
 import img1 from "../../../assets/svg/files.svg";
 import { FaAngleDown, FaMicrophone } from "react-icons/fa";
 import LoginButton from "../../../components/auth/signup/components/LoginButton";
+import { useGetChatRooms } from "../../../services/chat";
 
 export default function AddnewChat({ backClick }) {
-  const [welcomeMessage, setWelcomeMessage] = useState(""); // Add this state
-  const [inputMessage, setInputMessage] = useState(""); // State for the input field
+
+  const [chatName, setChatName] = useState("");
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [prospects, setProspects] = useState([
+    "Marion Carter",
+    "John Doe",
+    "Jane Smith",
+    "Micheal Graves",
+    "Ina Hall",
+    "Abbie Gutierrez",
+  ]);
+
+  const [selectedProspects, setSelectedProspects] = useState([]);
+  const [showProspectDropdown, setShowProspectDropdown] = useState(false);
+  const [teamMembers, setTeamMembers] = useState([
+    "Marion Carter",
+    "John Doe",
+    "Jane Smith",
+  ]);
+  const [selectedTeamMembers, setSelectedTeamMembers] = useState([]);
+  const [showTeamDropdown, setShowTeamDropdown] = useState(false);
+  const [welcomeMessage, setWelcomeMessage] = useState(
+    "Enter Welcome Message to Group"
+  );
+  const [inputMessage, setInputMessage] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Collect form data
+    const formData = {
+      chatName,
+      selectedColor,
+      selectedProspects,
+      selectedTeamMembers,
+      welcomeMessage,
+    };
+    console.log("Form Data:", formData);
+    // Handle form data as needed (e.g., send to server)
+  };
+
+  const handleColorClick = (color) => {
+    setSelectedColor(color);
+  };
+
+  const handleColorChange = (e) => {
+    setSelectedColor(e.target.value);
+  };
+
+  const handleProspectClick = (prospect) => {
+    setSelectedProspects((prev) =>
+      prev.includes(prospect) ? [...prev] : [...prev, prospect]
+    );
+    setShowProspectDropdown(false); // Hide dropdown after selection
+  };
+
+  const handleTeamMemberClick = (member) => {
+    setSelectedTeamMembers((prev) =>
+      prev.includes(member) ? [...prev] : [...prev, member]
+    );
+    setShowTeamDropdown(false); // Hide dropdown after selection
+  };
 
   const handleArrowClick = () => {
     if (inputMessage.trim() !== "") {
@@ -15,6 +75,7 @@ export default function AddnewChat({ backClick }) {
       setInputMessage("");
     }
   };
+
   return (
     <div>
       <>
@@ -33,9 +94,9 @@ export default function AddnewChat({ backClick }) {
             </div>
           </div>
           <div className="w-full px-10 xl:px-[150px] pt-[25px]">
-            <form action="">
+            <form onSubmit={handleSubmit}>
               <div>
-                <p className="text-[14px] font-bold text-end pr-24">
+                <p className="text-[14px] font-bold cursor-pointer text-end pr-24">
                   search propects
                 </p>
               </div>
@@ -45,24 +106,19 @@ export default function AddnewChat({ backClick }) {
                 </p>
                 <div className="gap-5 flex">
                   {[
-                    1,
-                    2,
-                    3,
-                    4,
-                    56,
-                    5,
-                    6,
-                    7,
-                    8,
-                    9,
-                    10,
-                   
-                    128,
-                    1257.555,
-                    5554,
-                    7885,
-                  ].map((item) => (
-                    <div className="w-[20px] h-[20px] rounded-sm bg-cyan-500" />
+                    "cyan-500",
+                    "blue-500",
+                    "blue-200",
+                    "green-500",
+                    "purple-500",
+                  ].map((color) => (
+                    <div
+                      key={color}
+                      className={`w-[20px] h-[20px] rounded-sm ${
+                        selectedColor === color ? "border-2 border-black" : ""
+                      }`}
+                      onClick={() => handleColorClick(color)}
+                    />
                   ))}
                   {/* <div className="w-[20px] h-[20px] rounded-sm bg-cyan-500" />     */}
                 </div>
@@ -70,51 +126,93 @@ export default function AddnewChat({ backClick }) {
               <div className="mt-[35px]">
                 <input
                   type="text"
-                  className=" text-[14px] font-bold rounded-md px-4 focus:outline-none  text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24]"
+                  className="text-[14px] font-bold rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24]"
                   placeholder="Add Chat Name"
+                  value={chatName}
+                  onChange={(e) => setChatName(e.target.value)}
                 />
               </div>
               <div className="mt-5">
                 <label
                   htmlFor=""
-                  className=" text-[16px]  uppercase font-bold pl-5  text-[#000000] text-opacity-[0.36]"
+                  className="text-[16px] uppercase font-bold pl-5 text-[#000000] text-opacity-[0.36]"
                 >
                   Add prospect and client
                 </label>
                 <div className="relative">
-                  <div className="text-[14px] font-bold gap-5 rounded-md px-4 flex justify-start items-center focus:outline-none text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24] pr-12">
-                    {[1, 2, 3].map((item, index) => (
-                      <div className="w-fit bg-[#D9D9D9] bg-opacity-100  flex items-center text-black h-[25px] px-5 rounded-sm">
-                        Marion Carter
+                  <div className="text-[14px] font-bold gap-5 rounded-md px-4 flex flex-wrap justify-start items-center focus:outline-none text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24] pr-12">
+                    {selectedProspects.map((prospect) => (
+                      <div
+                        key={prospect}
+                        className="w-fit bg-[#D9D9D9] bg-opacity-100 flex items-center text-black h-[25px] px-5 rounded-sm"
+                      >
+                        {prospect}
                       </div>
                     ))}
                   </div>
                   <div className="absolute top-0 right-0 h-full flex items-center">
-                    <div className="w-[32px] h-[32px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer">
+                    <div
+                      className="w-[32px] h-[32px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer"
+                      onClick={() =>
+                        setShowProspectDropdown(!showProspectDropdown)
+                      }
+                    >
                       +
                     </div>
+                    {showProspectDropdown && (
+                      <div className="absolute right-0  z-[5000] top-[100%] max-h-[250px] overflowContainerY w-[200px] bg-white border border-gray-300 shadow-lg rounded-md">
+                        {prospects.map((prospect) => (
+                          <div
+                            key={prospect}
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleProspectClick(prospect)}
+                          >
+                            {prospect}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="mt-5">
                 <label
                   htmlFor=""
-                  className=" text-[16px] uppercase font-bold pl-5  text-[#000000] text-opacity-[0.36]"
+                  className="text-[16px] uppercase font-bold pl-5 text-[#000000] text-opacity-[0.36]"
                 >
                   Add internal team member
                 </label>
                 <div className="relative">
-                  <div className="text-[14px] font-bold gap-5 rounded-md px-4 flex justify-start items-center focus:outline-none text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24] pr-12">
-                    {[1, 2, 3].map((item, index) => (
-                      <div className="w-fit bg-[#D9D9D9] bg-opacity-100  flex items-center text-black h-[25px] px-5 rounded-sm">
-                        Marion Carter
+                  <div className="text-[14px] font-bold gap-5 rounded-md px-4 flex flex-wrap justify-start items-center focus:outline-none text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24] pr-12">
+                    {selectedTeamMembers.map((member) => (
+                      <div
+                        key={member}
+                        className="w-fit bg-[#D9D9D9] bg-opacity-100 flex items-center text-black h-[25px] px-5 rounded-sm"
+                      >
+                        {member}
                       </div>
                     ))}
                   </div>
                   <div className="absolute top-0 right-0 h-full flex items-center">
-                    <div className="w-[32px] h-[32px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer">
+                    <div
+                      className="w-[32px] h-[32px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer"
+                      onClick={() => setShowTeamDropdown(!showTeamDropdown)}
+                    >
                       +
                     </div>
+                    {showTeamDropdown && (
+                      <div className="absolute right-0 max-h-[250px] overflowContainerY  top-[100%] w-[200px] bg-white border border-gray-300 shadow-lg rounded-md">
+                        {teamMembers.map((member) => (
+                          <div
+                            key={member}
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleTeamMemberClick(member)}
+                          >
+                            {member}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -171,49 +269,102 @@ export default function AddnewChat({ backClick }) {
             </h1>
           </div>
           <div className="w-full mt-4">
-            <form action="">
-              <select
-                name=""
-                id=""
-                className=" text-[14px] font-bold rounded-md px-4 focus:outline-none  text-[#000000] text-opacity-60 w-full h-10 bg-[#D9D9D9] bg-opacity-[0.24]"
-              >
-                <option value="">Choose Chat Color</option>
-                <option value="">red</option>
-                <option value="">Blue</option>
-                <option value="">Strawberry</option>
-              </select>
+            <form onSubmit={handleSubmit}>
+            <select
+      value={selectedColor}
+      onChange={handleColorChange}
+      className="text-[14px] font-bold rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 w-full h-10 bg-[#D9D9D9] bg-opacity-[0.24]"
+    >
+      <option value="">Choose Chat Color</option>
+      <option value="#FF0000">Red</option>
+      <option value="#0000FF">Blue</option>
+      <option value="#FFC0CB">Strawberry</option>
+      {/* Add more color options as needed */}
+    </select>
               <div className="mt-4">
                 <input
                   type="text"
-                  className=" text-[14px] font-bold rounded-md px-4 focus:outline-none  text-[#000000] text-opacity-60 w-full h-10 bg-[#D9D9D9] bg-opacity-[0.24]"
-                  placeholder="Chat Name"
+                  className="text-[14px] font-bold rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 w-full h-[60px] bg-[#D9D9D9] bg-opacity-[0.24]"
+                  placeholder="Add Chat Name"
+                  value={chatName}
+                  onChange={(e) => setChatName(e.target.value)}
                 />
               </div>
-              <div className="mt-4 relative">
-                <input
-                  type="text"
-                  className="text-[14px] font-bold rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 w-full h-10 bg-[#D9D9D9] bg-opacity-[0.24] pr-12"
-                  placeholder="Add Internal Member"
-                />
-                <div className="absolute top-0 right-0 h-full flex items-center">
-                  <div className="w-[35px] h-[35px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer">
-                    +
+              <div className="mt-5">
+                <div className="relative">
+                  <div className="text-[14px] font-bold flex gap-5  items-center w-full overflow-x-scroll rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 h-10 bg-[#D9D9D9] bg-opacity-[0.24] pr-12">
+                    {selectedTeamMembers.map((prospect) => (
+                      <div
+                        key={prospect}
+                        className="bg-[#D9D9D9] bg-opacity-100  flex items-center  w-fit   text-black h-[25px] px-5 rounded-sm whitespace-nowrap"
+                      >
+                        {prospect}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="absolute top-0 right-0 h-full flex items-center">
+                    <div
+                      className="w-[32px] h-[32px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer"
+                      onClick={() =>
+                        setShowTeamDropdown(!showTeamDropdown)
+                      }
+                    >
+                      +
+                    </div>
+                    {showTeamDropdown && (
+                      <div className="absolute right-0  z-[5000] top-[100%] max-h-[250px] overflowContainerY w-[200px] bg-white border border-gray-300 shadow-lg rounded-md">
+                        {teamMembers.map((prospect) => (
+                          <div
+                            key={prospect}
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleTeamMemberClick(prospect)}
+                          >
+                            {prospect}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="my-4 relative">
-                <input
-                  type="text"
-                  className="text-[14px] font-bold rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 w-full h-10 bg-[#D9D9D9] bg-opacity-[0.24] pr-12"
-                  placeholder="add Client And Prospect"
-                />
-                <div className="absolute top-0 right-0 h-full flex items-center">
-                  <div className="w-[35px] h-[35px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer">
-                    +
+              <div className="mt-5">
+                <div className="relative">
+                  <div className="text-[14px] font-bold flex gap-5  items-center w-full overflow-x-scroll rounded-md px-4 focus:outline-none text-[#000000] text-opacity-60 h-10 bg-[#D9D9D9] bg-opacity-[0.24] pr-12">
+                    {selectedProspects.map((prospect) => (
+                      <div
+                        key={prospect}
+                        className="bg-[#D9D9D9] bg-opacity-100  flex items-center  w-fit   text-black h-[25px] px-5 rounded-sm whitespace-nowrap"
+                      >
+                        {prospect}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="absolute top-0 right-0 h-full flex items-center">
+                    <div
+                      className="w-[32px] h-[32px] bg-[#0250E6] flex items-center justify-center text-white rounded-[2px] mr-2 cursor-pointer"
+                      onClick={() =>
+                        setShowProspectDropdown(!showProspectDropdown)
+                      }
+                    >
+                      +
+                    </div>
+                    {showProspectDropdown && (
+                      <div className="absolute right-0  z-[5000] top-[100%] max-h-[250px] overflowContainerY w-[200px] bg-white border border-gray-300 shadow-lg rounded-md">
+                        {prospects.map((prospect) => (
+                          <div
+                            key={prospect}
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            onClick={() => handleProspectClick(prospect)}
+                          >
+                            {prospect}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              <div className="">
+              <div className="mt-5">
                 <div className="text-[14px] font-bold rounded-t-md px-2 pt-4 focus:outline-none text-[#606060] text-opacity-60 w-full h-[225px] bg-[#D9D9D9] bg-opacity-[0.24]">
                   <p>{welcomeMessage || "Enter Welcome Message to Group"}</p>
                 </div>

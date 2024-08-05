@@ -626,3 +626,58 @@ export const chatBardata = [
       " Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto repellat distinctio, vero veritatis autem dolorem adipisci earum non obcaecati odio.",
   },
 ];
+// colors.js
+
+const colors = [
+  '#475884', // Specific color
+  '#FF5733', // Example colors
+  '#33FF57',
+  '#3357FF',
+  '#FF33A1',
+  '#33FFA1',
+  '#A133FF',
+  '#F0F33F',
+  '#3FF0A1',
+  '#F33F57',
+  '#57F3A1',
+  '#3F57FF',
+  '#FF573F',
+  '#33A1FF',
+  '#57A1F3',
+  '#F3A1FF',
+  '#A1FF33',
+  '#F3FF57',
+  '#FF3357',
+  '#57F0FF',
+  '#A1F333',
+  '#FF3F57',
+  '#57FF3F',
+  '#3F33FF',
+  '#FF57A1',
+  '#33FF57',
+  '#F3FF33',
+  '#FF5733',
+  '#57A1F3',
+  '#A1F3FF',
+  '#FF3F57',
+  '#33A1F3',
+  '#57FF3F',
+  '#A1F357',
+  '#FF573F',
+  '#3F33FF',
+  '#FF57A1',
+  '#33F0FF',
+  '#57F3A1',
+  '#FF3F33',
+  '#F3FF57',
+  '#57A1FF',
+  '#A1F3FF',
+  '#FF5733',
+  '#3F57A1',
+  '#57F3FF',
+  '#A1FF3F',
+  '#FF3F57',
+  '#33F0FF'
+];
+
+export default colors;

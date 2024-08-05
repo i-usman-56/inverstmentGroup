@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+// import io from "socket.io-client";
 import RoundedTopBg from "../../../components/Rounded/rounded";
 import MessaageChat from "./messaageChat";
 import LoginButton from "../../../components/auth/signup/components/LoginButton";
@@ -8,12 +9,22 @@ import { useNavigate } from "react-router-dom";
 import { chatBardata, dataChat } from "../../../data/data";
 import AddnewChat from "./addnewChat";
 import Chatting from "./chatting";
+import { socket } from "../../../services/socket";
+import { useGetChatRooms } from "../../../services/chat";
+// const socket = io('http://localhost:5001', {
+//   transports: ['websocket', 'polling'], // Specify the transport methods
+// });
 
 export default function MessagingPart() {
+    
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const [selectedChat, setSelectedChat] = useState(null);
   const [newChat, SetNewChat] = useState(false);
   const [newChatting, SetNewChatting] = useState(false);
-
-  const navigate = useNavigate();
+  const {data,isSuccess}=useGetChatRooms(token);
+  // console.log(isSuccess)
+  // console.log(data)
+  // const navigate = useNavigate();
 
   const handleBackClick = () => {
     // navigate(-1);
@@ -23,9 +34,10 @@ export default function MessagingPart() {
     // navigate(-1);
     SetNewChatting(false);
   };
-  const handlechattingClick = () => {
-    // navigate(-1);
-    SetNewChatting(true);
+  const handlechattingClick = (item) => {
+    console.log("Selected item:", item); // Log the selected item data
+    setSelectedChat(item?._id); // Update the selected chat state
+    SetNewChatting(true); // Update state to show the new chatting view
   };
 
   return (
@@ -39,7 +51,7 @@ export default function MessagingPart() {
             Chat Notification
           </h1>
           <div className="mt-[45px] h-[620px] xl:h-[750px] overflowContainerY">
-            <MessagechatLg data={chatBardata} />
+            <MessagechatLg data={data} />
           </div>
         </div>
         {newChat ? (
@@ -47,8 +59,8 @@ export default function MessagingPart() {
             <AddnewChat backClick={handleBackClick} />
           </div>
         ) : newChatting ?(
-          <div className="w-[75%]">
-              <Chatting backClick={handlechattingBackClick}/>
+          <div className="w-[75%]" >
+              <Chatting chat={selectedChat} backClick={handlechattingBackClick}/>
           </div>
         ) : (
           <div className="w-[75%]">
@@ -71,7 +83,7 @@ export default function MessagingPart() {
                 Ongoing chats
               </h1>
               <div className="xl:px-[74px] px-[25px] mt-[75px]  h-[546px] xl:h-[637px] overflowContainerY">
-                <ChatBar data={chatBardata} click={handlechattingClick} />
+                <ChatBar data={data} click={handlechattingClick} />
               </div>
             </div>
           </div>
@@ -85,7 +97,7 @@ export default function MessagingPart() {
           </RoundedTopBg>
         ) : newChatting ? (
           <>
-           <Chatting backClick={handlechattingBackClick}/>
+           <Chatting chat={selectedChat} backClick={handlechattingBackClick}/>
           </>
         ) : (
           <RoundedTopBg>
@@ -126,7 +138,7 @@ export default function MessagingPart() {
               </div>
               <div className="mt-[50px] pb-[68px]">
                 <MessaageChat
-                  data={chatBardata}
+                  data={data}
                   click={handlechattingClick}
                   backClick={handlechattingBackClick}
                 />

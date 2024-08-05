@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LoginButton from "../../../components/auth/signup/components/LoginButton";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FaAngleDown, FaMicrophone } from "react-icons/fa";
@@ -6,19 +6,98 @@ import img from "../../../assets/svg/emojiadd.svg";
 import img1 from "../../../assets/svg/files.svg";
 import image1 from "../../../assets/img/Vector (2).svg";
 import { IoIosSearch, IoMdClose } from "react-icons/io";
+import { useGetChatRoomsMessage } from "../../../services/chat";
+import { socket } from "../../../services/socket";
 
-export default function Chatting({ backClick }) {
-  const [welcomeMessage, setWelcomeMessage] = useState(""); // Add this state
-  const [active, setActive] = useState(false); // Add this state
-  const [newMember, setNewMember] = useState(true); // Add this state
-  const [inputMessage, setInputMessage] = useState(""); // State for the input field
+export default function Chatting({ backClick, chat }) {
 
+  // console.log(chat)
+  const [initialID,setInitialID]=useState(chat)
+  const token = JSON.parse(sessionStorage.getItem("token"));
+  const [userId, setUserId] = useState(null);
+  const [inputMessage, setInputMessage] = useState("");
+  const [active, setActive] = useState(false);
+  const [newMember, setNewMember] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  const { data, isSuccess ,refetch } = useGetChatRoomsMessage(initialID);
+
+
+  useEffect(() => {
+    if (isSuccess) {
+      setMessages(data);
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    if (userData) {
+      setUserId(userData._id);
+      socket.emit('joinRoom', { roomId: chat, userId: userData._id });
+    }
+
+    return () => {
+      if (userData) {
+        socket.emit('leaveRoom', { roomId: chat, userId: userData._id });
+      }
+    };
+  }, [chat]);
+    useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+  const endOfMessagesRef = useRef(null);
+
+  useEffect(() => {
+    function onConnect() {
+      console.log("Connected");
+    }
+
+    function onDisconnect() {
+      console.log("Disconnected");
+    }
+
+    function onNewMessage(message) {
+      // refetch()
+      console.log(message)
+      setMessages((prevMessages) => [...prevMessages, message]);
+      if (endOfMessagesRef.current) {
+        endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    socket.on('connection', onConnect);
+    socket.on('disconnect', onDisconnect);
+    socket.on('newMessage', onNewMessage);
+
+    return () => {
+      socket.off('connection', onConnect);
+      socket.off('disconnect', onDisconnect);
+      socket.off('newMessage', onNewMessage);
+    };
+  }, []);
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim() !== "" && userId) {
+      socket.emit('sendMessage', {
+        roomId: chat,
+        userId,
+        content: inputMessage,
+      });
+      setInputMessage("");
+    }
+  };
+
+  const getInitials = (firstName, lastName) => {
+    if (!firstName || !lastName) return '';
+    return (firstName[0] || '') + (lastName ? lastName[lastName.length - 1] : '');
+  };
   const handleArrowClick = () => {
     if (inputMessage.trim() !== "") {
       setWelcomeMessage(inputMessage);
       setInputMessage("");
     }
   };
+
   return (
     <>
       <div className="hidden lg:block">
@@ -131,79 +210,36 @@ export default function Chatting({ backClick }) {
 
         <div className="h-[2px] mt-10 w-full bg-[#BDBDBD]" />
         <div className="xl:h-[680px] h-[500px] px-4 overflowContainerY">
-          <div className="flex items-center  gap-5 my-5">
-            <div className="w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold">
-              TJ
-            </div>
-            <div className="w-[250px] bg-[#D9D9D9] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#343434]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center  gap-5 my-5">
-            <div className="w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold">
-              TJ
-            </div>
-            <div className="w-[250px] bg-[#D9D9D9] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#343434]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex justify-end my-5">
-            <div className="w-[250px] bg-[#647DFF] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#FFFFFF]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center  gap-5 my-5">
-            <div className="w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold">
-              TJ
-            </div>
-            <div className="w-[250px] bg-[#D9D9D9] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#343434]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center  gap-5 my-5">
-            <div className="w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold">
-              TJ
-            </div>
-            <div className="w-[250px] bg-[#D9D9D9] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#343434]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center  gap-5 my-5">
-            <div className="w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold">
-              TJ
-            </div>
-            <div className="w-[250px] bg-[#D9D9D9] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#343434]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center  gap-5 my-5">
-            <div className="w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold">
-              TJ
-            </div>
-            <div className="w-[250px] bg-[#D9D9D9] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#343434]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
-          </div>
-          <div className="flex justify-end my-5">
-            <div className="w-[250px] bg-[#647DFF] p-5 rounded-3xl">
-              <p className="text-[16px] text-[#FFFFFF]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit
-              </p>
-            </div>
+          <div>
+          {messages?.map((item, index) => {
+              const isUserMessage = item.sender._id ? item.sender._id === userId : item.sender === userId;
+              const messageAlign = isUserMessage ? 'flex-row-reverse' : 'flex-row';
+              const bgColor = isUserMessage ? '#647DFF' : '#D9D9D9';
+              const textColor = isUserMessage ? '#FFFFFF' : '#343434';
+
+              return (
+                <div
+                  key={item._id || index} // Use unique ID or index if necessary
+                  className={`flex items-center gap-5 my-5 ${messageAlign}`}
+                >
+                  <div
+                    className={`w-[35px] h-[34px] bg-[#D9D9D9] rounded-full flex justify-center items-center text-white font-semibold`}
+                    style={{ backgroundColor: isUserMessage ? '#647DFF' : '#D9D9D9' }}
+                  >
+                    {getInitials(item.sender.firstName, item.sender.lastName)}
+                  </div>
+                  <div
+                    className={`w-[250px] p-5 rounded-3xl`}
+                    style={{ backgroundColor: bgColor }}
+                  >
+                    <p className={`text-[16px] whitespace-normal break-words`}  style={{ color: textColor }}>
+                      {item.content}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+            <div ref={endOfMessagesRef} /> {/* Scroll target */}
           </div>
         </div>
         <div className="text-[14px] mt-10 font-bold w-full rounded-b-md flex justify-center items-center h-[100px] bg-[#DCDCDC]">
@@ -223,9 +259,9 @@ export default function Chatting({ backClick }) {
               />
             </div>
             <div className="w-[25%]">
-              <div
-                className="w-fit bg-[#0250E6] px-4  flex items-center text-[16px] font-semibold h-10 xl:h-[60px] justify-center text-white rounded-[5px] cursor-pointer"
-                onClick={handleArrowClick}
+            <div
+                className="w-fit bg-[#0250E6] px-4 flex items-center text-[16px] font-semibold h-10 xl:h-[60px] justify-center text-white rounded-[5px] cursor-pointer"
+                onClick={handleSendMessage}
               >
                 Send Message
               </div>

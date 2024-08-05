@@ -150,6 +150,7 @@ const GetEditUser = async (token, id, data) => {
   }
 };
 const updateUser = async ({ userId, formData, token }) => {
+  debugger
   const response = await axiosInstance.put(`/user/${userId}`, formData, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -170,8 +171,14 @@ export const useUserMutation = (userId) => {
       }
     },
     onSuccess: (data) => {
-      toast.success(data.message);
-      // console.log("User operation successful:", data);
+      if (!data.message) {
+              console.log("User operation successful:", data);
+      }
+      else{
+
+        toast.success(data.message);
+      }
+
     },
     onError: (error) => {
       toast.error(error.response ? error.response.data.message : error.message);
